@@ -1,0 +1,23 @@
+body {
+    font-family: 'Prompt', sans-serif;
+}
+
+.navbar-container{
+    color: black;
+    background: rgb(160,222,255);
+    background: linear-gradient(90deg, rgba(160,222,255,1) 0%, rgba(90,178,255,1) 100%);
+    height: 100px;
+}
+
+.navbar-content{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1300px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-logo{
+    color: black;
+}
