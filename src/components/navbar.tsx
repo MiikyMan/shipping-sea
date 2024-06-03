@@ -3,7 +3,7 @@
 function Navbar(){
     return(
         <>
-            <div className="navbar-container"></div>
+            <div className="navbar-container">nigga</div>
         </>
     )
 }
