@@ -1,8 +1,9 @@
 body {
-    font-family: 'Prompt', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .navbar-container{
+    font-size: 20px;
     color: black;
     background: rgb(160,222,255);
     background: linear-gradient(90deg, rgba(160,222,255,1) 0%, rgba(90,178,255,1) 100%);
@@ -10,14 +11,76 @@ body {
 }
 
 .navbar-content{
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
     max-width: 1300px;
     color: white;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .navbar-logo{
     color: black;
+}
+
+.navbar-right{
+    width: 580px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-search{
+    background-color: #D9D9D9;
+    color: black;
+    width: 400px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar-search-input{
+    width: 85%;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.navbar-search-btn{
+    width: max-content;
+    border: none;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.navbar-search-svg{
+    width: 26px;
+}
+
+.navbar-cart{
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.navbar-cart-svg{
+    width: 35px;
+}
+
+.navbar-login{
+    font-size: 20px;
+    border: none;
+    border-radius: 16px;
+    height: 40px;
+    width: 100px;
 }
