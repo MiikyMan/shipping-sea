@@ -145,38 +145,97 @@ textarea:focus, input:focus{
 }
 
 .products-container{
-    background-color: #D9D9D9;
     display: flex;
     flex-direction: column;
 }
 
 .products-title-bar{
+    padding-top: 10px;
+    padding-bottom: 10px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
-.all-products{
-    justify-content: space-evenly;
-    display: flex;
-    flex-wrap: wrap;
+.products-title{
+    font-size: 2rem;
 }
 
-.product{
-    margin-right: auto;
-    background-color: white;
-    height: 270px;
-    margin: 5px;
-    width: 200px;
+.products-filter{
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    align-items: center;
     display: flex;
+    font-size: 1.2rem;
+    border: none;
+    margin-top: 5px;
+}
+
+.products-filter img{
+    padding-left: 5px;
+    width: 25px;
+}
+
+.all-products {
+    justify-content: flex-start; 
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; 
+}
+
+.product {
+    overflow: hidden;
+    border-radius: 16px;
+    background-color: #D9D9D9;
+    height: 270px;
+    max-width: 228px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 calc(20% - 30px); 
+    box-sizing: border-box;
+    transition: 0.5s ;
+}
+
+.product:hover{
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.product-heart{
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border: none;
+    transition: 0.3s;
+}
+
+.product-heart:hover{
+    cursor: pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;    
+}
+
+.product-heart img{
+    width: 30px;
 }
 
 .product-desc{
+    overflow: hidden;
+    justify-content: center;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
     padding-left: 10px;
     padding-right: 10px;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 100%;
-    background-color: #CAF4FF;
+    max-width: 100%;
+    background-color: white;
     height: 80px;
     margin-top: auto;
     display: flex;
@@ -190,11 +249,11 @@ textarea:focus, input:focus{
 
 .product-name{
     font-weight:500;
-    font-size: 30px;
+    font-size: 22px;
 }
 
 .product-rating, .product-qty{
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .product-desc-bottom{
@@ -204,5 +263,6 @@ textarea:focus, input:focus{
 }
 
 .product-price{
-    font-size: 30px;
+    color: blue;
+    font-size: 25px;
 }
