@@ -1,10 +1,30 @@
-import Ads from "../components/ads"
-import Categories from "../components/categories"
 import Navbar from "../components/navbar"
 import Products from "../components/products"
 import { Breadcrumb } from 'antd';
 import HeartIcon from "../components/assets/heart.svg"
+import ShareIcon from "../components/assets/share.svg"
 import Iphone from "../components/mockuppics/iphone.png"
+import { Tabs } from 'antd';
+import type { TabsProps } from 'antd';
+import ProductDetails from "../components/productDetails";
+import RatingAndReviews from "../components/ratingAndReviews";
+
+const onChange = (key: string) => {
+    console.log(key);
+};
+
+const items: TabsProps['items'] = [
+    {
+      key: '1',
+      label: 'Product details',
+      children: <ProductDetails />,
+    },
+    {
+      key: '2',
+      label: 'Rating and Reviews',
+      children: '',
+    },
+];
 
 function product(){
     return(
@@ -19,16 +39,8 @@ function product(){
                             title: 'Home',
                             href: '/',
                         },
-                        // {
-                        //     title: 'Application Center',
-                        //     href: '',
-                        // },
-                        // {
-                        //     title: 'Application List',
-                        //     href: '',
-                        // },
                         {
-                            title: 'An Application',
+                            title: 'iPhone16 Pro Max',
                         },
                         ]}
                     />
@@ -44,12 +56,15 @@ function product(){
                         </div>
                     </div>
                     <div className="product-container-right">
+                        <div className="product-share">
+                            <img src={ShareIcon}/>
+                        </div>
                         <div className="product-page-row1">
-                            <div className="product-page-name">Nigga Balls</div>
+                            <div className="product-page-name">iPhone 16 Pro Max</div>
                             <div className="product-page-id">product code: ad342312ouuuo334</div>
                         </div>
                         <div className="product-page-row2">
-                            <div className="product-page-price">$0.69</div>
+                            <div className="product-page-price">$699.99</div>
                             <div className="product-page-rating">⭐⭐⭐⭐⭐</div>
                         </div>
                         <div className="product-page-row3">
@@ -59,17 +74,26 @@ function product(){
                             <div className="product-page-qty"></div>
                         </div>
                         <div className="product-page-row5">
+                            
+                            <button className="product-page-cart">Add to cart</button>
+                            <button className="product-page-buy">Buy now</button>
                             <div className="product-page-like">
                                 <button className="product-page-like-btn" onClick={(e) => { e.stopPropagation(); toggleLike(i); }}>
                                     <img src={product.like === 1 ? RedHeartIcon : HeartIcon} alt="Heart Icon" />
                                 </button>
-                                1.2m
+                                1.2M
                             </div>
-                            <button className="product-page-cart">Add to cart</button>
-                            <button className="product-page-buy">Buy now</button>
                         </div>
                     </div>
                 </div>
+                <div className="product-page-detail-container">
+                    <Tabs 
+                        defaultActiveKey="1" 
+                        items={items} 
+                        onChange={onChange} 
+                    />
+                </div>
+                <Products/>
             </div>
         </>
     )

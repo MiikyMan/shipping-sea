@@ -1,21 +1,19 @@
 import "./styles/styles.css";
 import SearchIcon from "./assets/search.svg";
 import CartIcon from "./assets/cart.svg";
-// import { Input } from 'antd';
-// import type { SearchProps } from 'antd/es/input/Search';
-
-// const { Search } = Input;
-
-// const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
+import Logo from "./mockuppics/logo.png";
+import { Link } from 'react-router-dom'
 
 function Navbar() {
     return (
         <div className="navbar-container">
             <div className="navbar-content">
                 <div className="navbar-left">
+                <Link to="/">
                     <div className="navbar-logo">
-                        Logo img
+                        <img src={Logo}/>
                     </div>
+                </Link>
                 </div>
                 <div className="navbar-right">
                     {/* <Search

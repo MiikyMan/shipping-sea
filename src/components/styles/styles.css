@@ -1,5 +1,5 @@
 body {
-    background-color: #CAF4FF;
+    background-color: #caf4ffb5;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -17,8 +17,9 @@ button:hover{
     font-size: 20px;
     color: black;
     background: rgb(160,222,255);
-    background: linear-gradient(90deg, rgba(160,222,255,1) 0%, rgba(90,178,255,1) 100%);
+    background: linear-gradient(90deg, rgba(139, 211, 250, 0.872) 0%, rgba(141, 208, 244, 0.537) 100%);
     height: 100px;
+    box-shadow: rgba(50, 50, 93, 0.27) 0px 13px 27px -5px, rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
 }
 
 .navbar-content{
@@ -38,6 +39,10 @@ button:hover{
     justify-content: center;
 }
 
+.navbar-left img{
+    width: 180px;
+}
+
 .navbar-logo{
     color: black;
 }
@@ -49,7 +54,7 @@ button:hover{
 }
 
 .navbar-search{
-    background-color: #D9D9D9;
+    background-color: #e4e4e4;
     color: black;
     width: 400px;
     height: 40px;
@@ -69,6 +74,7 @@ textarea:focus, input:focus{
 }
 
 .navbar-search-btn{
+    background-color: white;
     width: max-content;
     border: none;
     height: 100%;
@@ -91,9 +97,11 @@ textarea:focus, input:focus{
 .navbar-login{
     font-size: 20px;
     border: none;
-    border-radius: 16px;
+    border-radius: 10px;
     height: 40px;
     width: 100px;
+    background-color: #0f8fff;
+    color: white;
 }
 
 .ads-container{
@@ -304,9 +312,17 @@ textarea:focus, input:focus{
 }
 
 .product-container{
+    position: relative;
     overflow: hidden;
     display: flex;
     height: 600px;
+}
+
+.product-share img{
+    margin-right: 20px;
+    right: 0%;
+    position: absolute;
+    width: 40px;
 }
 
 .product-container-left{
@@ -449,11 +465,31 @@ textarea:focus, input:focus{
     font-size: 30px;
     height: 100%;
     flex: 45%;
-    background-color: #5AB2FF;
+    background-color: #0f8fff;
     border-radius: 16px;
     transition: 0.2s;
 }
 
 .product-page-buy:hover{
-    background-color: #2c89da;
+    background-color: #0e65b1;
+}
+
+.product-page-detail-container{
+    padding: 10px 20px 10px 20px;
+    background-color: white;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-details-component{
+    display: flex;
+}
+
+.product-details-component-title{
+    width: 20%;
+}
+
+.product-details-component-detail{
+    width: 80%;
 }
