@@ -12,6 +12,7 @@ import { useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
+import Footer from "../components/footer"
 
 interface DataType {
   key: React.Key;
@@ -237,6 +238,7 @@ function ShoppingCart() {
         </div>
         <Products />
       </div>
+      <Footer/>
     </>
   );
 }

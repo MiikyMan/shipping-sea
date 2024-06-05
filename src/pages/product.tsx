@@ -9,6 +9,7 @@ import ProductDetails from "../components/productDetails";
 import { Rating } from "@mui/material";
 import Share from "../components/share";
 import Button from '@mui/material/Button';
+import Footer from "../components/footer"
 
 const onChange = (key: string) => {
     console.log(key);
@@ -123,6 +124,7 @@ function product(){
                 </div>
                 <Products/>
             </div>
+            <Footer/>
         </>
     )
 }

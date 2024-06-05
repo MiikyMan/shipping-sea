@@ -2,6 +2,7 @@ import Ads from "../components/ads"
 import Categories from "../components/categories"
 import Navbar from "../components/navbar"
 import Products from "../components/products"
+import Footer from "../components/footer"
 
 function home(){
     return(
@@ -12,6 +13,7 @@ function home(){
                 <Categories/>
                 <Products/>
             </div>
+            <Footer/>
         </>
     )
 }
