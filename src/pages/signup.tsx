@@ -176,9 +176,9 @@ export default function SignUp() {
               <Grid container justifyContent="center" sx={{ mt: 4 }}>
                   <Typography variant="body2">
                     Have an account?
-                    <Link href="/signin" variant="body2" sx={{color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
+                    <Link to="/signin" variant="body2" sx={{color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
                     {" Log In"}
-                  </Link>
+                    </Link>
                   </Typography>
                 </Grid>
             </Box>
