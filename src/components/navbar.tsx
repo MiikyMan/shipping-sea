@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 
 function Navbar() {
     const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
@@ -46,14 +47,25 @@ function Navbar() {
                     <button className="navbar-cart">
                         <Link to="/shoppingcart">
                             <IconButton aria-label="cart">
-                                <StyledBadge badgeContent={2} color="primary">
+                                <StyledBadge badgeContent={2} color="error">
                                     <img src={CartIcon} className="navbar-cart-svg" alt="Cart" />
                                 </StyledBadge>
                             </IconButton>
                         </Link>
                     </button>
                     <Link to="/signin" >
-                        <button className="navbar-login">Login</button>
+                        <Button className="navbar-login" variant="contained" sx={{ 
+                            borderRadius: 3,
+                            bgcolor:'#5AB2FF',
+                            ':hover': {
+                                bgcolor: '#4798CC',
+                                color: 'white',
+                                },
+                            }
+                        }
+                        >
+                        Login
+                        </Button>
                     </Link>
                     
                 </div>

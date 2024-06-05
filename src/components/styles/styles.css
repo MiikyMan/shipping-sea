@@ -225,7 +225,8 @@ textarea:focus, input:focus{
     display: flex;
     flex-direction: column;
     flex: 1 1 calc(20% - 30px); 
-    transition: 0.5s ;
+    transition: transform 0.5s, box-shadow 0.5s; /* Add transition for smooth scaling and shadow effect */
+    transform: scale(1); /* Default scale */
 }
 
 .product img{
@@ -240,7 +241,8 @@ textarea:focus, input:focus{
 
 .product:hover{
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    transform: scale(1.02); /* Scale up by 10% when hovered */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px; /* Shadow effect on hover */
 }
 
 .product-heart {
