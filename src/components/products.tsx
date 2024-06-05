@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import FilterIcon from "./assets/filter.svg";
 import HeartIcon from "./assets/heart.svg";
 import Iphone from "./mockuppics/iphone.png";
+import Camera from "./mockuppics/camera.png";
+import Console from "./mockuppics/console.jpg";
 import RedHeartIcon from "./assets/redheart.svg";
 import type { MenuProps } from 'antd';
 import { Button, Dropdown, Menu } from 'antd';
@@ -22,8 +24,8 @@ const initProducts = [
   { name: "Headphones", rating: 4.2, qty: 200, price: 199, like: 0, pic: Iphone },
   { name: "Smartwatch", rating: 4.4, qty: 120, price: 299, like: 0, pic: Iphone },
   { name: "Tablet", rating: 4.5, qty: 100, price: 499, like: 0, pic: Iphone },
-  { name: "Camera", rating: 4.7, qty: 50, price: 899, like: 0, pic: Iphone },
-  { name: "Gaming Console", rating: 4.8, qty: 30, price: 399, like: 0, pic: Iphone },
+  { name: "Camera", rating: 4.7, qty: 50, price: 899, like: 0, pic: Camera },
+  { name: "Gaming Console", rating: 4.8, qty: 30, price: 399, like: 0, pic: Console },
   { name: "Fitness Tracker", rating: 4.1, qty: 180, price: 149, like: 0, pic: Iphone },
   { name: "Wireless Speaker", rating: 4.0, qty: 120, price: 99, like: 0, pic: Iphone },
   { name: "External Hard Drive", rating: 4.6, qty: 90, price: 129, like: 0, pic: Iphone },

@@ -277,7 +277,8 @@ textarea:focus, input:focus{
     margin-left: auto;
     margin-right: auto;
     z-index: 0;
-    width: 200px;
+    width: 230px;
+    
     aspect-ratio: 1/1;
 }
 
