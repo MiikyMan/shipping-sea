@@ -168,11 +168,11 @@ export default function SignUp() {
                 <Grid container justifyContent="center" sx={{ mt: 4 }}>
                     <Typography variant="body2" align="center">
                         By signing up, you agree to Shipping Sea's{' '}
-                        <Link href="#" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
+                        <Link to="https://help.shopee.co.th/portal/4/article/77241" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
                         Terms of <br/>Service
                         </Link>
                         {' '}&{' '}
-                        <Link href="#" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
+                        <Link to="https://help.shopee.co.th/portal/4/article/77248" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
                         Privacy Policy
                         </Link>
                     </Typography>
