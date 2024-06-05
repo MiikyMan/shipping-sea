@@ -8,6 +8,7 @@ import type { TabsProps } from 'antd';
 import ProductDetails from "../components/productDetails";
 import { Rating } from "@mui/material";
 import Share from "../components/share";
+import Button from '@mui/material/Button';
 
 const onChange = (key: string) => {
     console.log(key);
@@ -66,7 +67,8 @@ function product(){
                         </div>
                         <div className="product-page-row2">
                             <div className="product-page-price">$699.99</div>
-                            <Rating className="rating" name="half-rating" defaultValue={4.5} precision={0.5} />
+                            <Rating className="rating-star" name="half-rating-read" defaultValue={4.5} precision={0.5} readOnly/>
+                            <div className="rating">4.6</div>
                         </div>
                         <div className="product-page-row3">
                             <div className="product-page-option">Hello</div>
@@ -75,8 +77,34 @@ function product(){
                             <div className="product-page-qty"></div>
                         </div>
                         <div className="product-page-row5">
-                            <button className="product-page-cart">Add to cart</button>
-                            <button className="product-page-buy">Buy now</button>
+                        <Button className="product-page-cart" variant="contained" sx={{ 
+                            borderRadius: 3,
+                            height:60,
+                            fontSize:20,
+                            fontWeight: 'bold',
+                            bgcolor:'#5AB2FF',
+                            ':hover': {
+                                bgcolor: '#4798CC',
+                                color: 'white',
+                            },
+                        }}
+                        >
+                        Add to cart
+                        </Button>
+                        <Button className="product-page-buy" variant="contained" sx={{ 
+                            borderRadius: 3,
+                            height:60,
+                            fontSize:20,
+                            fontWeight: 'bold',
+                            bgcolor:'#0f8fff',
+                            ':hover': {
+                                bgcolor: '#0e65b1',
+                                color: 'white',
+                            },
+                        }}
+                        >
+                        Buy now
+                        </Button>
                             <div className="product-page-like">
                                 <button className="product-page-like-btn" onClick={(e) => { e.stopPropagation(); toggleLike(i); }}>
                                     <img src={product.like === 1 ? RedHeartIcon : HeartIcon} alt="Heart Icon" />

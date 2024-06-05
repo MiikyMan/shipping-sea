@@ -14,12 +14,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #0f8fff; 
+    background: #5AB2FF; 
     border-radius: 16px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #0e65b1;
+    background: #4798CC;
 }
 
 .ant-table-body {
@@ -38,11 +38,11 @@ body {
   
   .ant-table-body::-webkit-scrollbar-thumb {
     border-radius: 6px;
-    background-color: #0f8fff;
+    background-color: #5AB2FF;
   }
   .ant-table-body::-webkit-scrollbar-thumb:hover {
     border-radius: 6px;
-    background-color: #0e65b1;
+    background-color: #4798CC;
   }
 
 li{
@@ -351,7 +351,7 @@ textarea:focus, input:focus{
 }
 
 .product-price{
-    color: blue;
+    color: #5AB2FF;
     font-size: 25px;
 }
 
@@ -544,7 +544,12 @@ textarea:focus, input:focus{
 }
 
 .rating{
-    margin-right: 80px;
+    
+}
+
+.rating-star{
+    margin-right: -250px;
+    margin-bottom: 5px;
 }
 
 .login-logo img{

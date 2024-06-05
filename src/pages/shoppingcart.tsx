@@ -7,10 +7,11 @@ import ProductDetails from "../components/productDetails";
 import { Divider, Radio, Table } from 'antd';
 import type { TableColumnsType } from 'antd';
 import type { GetRef, InputRef } from 'antd';
-import { Button, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
 import { useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
+import Button from '@mui/material/Button';
 
 interface DataType {
   key: React.Key;
@@ -208,7 +209,20 @@ function ShoppingCart() {
                 <div className="total-listvalue">$10.99</div>
               </div>
               <div className="place-order">
-                <button className="check-out-btn">Place Order</button>
+                  <Button className="check-out-btn" variant="contained" sx={{ 
+                      borderRadius: 3,
+                      height:60,
+                      bgcolor:'#5AB2FF',
+                      ':hover': {
+                        bgcolor: '#4798CC',
+                        color: 'white',
+                      },
+                    }
+                  }
+                  >
+                  Check out
+                  </Button>
+                {/* <button className="check-out-btn">Place Order</button> */}
               </div>
             </div>
           </div>

@@ -6,6 +6,7 @@ import Iphone from "./mockuppics/iphone.png";
 import RedHeartIcon from "./assets/redheart.svg";
 import type { MenuProps } from 'antd';
 import { Button, Dropdown } from 'antd';
+import Rating from '@mui/material/Rating';
 
 interface props {
   name: string;
@@ -103,7 +104,10 @@ function Products(prop: props) {
                 <div className="product-desc">
                   <div className="product-desc-top">
                     <div className="product-name">{formatProductName(product.name)}</div>
-                    <div className="product-rating">{product.rating}</div>
+                    <div className="product-rating">
+                      <Rating name="size-small" defaultValue={1} size="small" max={1} readOnly/>
+                      {product.rating}
+                    </div>
                   </div>
                   <div className="product-desc-bottom">
                     <div className="product-qty">{product.qty}</div>
