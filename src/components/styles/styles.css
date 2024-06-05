@@ -493,3 +493,7 @@ textarea:focus, input:focus{
 .product-details-component-detail{
     width: 80%;
 }
+
+.rating{
+    margin-right: 80px;
+}

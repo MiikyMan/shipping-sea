@@ -20,7 +20,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
+export default function SignUp() {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => {
@@ -47,7 +47,7 @@ export default function SignInSide() {
         container
         justifyContent="center"
         alignItems="center"
-        style={{ minHeight: '80vh' }}
+        style={{ minHeight: '89vh' }}
       >
         <Grid item component={Paper} elevation={12}>
           <Box
@@ -60,19 +60,36 @@ export default function SignInSide() {
               width: 420,
             }}
           >
-            <Typography component="h1" variant="h5" sx={{ ml:-45}}>
-              Log In
+            <Typography component="h1" variant="h5" sx={{ ml: -42 }}>
+              Sign Up
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2 }}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
+                id="name"
+                label="Full Name"
+                name="name"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
                 id="email"
-                label="Phone number / Username / Email"
+                label="Email"
                 name="email"
                 autoComplete="email"
-                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="phone"
+                label="Phone Number"
+                name="phone"
+                autoComplete="phone"
               />
               <TextField
                 margin="normal"
@@ -82,7 +99,31 @@ export default function SignInSide() {
                 label="Password"
                 type={showPassword ? 'text' : 'password'}
                 id="password"
-                autoComplete="current-password"
+                autoComplete="new-password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="Confirm Password"
+                label="Confirm Password"
+                type={showPassword ? 'text' : 'password'}
+                id="Confirm Password"
+                autoComplete="new-password"
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -99,8 +140,8 @@ export default function SignInSide() {
                 }}
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                control={<Checkbox value="agree" color="primary" />}
+                label="I agree to the terms and conditions."
               />
               <Button
                 type="submit"
@@ -116,28 +157,28 @@ export default function SignInSide() {
                   }
                 }}
               >
-                SIGN IN
-              </Button>
-              <Grid container>
-                <Grid item xs >
-                  <Link href="#" variant="body2" sx={{ color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
-                    Forgot password?
-                  </Link>
+                SIGN UP
+                </Button>
+                <Grid container justifyContent="center" sx={{ mt: 4 }}>
+                    <Typography variant="body2" align="center">
+                        By signing up, you agree to Shipping Sea's{' '}
+                        <Link href="#" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
+                        Terms of <br/>Service
+                        </Link>
+                        {' '}&{' '}
+                        <Link href="#" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
+                        Privacy Policy
+                        </Link>
+                    </Typography>
                 </Grid>
-                <Grid item >
-                  <Link href="#" variant="body2" sx={{ color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
-                    {"idk"}
-                  </Link>
-                </Grid>
-                <Grid container justifyContent="center" sx={{ mt: 8 }}>
+              <Grid container justifyContent="center" sx={{ mt: 4 }}>
                   <Typography variant="body2">
-                    New to Shipping Sea?
-                    <Link href="/signup" variant="body2" sx={{ color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
-                    {" Sign Up"}
+                    Have an account?
+                    <Link href="/signin" variant="body2" sx={{color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
+                    {" Log In"}
                   </Link>
                   </Typography>
                 </Grid>
-              </Grid>
             </Box>
           </Box>
         </Grid>
