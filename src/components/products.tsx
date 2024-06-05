@@ -5,43 +5,16 @@ import HeartIcon from "./assets/heart.svg";
 import Iphone from "./mockuppics/iphone.png";
 import RedHeartIcon from "./assets/redheart.svg";
 import type { MenuProps } from 'antd';
-import { Button, Dropdown } from 'antd';
+import { Button, Dropdown, Menu } from 'antd';
 import Rating from '@mui/material/Rating';
 
-interface props {
+interface Props {
   name: string;
   rating: number;
   qty: number;
   price: number;
   like: number;
 }
-
-const items: MenuProps['items'] = [
-  {
-    key: '1',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-        Recent
-      </a>
-    ),
-  },
-  {
-    key: '2',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-        Price: Ascending
-      </a>
-    ),
-  },
-  {
-    key: '3',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-        Price: Descending
-      </a>
-    ),
-  },
-];
 
 const initProducts = [
   { name: "Smartphone", rating: 4.3, qty: 150, price: 799, like: 0, pic: Iphone },
@@ -59,9 +32,10 @@ const initProducts = [
   { name: "Router", rating: 4.4, qty: 100, price: 79, like: 0, pic: Iphone }
 ];
 
-function Products(prop: props) {
+function Products(props: Props) {
   const [products, setProducts] = useState(initProducts);
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
+
   const formatProductName = (name: string) => {
     return name.length > 12 ? name.slice(0, 11) + "..." : name;
   };
@@ -77,13 +51,32 @@ function Products(prop: props) {
     });
   };
 
+  const handleMenuClick = (e: any) => {
+    const key = e.key;
+    let sortedProducts = [...products];
+    if (key === '2') {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (key === '3') {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    }
+    setProducts(sortedProducts);
+  };
+
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="1">Recent</Menu.Item>
+      <Menu.Item key="2">Price: Ascending</Menu.Item>
+      <Menu.Item key="3">Price: Descending</Menu.Item>
+    </Menu>
+  );
+
   return (
     <>
       <div className="products-container">
         <div className="products-title-bar">
           <div className="products-title">Suggestion</div>
           <div className="products-filter">
-            <Dropdown menu={{ items }} placement="bottomLeft">
+            <Dropdown overlay={menu} placement="bottomLeft">
               <Button>
                 Filter
                 <img src={FilterIcon} alt="Filter Icon" />
