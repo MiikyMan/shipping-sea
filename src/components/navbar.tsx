@@ -3,8 +3,20 @@ import SearchIcon from "./assets/search.svg";
 import CartIcon from "./assets/cart.svg";
 import Logo from "./mockuppics/logo.png";
 import { Link } from 'react-router-dom'
+import Badge, { BadgeProps } from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
 
 function Navbar() {
+    const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+        '& .MuiBadge-badge': {
+          right: -3,
+          top: 13,
+          border: `2px solid ${theme.palette.background.paper}`,
+          padding: '0 4px',
+        },
+      }));
+
     return (
         <div className="navbar-container">
             <div className="navbar-content">
@@ -32,9 +44,16 @@ function Navbar() {
                         </button>
                     </form>
                     <button className="navbar-cart">
-                        <img src={CartIcon} className="navbar-cart-svg" alt="Cart" />
+                        <IconButton aria-label="cart">
+                            <StyledBadge badgeContent={2} color="primary">
+                                <img src={CartIcon} className="navbar-cart-svg" alt="Cart" />
+                            </StyledBadge>
+                        </IconButton>
                     </button>
-                    <button className="navbar-login">Login</button>
+                    <Link to="/signin" >
+                        <button className="navbar-login">Login</button>
+                    </Link>
+                    
                 </div>
             </div>
         </div>

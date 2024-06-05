@@ -8,6 +8,7 @@ import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import ProductDetails from "../components/productDetails";
 import RatingAndReviews from "../components/ratingAndReviews";
+import { Rating } from "@mui/material";
 
 const onChange = (key: string) => {
     console.log(key);
@@ -65,7 +66,8 @@ function product(){
                         </div>
                         <div className="product-page-row2">
                             <div className="product-page-price">$699.99</div>
-                            <div className="product-page-rating">⭐⭐⭐⭐⭐</div>
+                            {/* <div className="product-page-rating">⭐⭐⭐⭐⭐</div> */}
+                            <Rating name="half-rating" defaultValue={0} precision={0.5} />
                         </div>
                         <div className="product-page-row3">
                             <div className="product-page-option">Hello</div>
