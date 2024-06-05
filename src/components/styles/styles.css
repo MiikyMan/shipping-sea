@@ -577,3 +577,14 @@ textarea:focus, input:focus{
     color: white;
     background-color: #0f8fff;
 }
+
+.delete-icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .delete-icon-wrapper:hover svg {
+    color: red; /* Change to the desired hover color */
+  }
+  

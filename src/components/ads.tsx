@@ -1,4 +1,4 @@
-import ads1 from "./mockuppics/ads1.png"
+import ads1 from "./mockuppics/ads.png"
 
 function Ads(){
     return(
