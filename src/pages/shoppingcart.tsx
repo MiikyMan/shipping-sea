@@ -118,10 +118,14 @@ function ShoppingCart() {
     {
       title: 'Price',
       dataIndex: 'price',
+      width: '15%',
+      align:'center',
     },
     {
       title: 'Quantity',
       dataIndex: 'qty',
+      width: '30%',
+      align:'center',
       render: (_, record) => (
         <div>
           <Button onClick={() => handleQuantityChange(record.key, false)} disabled={record.qty <= 1}>-</Button>
@@ -133,6 +137,8 @@ function ShoppingCart() {
     {
       title: '',
       dataIndex: 'operation',
+      width:'15%',
+      align:'center',
       render: (_, record) =>
         dataSource.length >= 1 ? (
           <Tooltip title="Remove" placement="right">
