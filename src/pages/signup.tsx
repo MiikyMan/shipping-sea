@@ -153,7 +153,9 @@ export default function SignUp() {
                 variant="contained"
                 sx={{ 
                   mt: 3, 
-                  mb: 2, 
+                  mb: 2,
+                  fontSize:18,
+                  fontWeight: 'bold',
                   bgcolor: '#5AB2FF',
                   color: 'white',
                   '&:hover': {

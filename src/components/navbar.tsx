@@ -56,6 +56,8 @@ function Navbar() {
                     <Link to="/signin" >
                         <Button className="navbar-login" variant="contained" sx={{ 
                             borderRadius: 3,
+                            fontSize:16,
+                            fontWeight: 'bold',
                             bgcolor:'#5AB2FF',
                             ':hover': {
                                 bgcolor: '#4798CC',
