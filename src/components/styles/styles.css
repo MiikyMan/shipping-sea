@@ -590,4 +590,14 @@ textarea:focus, input:focus{
   .delete-icon-wrapper:hover svg {
     color: red; /* Change to the desired hover color */
   }
+
+  a {
+    color:#5AB2FF;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color:#4798CC;
+    text-decoration: none;
+  }
   

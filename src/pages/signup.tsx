@@ -49,9 +49,11 @@ export default function SignUp() {
       >
         <Paper elevation={12}
           style={{ padding: '20px', maxWidth: '900px', width: '100%', display: 'flex', flexDirection: 'row' }}>
-          <Link to="/" className="login-logo" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Box className="login-logo" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Link to="/" >
             <img src={Logo} alt="Logo"/>
-          </Link>
+            </Link>
+          </Box>
           <Box
             sx={{
               my: 4,

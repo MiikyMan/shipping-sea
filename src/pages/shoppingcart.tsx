@@ -10,6 +10,7 @@ import type { GetRef, InputRef } from 'antd';
 import { Button, Form, Input } from 'antd';
 import { useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
+import Tooltip from '@mui/material/Tooltip';
 
 interface DataType {
   key: React.Key;
@@ -115,9 +116,11 @@ function ShoppingCart() {
       dataIndex: 'operation',
       render: (_, record) =>
         dataSource.length >= 1 ? (
+          <Tooltip title="Remove" placement="right">
           <div className="delete-icon-wrapper" onClick={() => handleDelete(record.key)}>
             <DeleteIcon />
           </div>
+          </Tooltip>
         ) : null,
     },
   ];
