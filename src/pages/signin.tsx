@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom'
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Logo from "../components/mockuppics/logo.png";
 
 const defaultTheme = createTheme();
 
@@ -40,14 +41,19 @@ export default function SignInSide() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Navbar />
       <Grid
         container
         justifyContent="center"
         alignItems="center"
-        style={{ minHeight: '80vh' }}
+        style={{ minHeight: '100vh' }} // Centering vertically
       >
-        <Grid item component={Paper} elevation={12}>
+        <Paper
+          elevation={12}
+          style={{ padding: '20px', maxWidth: '900px', width: '100%', display: 'flex', flexDirection: 'row' }} // Width control and row layout
+        >
+          <Link to="/" className="login-logo" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <img src={Logo} alt="Logo"/>
+          </Link>
           <Box
             sx={{
               my: 4,
@@ -55,10 +61,10 @@ export default function SignInSide() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              width: 420,
+              flex: 1,
             }}
           >
-            <Typography component="h1" variant="h5" sx={{ ml:-45}}>
+            <Typography component="h1" variant="h5">
               Log In
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2 }}>
@@ -117,28 +123,28 @@ export default function SignInSide() {
                 SIGN IN
               </Button>
               <Grid container>
-                <Grid item xs >
-                  <Link href="#" variant="body2" sx={{ color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
+                <Grid item xs>
+                  <Link to="/signup" variant="body2" sx={{ color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
                     Forgot password?
                   </Link>
                 </Grid>
-                <Grid item >
-                  <Link href="#" variant="body2" sx={{ color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
+                <Grid item>
+                  <Link to="/signup" variant="body2" sx={{ color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
                     {"idk"}
                   </Link>
                 </Grid>
                 <Grid container justifyContent="center" sx={{ mt: 8 }}>
                   <Typography variant="body2">
-                    New to Shipping Sea?
-                    <Link href="/signup" variant="body2" sx={{ color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
-                    {" Sign Up"}
-                  </Link>
+                    New to Shipping Sea? 
+                    <Link to="/signup" variant="body2" sx={{ color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
+                      {" Sign Up"}
+                    </Link>
                   </Typography>
                 </Grid>
               </Grid>
             </Box>
           </Box>
-        </Grid>
+        </Paper>
       </Grid>
     </ThemeProvider>
   );

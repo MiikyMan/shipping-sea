@@ -3,7 +3,7 @@ import Home from "../pages/home"
 import Product from '../pages/product'
 import Signin from '../pages/signin'
 import Signup from '../pages/signup'
-
+import ShoppingCart from '../pages/shoppingcart'
 
 export const router = createBrowserRouter([
     {
@@ -35,6 +35,14 @@ export const router = createBrowserRouter([
       element: (
         <div>
           <Signup/>
+        </div>
+      ),
+    },
+    {
+      path: '/shoppingcart',
+      element: (
+        <div>
+          <ShoppingCart/>
         </div>
       ),
     },

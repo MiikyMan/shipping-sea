@@ -3,6 +3,10 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+li{
+    list-style-type: none;
+}
+
 button:hover{
     cursor: pointer;
 }
@@ -51,6 +55,7 @@ button:hover{
     width: 580px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .navbar-search{
@@ -340,6 +345,7 @@ textarea:focus, input:focus{
     justify-content: center;
     align-items: center;
     height: 75%;
+    border: rgba(128, 128, 128, 0) solid 1px;
 }
 
 .main-pic img{
@@ -358,6 +364,7 @@ textarea:focus, input:focus{
 }
 
 .sub-pic img{
+    border: rgba(128, 128, 128, 0) solid 1px;
     aspect-ratio: 1/1;
     width: fit-content;
 }
@@ -411,22 +418,20 @@ textarea:focus, input:focus{
 }
 
 .product-page-row5{
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    height: fit-content;
+    height: 70px;
     display: flex;
     margin-top: auto;
-    gap: 10px;
+    gap: 20px;
 }
 
 .product-page-like{
-    justify-content: flex-start;
     align-items: center;
     display: flex;
     flex-direction: column;
-    font-size: 20px;
+    font-size: 16px;
     height: fit-content;
-    flex: 15%;
     border-radius: 50%;
 }
 
@@ -434,21 +439,21 @@ textarea:focus, input:focus{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 55px;
+    width: 35px;
     aspect-ratio: 1/1;
     border-radius: 50%;
 }
 
 .product-page-like img{
-    width: 30px;
+    width: 20px;
 }
 
 .product-page-cart{
     font-weight: bold;
     border: none;
-    font-size: 30px;
+    font-size: 26px;
     height: 100%;
-    flex: 45%;
+    width: 200px;
     background-color: #ADDEFF;
     border-radius: 16px;
     transition: 0.2s;
@@ -459,12 +464,12 @@ textarea:focus, input:focus{
 }
 
 .product-page-buy{
+    width: 200px;
     color: white;
     font-weight: bold;
     border: none;
-    font-size: 30px;
+    font-size: 26px;
     height: 100%;
-    flex: 45%;
     background-color: #0f8fff;
     border-radius: 16px;
     transition: 0.2s;
@@ -496,4 +501,79 @@ textarea:focus, input:focus{
 
 .rating{
     margin-right: 80px;
+}
+
+.login-logo img{
+    width: 400px;
+}
+
+.shoppingcart-container{
+    display: flex;
+    gap: 10px;
+}
+
+.cart-list{
+    background-color: white;
+    padding: 7px;
+    overflow: hidden;
+    border-radius: 16px;
+    flex: 70%;
+}
+
+.check-out {
+    padding: 16px 0px 16px 0px;
+    overflow: hidden;
+    font-size: 20px;
+    border-radius: 16px;
+    background-color: white;
+    flex: 30%; /* Ensure max width is respected */
+}
+
+.check-out-title {
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 10px;
+    text-align: center;
+    width: 100%; /* Ensure title takes full width */
+}
+
+.check-out-list {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%; /* Ensure list takes full width */
+}
+
+.sub-check-out-list{
+    display: flex;
+    justify-content: space-between;
+}
+
+.check-out-bottom{
+}
+
+.check-out-total {
+    padding: 20px;
+    display: flex;
+    max-width: 100%;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    color: #0e65b1;
+    background-color: #e4e4e4e0;
+}
+
+.place-order{
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.check-out-btn {
+    width: 100%;
+    font-weight: bold;
+    font-size: 30px;
+    border: none;
+    padding: 15px;
+    border-radius: 16px;
+    color: white;
+    background-color: #0f8fff;
 }

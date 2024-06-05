@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom'
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Logo from "../components/mockuppics/logo.png";
 
 const defaultTheme = createTheme();
 
@@ -40,14 +41,17 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Navbar />
       <Grid
         container
         justifyContent="center"
         alignItems="center"
-        style={{ minHeight: '89vh' }}
+        style={{ minHeight: '100vh' }}
       >
-        <Grid item component={Paper} elevation={12}>
+        <Paper elevation={12}
+          style={{ padding: '20px', maxWidth: '900px', width: '100%', display: 'flex', flexDirection: 'row' }}>
+          <Link to="/" className="login-logo" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <img src={Logo} alt="Logo"/>
+          </Link>
           <Box
             sx={{
               my: 4,
@@ -179,7 +183,7 @@ export default function SignUp() {
                 </Grid>
             </Box>
           </Box>
-        </Grid>
+        </Paper>
       </Grid>
     </ThemeProvider>
   );

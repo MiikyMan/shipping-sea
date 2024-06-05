@@ -44,11 +44,13 @@ function Navbar() {
                         </button>
                     </form>
                     <button className="navbar-cart">
-                        <IconButton aria-label="cart">
-                            <StyledBadge badgeContent={2} color="primary">
-                                <img src={CartIcon} className="navbar-cart-svg" alt="Cart" />
-                            </StyledBadge>
-                        </IconButton>
+                        <Link to="/shoppingcart">
+                            <IconButton aria-label="cart">
+                                <StyledBadge badgeContent={2} color="primary">
+                                    <img src={CartIcon} className="navbar-cart-svg" alt="Cart" />
+                                </StyledBadge>
+                            </IconButton>
+                        </Link>
                     </button>
                     <Link to="/signin" >
                         <button className="navbar-login">Login</button>
