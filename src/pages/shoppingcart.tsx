@@ -62,6 +62,24 @@ const data: DataType[] = [
     price: 99,
     qty: 1,
   },
+  {
+    key: '9',
+    name: 'Disabled User',
+    price: 99,
+    qty: 1,
+  },
+  {
+    key: '10',
+    name: 'Disabled User',
+    price: 99,
+    qty: 1,
+  },
+  {
+    key: '11',
+    name: 'Disabled User',
+    price: 99,
+    qty: 1,
+  },
 ];
 
 const rowSelection = {
@@ -128,22 +146,31 @@ function ShoppingCart() {
   return (
     <>
       <Navbar />
-      <div className="page-container">
-        <div className="bread-nav">
-          <Breadcrumb
-            separator=">"
-            items={[
-              {
-                title: 'Home',
-                href: '/',
-              },
-              {
-                title: 'Shopping Cart',
-              },
-            ]}
-          />
+      <div className="title-bar-container">
+        <div className="title-bar-content">
+          <div className="bread-nav">
+            <Breadcrumb
+              separator=">"
+              items={[
+                {
+                  title: 'Home',
+                  href: '/',
+                },
+                {
+                  title: 'Shopping Cart',
+                },
+              ]}
+            />
+          </div>
+          <div className="page-title-bar">
+            <div className="page-title">Shopping Cart</div>
+            <div className="page-sub-title">(3 items)</div>
+          </div>
         </div>
-        <div className="page-title-bar">Shopping Cart</div>
+      </div>
+      <div className="page-container">
+        
+        
         <div className="shoppingcart-container">
           <div className="cart-list">
             <Table
@@ -154,6 +181,7 @@ function ShoppingCart() {
               columns={defaultColumns}
               dataSource={dataSource}
               pagination={false}
+              scroll={{y: 300 }}
             />
           </div>
           <div className="check-out">

@@ -2,6 +2,48 @@ body {
     background-color: #caf4ffb5;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
+::-webkit-scrollbar {
+    width: 9px; /* Only showing the x-axis scrollbar */
+    height: 0px; /* Custom height for the x-axis scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    height: 100px;
+    background: #f1f1f100; 
+    border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0f8fff; 
+    border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0e65b1;
+}
+
+.ant-table-body {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+  
+  // custom scrollbar
+  .ant-table-body::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .ant-table-body::-webkit-scrollbar-track {
+    background-color: #e4e4e400;
+  }
+  
+  .ant-table-body::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #0f8fff;
+  }
+  .ant-table-body::-webkit-scrollbar-thumb:hover {
+    border-radius: 6px;
+    background-color: #0e65b1;
+  }
 
 li{
     list-style-type: none;
@@ -514,12 +556,38 @@ textarea:focus, input:focus{
     gap: 10px;
 }
 
+.title-bar-container{
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    background-color: white
+}
+
+.title-bar-content{
+    width: 1200px;
+}
+
+.page-title-bar{
+    gap: 15px;
+    display: flex;
+    align-items: baseline;
+}
+
+.page-title{
+    font-weight: bold;
+    font-size: 40px;
+}
+
 .cart-list{
     background-color: white;
     padding: 7px;
     overflow: hidden;
     border-radius: 16px;
     flex: 70%;
+    max-height: 500px;
+
 }
 
 .check-out {
@@ -550,6 +618,7 @@ textarea:focus, input:focus{
 }
 
 .sub-check-out-list{
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
 }
