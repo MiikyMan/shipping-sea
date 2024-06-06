@@ -92,6 +92,7 @@ function ShoppingCart() {
   const [vat, setVat] = useState<number>(0);
   const [fee, setFee] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
+  const [discount, setDiscount] = useState<number>(0);
 
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
@@ -99,12 +100,14 @@ function ShoppingCart() {
       const totalSelectedPrice = selectedRows.reduce((total, row) => total + row.price * row.qty, 0);
       const totalVat = selectedRows.reduce((total, row) => total + row.price * 0.07, 0);
       const totalFee = selectedRows.reduce((total, row) => total + row.price * 0.05, 0);
-      
-      setSelectedRowKeys(selectedRowKeys); // Update selectedRowKeys state
+      const totalDiscount = totalSelectedPrice * 0.1; // Assuming a 10% discount
+  
+      setSelectedRowKeys(selectedRowKeys);
       setSubTotal(totalSelectedPrice);
       setVat(totalVat);
       setFee(totalFee);
-      setTotal(totalSelectedPrice + totalVat + totalFee);
+      setDiscount(totalDiscount);
+      setTotal(totalSelectedPrice + totalVat + totalFee - totalDiscount);
     },
     selectedRowKeys,
   };
@@ -120,12 +123,14 @@ function ShoppingCart() {
       const totalSelectedPrice = selectedRows.reduce((total, row) => total + row.price * row.qty, 0);
       const totalVat = selectedRows.reduce((total, row) => total + row.price * 0.07, 0);
       const totalFee = selectedRows.reduce((total, row) => total + row.price * 0.05, 0);
+      const totalDiscount = totalSelectedPrice * 0.1; // Assuming a 10% discount
       
       setSelectedRowKeys(newSelectedRowKeys);
       setSubTotal(totalSelectedPrice);
       setVat(totalVat);
       setFee(totalFee);
-      setTotal(totalSelectedPrice + totalVat + totalFee);
+      setDiscount(totalDiscount);
+      setTotal(totalSelectedPrice + totalVat + totalFee - totalDiscount);
     }
   };
 
@@ -134,16 +139,18 @@ function ShoppingCart() {
       item.key === key ? { ...item, qty: increment ? item.qty + 1 : item.qty - 1 } : item
     );
     setDataSource(newData);
-
+  
     const selectedRows = newData.filter((item) => selectedRowKeys.includes(item.key));
     const totalSelectedPrice = selectedRows.reduce((total, row) => total + row.price * row.qty, 0);
     const totalVat = selectedRows.reduce((total, row) => total + row.price * 0.07, 0);
     const totalFee = selectedRows.reduce((total, row) => total + row.price * 0.05, 0);
-    
+    const totalDiscount = totalSelectedPrice * 0.1; // Assuming a 10% discount
+  
     setSubTotal(totalSelectedPrice);
     setVat(totalVat);
     setFee(totalFee);
-    setTotal(totalSelectedPrice + totalVat + totalFee);
+    setDiscount(totalDiscount);
+    setTotal(totalSelectedPrice + totalVat + totalFee - totalDiscount);
   };
 
   const defaultColumns: (ColumnTypes[number] & { editable?: boolean; dataIndex: string })[] = [
@@ -244,6 +251,10 @@ function ShoppingCart() {
                 <div className="sub-check-out-list">
                   <div className="listname">Shipping Fee</div>
                   <div className="listvalue">${fee.toFixed(2)}</div>
+                </div>
+                <div className="sub-check-out-list">
+                  <div className="listname">Discount</div>
+                  <div className="listdiscount">-${discount.toFixed(2)}</div>
                 </div>
               </div>
             </div>
