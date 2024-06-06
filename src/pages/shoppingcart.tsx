@@ -91,7 +91,7 @@ const data: DataType[] = [
 
 function ShoppingCart() {
   const [dataSource, setDataSource] = useState<DataType[]>(data);
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>(data.map(item => item.key));
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [subTotal, setSubTotal] = useState<number>(0);
   const [fullPrice, setTotalFullPrice] = useState<number>(0);
   const [vat, setVat] = useState<number>(0);
@@ -125,6 +125,7 @@ function ShoppingCart() {
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
       setSelectedRowKeys(selectedRowKeys);
+      calculateTotals(selectedRowKeys, dataSource);
     },
     selectedRowKeys,
   };
@@ -141,6 +142,7 @@ function ShoppingCart() {
       item.key === key ? { ...item, qty: increment ? item.qty + 1 : item.qty - 1 } : item
     );
     setDataSource(newData);
+    calculateTotals(selectedRowKeys, newData);
   };
 
   const defaultColumns: (TableColumnsType<DataType>[number] & { editable?: boolean; dataIndex: string })[] = [
