@@ -84,29 +84,66 @@ const data: DataType[] = [
   },
 ];
 
-const rowSelection = {
-  onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
-};
-
 function ShoppingCart() {
   const [dataSource, setDataSource] = useState<DataType[]>(data);
   const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [subTotal, setSubTotal] = useState<number>(0);
+  const [vat, setVat] = useState<number>(0);
+  const [fee, setFee] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
+
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      const totalSelectedPrice = selectedRows.reduce((total, row) => total + row.price * row.qty, 0);
+      const totalVat = selectedRows.reduce((total, row) => total + row.price * 0.07, 0);
+      const totalFee = selectedRows.reduce((total, row) => total + row.price * 0.05, 0);
+      
+      setSelectedRowKeys(selectedRowKeys); // Update selectedRowKeys state
+      setSubTotal(totalSelectedPrice);
+      setVat(totalVat);
+      setFee(totalFee);
+      setTotal(totalSelectedPrice + totalVat + totalFee);
+    },
+    selectedRowKeys,
+  };
 
   const handleDelete = (key: React.Key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
+
+    if (selectedRowKeys.includes(key)) {
+      const newSelectedRowKeys = selectedRowKeys.filter((selectedKey) => selectedKey !== key);
+      const selectedRows = newData.filter((item) => newSelectedRowKeys.includes(item.key));
+      
+      const totalSelectedPrice = selectedRows.reduce((total, row) => total + row.price * row.qty, 0);
+      const totalVat = selectedRows.reduce((total, row) => total + row.price * 0.07, 0);
+      const totalFee = selectedRows.reduce((total, row) => total + row.price * 0.05, 0);
+      
+      setSelectedRowKeys(newSelectedRowKeys);
+      setSubTotal(totalSelectedPrice);
+      setVat(totalVat);
+      setFee(totalFee);
+      setTotal(totalSelectedPrice + totalVat + totalFee);
+    }
   };
 
   const handleQuantityChange = (key: React.Key, increment: boolean) => {
-    setDataSource((prev) =>
-      prev.map((item) =>
-        item.key === key
-          ? { ...item, qty: increment ? item.qty + 1 : item.qty - 1 }
-          : item
-      )
+    const newData = dataSource.map((item) =>
+      item.key === key ? { ...item, qty: increment ? item.qty + 1 : item.qty - 1 } : item
     );
+    setDataSource(newData);
+
+    const selectedRows = newData.filter((item) => selectedRowKeys.includes(item.key));
+    const totalSelectedPrice = selectedRows.reduce((total, row) => total + row.price * row.qty, 0);
+    const totalVat = selectedRows.reduce((total, row) => total + row.price * 0.07, 0);
+    const totalFee = selectedRows.reduce((total, row) => total + row.price * 0.05, 0);
+    
+    setSubTotal(totalSelectedPrice);
+    setVat(totalVat);
+    setFee(totalFee);
+    setTotal(totalSelectedPrice + totalVat + totalFee);
   };
 
   const defaultColumns: (ColumnTypes[number] & { editable?: boolean; dataIndex: string })[] = [
@@ -150,7 +187,7 @@ function ShoppingCart() {
         ) : null,
     },
   ];
-
+  
   return (
     <>
       <Navbar />
@@ -172,7 +209,7 @@ function ShoppingCart() {
           </div>
           <div className="page-title-bar">
             <div className="page-title">Shopping Cart</div>
-            <div className="page-sub-title">(3 items)</div>
+            <div className="page-sub-title">({dataSource.length} items)</div>
           </div>
         </div>
       </div>
@@ -189,7 +226,7 @@ function ShoppingCart() {
               columns={defaultColumns}
               dataSource={dataSource}
               pagination={false}
-              scroll={{y: 300 }}
+              scroll={{y: 450 }}
             />
           </div>
           <div className="check-out">
@@ -198,22 +235,22 @@ function ShoppingCart() {
               <div className="check-out-list">
                 <div className="sub-check-out-list">
                   <div className="listname">Sub total</div>
-                  <div className="listvalue">$79.99</div>
+                  <div className="listvalue">${subTotal.toFixed(2)}</div>
                 </div>
                 <div className="sub-check-out-list">
                   <div className="listname">Vat</div>
-                  <div className="listvalue">$7.99</div>
+                  <div className="listvalue">${vat.toFixed(2)}</div>
                 </div>
                 <div className="sub-check-out-list">
                   <div className="listname">Shipping Fee</div>
-                  <div className="listvalue">$0.99</div>
+                  <div className="listvalue">${fee.toFixed(2)}</div>
                 </div>
               </div>
             </div>
             <div className="check-out-bottom">
               <div className="check-out-total">
                 <div className="totla-listname">Total</div>
-                <div className="total-listvalue">$10.99</div>
+                <div className="total-listvalue">${total.toFixed(2)}</div>
               </div>
               <div className="place-order">
                   <Button className="check-out-btn" variant="contained" sx={{ 

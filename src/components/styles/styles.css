@@ -1,4 +1,7 @@
 body {
+    /* background-image: url("backgroundwrap.png");
+    background-repeat: repeat;
+    background-size:contain; */
     background-color: #caf4ffb5;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -603,7 +606,7 @@ textarea:focus, input:focus{
     overflow: hidden;
     border-radius: 16px;
     flex: 70%;
-    max-height: 500px;
+    height: 500px;
 
 }
 
@@ -644,6 +647,7 @@ textarea:focus, input:focus{
 }
 
 .check-out-total {
+    font-size: 23px;
     padding: 20px;
     display: flex;
     max-width: 100%;
