@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -16,10 +16,23 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Logo from "../components/mockuppics/logo.png";
+import { useState } from 'react';
+import { useUserAuth } from '../components/context/UserAuthContext';
+
+
+
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { signUp } = useUserAuth();
+
+  let navigate = useNavigate();
+
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => {
@@ -37,6 +50,13 @@ export default function SignUp() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    setError("");
+    try {
+        await signUp(email, password);
+        navigate("/signup")
+    } catch(err) {
+        setError(err.message);
+    }
   };
 
   return (
@@ -51,7 +71,7 @@ export default function SignUp() {
           style={{ padding: '20px', maxWidth: '900px', width: '100%', display: 'flex', flexDirection: 'row' }}>
           <Box className="login-logo" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Link to="/" >
-            <img src={Logo} alt="Logo"/>
+              <img src={Logo} alt="Logo" />
             </Link>
           </Box>
           <Box
@@ -151,10 +171,10 @@ export default function SignUp() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ 
-                  mt: 3, 
+                sx={{
+                  mt: 3,
                   mb: 2,
-                  fontSize:18,
+                  fontSize: 18,
                   fontWeight: 'bold',
                   bgcolor: '#5AB2FF',
                   color: 'white',
@@ -164,27 +184,27 @@ export default function SignUp() {
                 }}
               >
                 SIGN UP
-                </Button>
-                <Grid container justifyContent="center" sx={{ mt: 4 }}>
-                    <Typography variant="body2" align="center">
-                        By signing up, you agree to Shipping Sea's{' '}
-                        <Link to="https://help.shopee.co.th/portal/4/article/77241" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
-                        Terms of <br/>Service
-                        </Link>
-                        {' '}&{' '}
-                        <Link to="https://help.shopee.co.th/portal/4/article/77248" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
-                        Privacy Policy
-                        </Link>
-                    </Typography>
-                </Grid>
+              </Button>
               <Grid container justifyContent="center" sx={{ mt: 4 }}>
-                  <Typography variant="body2">
-                    Have an account?
-                    <Link to="/signin" variant="body2" sx={{color: '#5AB2FF', '&:hover': {color: '#4798CC'}, textDecoration: 'none'}}>
+                <Typography variant="body2" align="center">
+                  By signing up, you agree to Shipping Sea's{' '}
+                  <Link to="https://help.shopee.co.th/portal/4/article/77241" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
+                    Terms of <br />Service
+                  </Link>
+                  {' '}&{' '}
+                  <Link to="https://help.shopee.co.th/portal/4/article/77248" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
+                    Privacy Policy
+                  </Link>
+                </Typography>
+              </Grid>
+              <Grid container justifyContent="center" sx={{ mt: 4 }}>
+                <Typography variant="body2">
+                  Have an account?
+                  <Link to="/signin" variant="body2" sx={{ color: '#5AB2FF', '&:hover': { color: '#4798CC' }, textDecoration: 'none' }}>
                     {" Log In"}
-                    </Link>
-                  </Typography>
-                </Grid>
+                  </Link>
+                </Typography>
+              </Grid>
             </Box>
           </Box>
         </Paper>
