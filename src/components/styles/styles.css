@@ -1,7 +1,7 @@
 body {
-    /* background-image: url("backgroundwrap.png");
+    background-image: url("backgroundwrap.png");
     background-repeat: repeat;
-    background-size:contain; */
+    background-size:contain;
     background-color: #caf4ffb5;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -56,9 +56,12 @@ button:hover{
 }
 
 .page-container{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     margin-left: auto;
     margin-right: auto;
-    max-width: 1200px;
+    width: 1200px;
 }
 
 .navbar-container{
@@ -376,11 +379,13 @@ textarea:focus, input:focus{
 }
 
 .bread-nav{
+    margin-right: auto;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 .product-container{
+    width: 100%;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -544,6 +549,7 @@ textarea:focus, input:focus{
 }
 
 .product-page-detail-container{
+    width: 96.6%;
     padding: 10px 20px 10px 20px;
     background-color: white;
     margin-top: 10px;
@@ -587,7 +593,7 @@ textarea:focus, input:focus{
     padding-bottom: 15px;
     display: flex;
     justify-content: center;
-    background-color: white
+    background-color: rgba(255, 255, 255, 0.635)
 }
 
 .title-bar-content{
@@ -697,4 +703,147 @@ textarea:focus, input:focus{
     color:#4798CC;
     text-decoration: none;
   }
-  
+
+.profile-bar{
+    width: 1260px;
+    position: relative;
+    z-index: 10;
+    padding: 15px;
+    border-radius: 50px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(50, 50, 93, 0.27) 0px 13px 27px -5px, rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
+}
+
+.profile-bar img{
+    width: 100px;
+    aspect-ratio: 1/1;
+}
+
+.profile-bar-left{
+    gap: 15px;
+    display: flex;
+}
+
+.profile-bar-details{
+    gap: 1px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-bar-details-name{
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.profile-bar-rank{
+    text-align: center;
+    color: white;
+    border-radius: 11px;
+    padding: 5px;
+    background-color: #F6C619;
+}
+
+.profile-detail{
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    min-height: 700px;
+}
+.profile-sidenav {
+    position: relative;
+    overflow: visible;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 130px;
+    gap: 15px;
+    background-color: #ADDEFF;
+}
+
+.profile-sidenav li img {
+    width: 30px;
+} 
+
+.profile-sidenav li {
+    width: 100px;
+    max-width: 100px;
+    height: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #ffffff;
+    position: relative; /* Added for child absolute positioning */
+}
+
+.profile-sidenav li.active{
+    width: 100px;
+    max-width: 100px;
+    height: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #5AB2FF;
+    position: relative; /* Added for child absolute positioning */
+}
+
+.sidenav-icon {
+    z-index: 10;
+    position: absolute;
+    width: 40px;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust to center correctly */
+}
+
+.sidenav-content {
+    white-space: nowrap;
+    overflow: visible;
+    z-index: 2;
+    border-radius: 55px;
+    height: 100px;
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Center content */
+    width: 100px; /* Initially collapsed */
+    opacity: 0; /* Initially hidden */
+    transition: width 0.3s, opacity 0.3s; /* Smooth transition */
+    box-shadow: rgba(50, 50, 93, 0.27) 0px 13px 27px -5px, rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
+}
+
+
+.profile-sidenav li:hover .sidenav-content {
+    cursor: pointer;
+    padding-right: 40px;
+    opacity: 1;
+    width: 180px; /* Expand on hover */
+}
+
+.sidenav-detail {
+    display: flex;
+}
+
+.profile-content {
+    flex: 90%;
+    background-color: rgb(255, 255, 255);
+}
+
+.profile-content-navbar {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+}
+

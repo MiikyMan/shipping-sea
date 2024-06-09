@@ -4,6 +4,7 @@ import Product from '../pages/product'
 import Signin from '../pages/signin'
 import Signup from '../pages/signup'
 import ShoppingCart from '../pages/shoppingcart'
+import Profile from '../pages/profile'
 
 export const router = createBrowserRouter([
     {
@@ -43,6 +44,14 @@ export const router = createBrowserRouter([
       element: (
         <div>
           <ShoppingCart/>
+        </div>
+      ),
+    },
+    {
+      path: '/profile',
+      element: (
+        <div>
+          <Profile/>
         </div>
       ),
     },
