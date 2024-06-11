@@ -1,14 +1,19 @@
 import "./styles/styles.css";
 import SearchIcon from "./assets/search.svg";
 import CartIcon from "./assets/cart.svg";
+import UserIcon from "./assets/user.svg";
 import Logo from "./mockuppics/logo.png";
 import { Link } from 'react-router-dom'
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
+import { useAuth } from '../context/authContext';
+import { useState } from "react";
+import { SupervisedUserCircleRounded } from "@mui/icons-material";
 
 function Navbar() {
+    const { userLoggedIn } = useAuth();
     const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
         '& .MuiBadge-badge': {
           right: -3,
@@ -22,7 +27,7 @@ function Navbar() {
         <div className="navbar-container">
             <div className="navbar-content">
                 <div className="navbar-left">
-                <Link to="/">
+                <Link to="/home">
                     <div className="navbar-logo">
                         <img src={Logo}/>
                     </div>
@@ -53,22 +58,36 @@ function Navbar() {
                             </IconButton>
                         </Link>
                     </button>
-                    <Link to="/signin" >
-                        <Button className="navbar-login" variant="contained" sx={{ 
-                            borderRadius: 3,
-                            fontSize:16,
-                            fontWeight: 'bold',
-                            bgcolor:'#5AB2FF',
-                            ':hover': {
-                                bgcolor: '#4798CC',
-                                color: 'white',
-                                },
-                            }
-                        }
+                    { userLoggedIn ?
+                    <>
+                        <Link to="/profile" >
+                        <button className="navbar-login-user"
                         >
-                        Login
-                        </Button>
-                    </Link>
+                            <img src={UserIcon} alt="User Icon" />
+                        </button>
+
+                        </Link>
+                    </>
+                    :
+                    <>
+                        <Link to="/signin" >
+                            <Button className="navbar-login" variant="contained" sx={{ 
+                                borderRadius: 3,
+                                fontSize:16,
+                                fontWeight: 'bold',
+                                bgcolor:'#5AB2FF',
+                                ':hover': {
+                                    bgcolor: '#4798CC',
+                                    color: 'white',
+                                    },
+                                }
+                            }
+                            >
+                            Login
+                            </Button>
+                        </Link>
+                    </>
+                    }
                     
                 </div>
             </div>

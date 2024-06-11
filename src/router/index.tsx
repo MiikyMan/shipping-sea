@@ -5,10 +5,11 @@ import Signin from '../pages/signin'
 import Signup from '../pages/signup'
 import ShoppingCart from '../pages/shoppingcart'
 import Profile from '../pages/profile'
+import Login from '../pages/login'
 
 export const router = createBrowserRouter([
     {
-      path: '/',
+      path: '/home',
       element: (
         <div>
           <Home/>
@@ -52,6 +53,14 @@ export const router = createBrowserRouter([
       element: (
         <div>
           <Profile/>
+        </div>
+      ),
+    },
+    {
+      path: '/login',
+      element: (
+        <div>
+          <Login/>
         </div>
       ),
     },

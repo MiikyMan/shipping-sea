@@ -2,8 +2,10 @@ import React, { FC, ReactElement } from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { Link } from 'react-router-dom'
 
+
 export const Footer: FC = (): ReactElement => {
   return (
+    <>
     <Box
       sx={{
         width: "100%",
@@ -39,6 +41,9 @@ export const Footer: FC = (): ReactElement => {
         </Grid>
       </Container>
     </Box>
+  
+    </>
+    
   );
 };
 

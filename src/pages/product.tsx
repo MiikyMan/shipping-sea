@@ -39,7 +39,7 @@ function product(){
                         items={[
                         {
                             title: 'Home',
-                            href: '/',
+                            href: '/home',
                         },
                         {
                             title: 'iPhone16 Pro Max',

@@ -198,7 +198,7 @@ function ShoppingCart() {
               items={[
                 {
                   title: 'Home',
-                  href: '/',
+                  href: '/home',
                 },
                 {
                   title: 'Shopping Cart',

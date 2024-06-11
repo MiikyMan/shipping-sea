@@ -17,7 +17,6 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Logo from "../components/mockuppics/logo.png";
 import { useState } from 'react';
-import { useUserAuth } from '../components/context/UserAuthContext';
 
 
 
@@ -29,7 +28,6 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { signUp } = useUserAuth();
 
   let navigate = useNavigate();
 
@@ -41,22 +39,6 @@ export default function SignUp() {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    setError("");
-    try {
-        await signUp(email, password);
-        navigate("/signup")
-    } catch(err) {
-        setError(err.message);
-    }
   };
 
   return (
@@ -87,7 +69,7 @@ export default function SignUp() {
             <Typography component="h1" variant="h5" sx={{ ml: -42 }}>
               Sign Up
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2 }}>
+            <Box component="form" noValidate sx={{ mt: 2 }}>
               <TextField
                 margin="normal"
                 required
