@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
-import Products from "../components/products";
 import { Breadcrumb, Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import Footer from "../components/footer";
-import Avatar from "../components/mockuppics/avatar.png";
-import Rank from "../components/mockuppics/rank.png";
+import Rank from "../components/assets/crown-god.svg";
+import Next from "../components/assets/next.svg";
 import ProfileIcon from "../components/assets/profile.svg";
 import PurchasesIcon from "../components/assets/purchases.svg";
 import HeartIcon from "../components/assets/favourite.svg";
@@ -84,60 +83,65 @@ function Profile() {
           <div className="profile-bar-left">
             <div className="profile-bar-avatar">
               {photoURL ? (
-                  <img src={photoURL} alt={displayName} className="profile-user-photo" />
-                  ) : (
-                  <img src={UserIcon} alt="User" className="profile-user-photo-empty" />
+                <img src={photoURL} alt={displayName} className="profile-user-photo" />
+              ) : (
+                <img src={UserIcon} alt="User" className="profile-user-photo-empty" />
               )}
             </div>
             <div className="profile-bar-details">
               <div className="profile-bar-details-name">
                 {displayName ? (
                   <div>{displayName}</div>
-                  ) : (
+                ) : (
                   <div>Username</div>
                 )}
+              </div>
+              <div className="profile-bar-rank">
+                <div>
+                  God tier member
                 </div>
-              <div className="profile-bar-rank">God tier member</div>
+                <img src={Next} alt="next" className="next" />
+              </div>
             </div>
           </div>
           <div className="profile-bar-right">
-            <img src={Rank} alt="Rank" className="Rank"/>
+            <img src={Rank} alt="Rank" className="Rank" />
           </div>
         </div>
         <div className="profile-detail">
           <div className="profile-sidenav">
             <li onClick={() => handleClick(1)} className={sidenavState === 1 ? `active` : ``}>
-              <img src={ProfileIcon} className="sidenav-icon" alt="Profile Icon"/>
+              <img src={ProfileIcon} className="sidenav-icon" alt="Profile Icon" />
               <div className="sidenav-content">
                 <div className="sidenav-detail">Profile detail</div>
               </div>
             </li>
             <li onClick={() => handleClick(2)} className={sidenavState === 2 ? `active` : ``}>
-              <img src={PurchasesIcon} className="sidenav-icon" alt="Purchases Icon"/>
+              <img src={PurchasesIcon} className="sidenav-icon" alt="Purchases Icon" />
               <div className="sidenav-content">
                 <div className="sidenav-detail">Purchases</div>
               </div>
             </li>
             <li onClick={() => handleClick(3)} className={sidenavState === 3 ? `active` : ``}>
-              <img src={HeartIcon} className="sidenav-icon" alt="Heart Icon"/>
+              <img src={HeartIcon} className="sidenav-icon" alt="Heart Icon" />
               <div className="sidenav-content">
                 <div className="sidenav-detail">Favourites</div>
               </div>
             </li>
             <li onClick={() => handleClick(4)} className={sidenavState === 4 ? `active` : ``}>
-              <img src={VouchersIcon} className="sidenav-icon" alt="Vouchers Icon"/>
+              <img src={VouchersIcon} className="sidenav-icon" alt="Vouchers Icon" />
               <div className="sidenav-content">
                 <div className="sidenav-detail">Vouchers</div>
               </div>
             </li>
             <li onClick={() => handleClick(5)} className={sidenavState === 5 ? `active` : ``}>
-              <img src={ClockIcon} className="sidenav-icon" alt="Clock Icon"/>
+              <img src={ClockIcon} className="sidenav-icon" alt="Clock Icon" />
               <div className="sidenav-content">
                 <div className="sidenav-detail">History</div>
               </div>
             </li>
             <li onClick={handleSignOut} className={sidenavState === 6 ? `active` : ``}>
-              <img src={LogoutIcon} className="sidenav-icon" alt="Logout Icon"/>
+              <img src={LogoutIcon} className="sidenav-icon" alt="Logout Icon" />
               <div className="sidenav-content">
                 <div className="sidenav-detail">Logout</div>
               </div>
@@ -146,10 +150,10 @@ function Profile() {
           <div className="profile-content">
             <div className="profile-content-navbar">
               <div className="product-page-detail-container">
-                <Tabs 
-                  defaultActiveKey="1" 
-                  items={items} 
-                  onChange={onChange} 
+                <Tabs
+                  defaultActiveKey="1"
+                  items={items}
+                  onChange={onChange}
                 />
               </div>
             </div>

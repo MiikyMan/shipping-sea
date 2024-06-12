@@ -741,12 +741,14 @@ textarea:focus, input:focus{
 }
 
 .Rank{
-    width: 100px;
-    border-radius: 50%;
+    margin-right: 40px;
+    width: 70px;
+    /* border-radius: 50%; */
     aspect-ratio: 1/1;
 }
 
 .profile-bar-left{
+    margin-left: 40px;
     gap: 15px;
     display: flex;
 }
@@ -769,6 +771,11 @@ textarea:focus, input:focus{
     width: 100%;
 }
 
+.next {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .profile-bar-details{
     gap: 1px;
     justify-content: center;
@@ -783,11 +790,14 @@ textarea:focus, input:focus{
 }
 
 .profile-bar-rank{
-    text-align: center;
+    display: flex;
+    /* text-align: center; */
+    justify-content: space-between;
+    font-size: 14px;
     color: white;
     border-radius: 11px;
     padding: 5px;
-    background-color: #F6C619;
+    background-color: #ff4c4c;
 }
 
 .profile-detail{
