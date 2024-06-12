@@ -17,7 +17,7 @@ function Navbar() {
     const { userLoggedIn, displayName, photoURL } = useAuth();
 
     
-    console.log("Photo URL:", photoURL);
+    // console.log("Photo URL:", photoURL);
 
     const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -68,9 +68,12 @@ function Navbar() {
                         <Link to="/profile" >
                         <button className="navbar-login-user"
                         >
-                            <img src={photoURL} alt="User-Icon" />
+                            {photoURL ? (
+                                <img src={photoURL} alt={displayName} className="navbar-user-photo" />
+                                ) : (
+                                <img src={UserIcon} alt="User" className="navbar-user-photo-empty" />
+                            )}
                         </button>
-
                         </Link>
                     </>
                     :

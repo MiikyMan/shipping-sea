@@ -13,8 +13,10 @@ import HeartIcon from "../components/assets/favourite.svg";
 import VouchersIcon from "../components/assets/voucher.svg";
 import ClockIcon from "../components/assets/clock.svg";
 import LogoutIcon from "../components/assets/logout.svg";
+import UserIcon from "../components/assets/user.svg";
 import ProductDetails from "../components/productDetails";
 import { doSignOut } from '../firebase/auth';
+import { useAuth } from '../context/authContext';
 
 const onChange = (key: string) => {
   console.log(key);
@@ -34,6 +36,9 @@ const items: TabsProps['items'] = [
 ];
 
 function Profile() {
+
+  const { userLoggedIn, displayName, photoURL } = useAuth();
+
   const [sidenavState, setSidenavState] = useState<number>(1);
   const navigate = useNavigate();
 
@@ -77,14 +82,26 @@ function Profile() {
       <div className="page-container">
         <div className="profile-bar">
           <div className="profile-bar-left">
-            <img src={Avatar} alt="Avatar" />
+            <div className="profile-bar-avatar">
+              {photoURL ? (
+                  <img src={photoURL} alt={displayName} className="profile-user-photo" />
+                  ) : (
+                  <img src={UserIcon} alt="User" className="profile-user-photo-empty" />
+              )}
+            </div>
             <div className="profile-bar-details">
-              <div className="profile-bar-details-name">inahee123</div>
+              <div className="profile-bar-details-name">
+                {displayName ? (
+                  <div>{displayName}</div>
+                  ) : (
+                  <div>Username</div>
+                )}
+                </div>
               <div className="profile-bar-rank">God tier member</div>
             </div>
           </div>
           <div className="profile-bar-right">
-            <img src={Rank} alt="Rank" />
+            <img src={Rank} alt="Rank" className="Rank"/>
           </div>
         </div>
         <div className="profile-detail">

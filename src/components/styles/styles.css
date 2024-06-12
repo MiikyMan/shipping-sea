@@ -740,14 +740,33 @@ textarea:focus, input:focus{
     box-shadow: rgba(50, 50, 93, 0.27) 0px 13px 27px -5px, rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
 }
 
-.profile-bar img{
+.Rank{
     width: 100px;
+    border-radius: 50%;
     aspect-ratio: 1/1;
 }
 
 .profile-bar-left{
     gap: 15px;
     display: flex;
+}
+
+.profile-bar-avatar {
+    width: 100px;
+    background-color: #0e65b1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-user-photo {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.profile-user-photo-empty {
+    width: 100%;
 }
 
 .profile-bar-details{
@@ -758,6 +777,7 @@ textarea:focus, input:focus{
 }
 
 .profile-bar-details-name{
+    margin-bottom: 5px;
     font-weight: bold;
     font-size: 30px;
 }
@@ -792,18 +812,25 @@ textarea:focus, input:focus{
     background-color: #ADDEFF;
 }
 
-.profile-sidenav li img {
-    width: 30px;
+.navbar-login-user img{
+    width: 50px;
 }
 
-.navbar-login-user img {
+
+.navbar-user-photo {
     width: 50px;
     border-radius: 50%;
 }
 
-.navbar-login-user img:hover {
+.navbar-login-user :hover {
     width: 52px;
     border-radius: 50%;
+    box-shadow: 0px 12px 6px -6px rgba(0, 0, 0, 0.118);
+}
+
+.navbar-user-photo-empty:hover {
+    width: 52px;
+    border-radius: 0%;
     box-shadow: 0px 12px 6px -6px rgba(0, 0, 0, 0.118);
 }
 
