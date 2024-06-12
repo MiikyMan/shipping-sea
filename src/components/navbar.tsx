@@ -13,7 +13,12 @@ import { useState } from "react";
 import { SupervisedUserCircleRounded } from "@mui/icons-material";
 
 function Navbar() {
-    const { userLoggedIn } = useAuth();
+
+    const { userLoggedIn, displayName, photoURL } = useAuth();
+
+    
+    console.log("Photo URL:", photoURL);
+
     const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
         '& .MuiBadge-badge': {
           right: -3,
@@ -63,7 +68,7 @@ function Navbar() {
                         <Link to="/profile" >
                         <button className="navbar-login-user"
                         >
-                            <img src={"https://lh3.googleusercontent.com/a/ACg8ocJrrRfyBH6OX9u52_m93sqAMnChxLGganRbHbbaj9njwBWJcC0=s96-c"} alt="User-Icon" />
+                            <img src={photoURL} alt="User-Icon" />
                         </button>
 
                         </Link>

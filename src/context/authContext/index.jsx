@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
     userLoggedIn: !!currentUser,
     currentUser,
     displayName: currentUser?.displayName || "",
-    photoURL: currentUser?.photoURL || "",
+    photoURL: currentUser?.photoURL ? String(currentUser.photoURL) : "",
   };
 
   return (
