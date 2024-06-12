@@ -39,6 +39,17 @@ export const doSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
+
+    const token = await user.getIdToken();
+    console.log("Google OAuth Token:", token);
+
+    
+    const credentialResponse = GoogleAuthProvider.credentialFromResult(result);
+    console.log("Credential Response:", credentialResponse);
+
+    console.log("User Name:", user.displayName);
+    console.log("Profile Picture URL:", user.photoURL);
+      
     // You can add the user to Firestore here if needed
     return user;
   } catch (error) {

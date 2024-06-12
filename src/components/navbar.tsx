@@ -63,7 +63,7 @@ function Navbar() {
                         <Link to="/profile" >
                         <button className="navbar-login-user"
                         >
-                            <img src={UserIcon} alt="User Icon" />
+                            <img src={"https://lh3.googleusercontent.com/a/ACg8ocJrrRfyBH6OX9u52_m93sqAMnChxLGganRbHbbaj9njwBWJcC0=s96-c"} alt="User-Icon" />
                         </button>
 
                         </Link>

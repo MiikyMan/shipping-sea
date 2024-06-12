@@ -794,7 +794,18 @@ textarea:focus, input:focus{
 
 .profile-sidenav li img {
     width: 30px;
-} 
+}
+
+.navbar-login-user img {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.navbar-login-user img:hover {
+    width: 52px;
+    border-radius: 50%;
+    box-shadow: 0px 12px 6px -6px rgba(0, 0, 0, 0.118);
+}
 
 .profile-sidenav li {
     width: 100px;

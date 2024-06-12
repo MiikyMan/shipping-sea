@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoading(false);
+      console.log("Current user:", user); // Log the current user to verify
     });
 
     return unsubscribe;
@@ -24,6 +25,8 @@ export const AuthProvider = ({ children }) => {
   const value = {
     userLoggedIn: !!currentUser,
     currentUser,
+    displayName: currentUser?.displayName || "",
+    photoURL: currentUser?.photoURL || "",
   };
 
   return (
