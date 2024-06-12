@@ -1,4 +1,4 @@
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -8,17 +8,31 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
-  signOut
+  signOut,
 } from "firebase/auth";
+import { doc, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore"; 
 
 // Register a new user with email and password
-export const doCreateUserWithEmailAndPassword = async (email, password) => {
+export const doSignUpWithEmailAndPassword = async (email, password, additionalData) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      email: user.email,
+      name: additionalData.name || "", // Include displayName if provided
+      role: additionalData.role || "user",
+      rank: additionalData.rank || "silver",
+      Timestamp: serverTimestamp(),
+    });
+
+    await sendEmailVerification(user);
+    
     return userCredential;
   } catch (error) {
-    console.error("Error creating user with email and password:", error);
-    throw error; // Re-throw the error so it can be caught in the calling function
+    console.error("Error signing up with email and password:", error);
+    throw error;
   }
 };
 
