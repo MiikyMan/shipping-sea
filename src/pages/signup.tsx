@@ -15,7 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Logo from "../components/mockuppics/logo.png";
+import Logo from "../components/mockuppics/ShippingSeaLogo.png";
 import { useState } from 'react';
 
 
@@ -52,7 +52,7 @@ export default function SignUp() {
         <Paper elevation={12}
           style={{ padding: '20px', maxWidth: '900px', width: '100%', display: 'flex', flexDirection: 'row' }}>
           <Box className="login-logo" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Link to="/" >
+            <Link to="/home" >
               <img src={Logo} alt="Logo" />
             </Link>
           </Box>

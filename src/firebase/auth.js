@@ -7,6 +7,7 @@ import {
   updatePassword,
   signInWithPopup,
   GoogleAuthProvider,
+  FacebookAuthProvider,
   signOut
 } from "firebase/auth";
 
@@ -42,6 +43,20 @@ export const doSignInWithGoogle = async () => {
     return user;
   } catch (error) {
     console.error("Error signing in with Google:", error);
+    throw error;
+  }
+};
+
+// Sign in a user with Facebook
+export const doSignInWithFacebook = async () => {
+  try {
+    const provider = new FacebookAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    // You can add the user to Firestore here if needed
+    return user;
+  } catch (error) {
+    console.error("Error signing in with Facebook:", error);
     throw error;
   }
 };

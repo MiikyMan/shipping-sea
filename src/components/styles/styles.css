@@ -91,7 +91,8 @@ button:hover{
 }
 
 .navbar-left img{
-    width: 180px;
+    width: 170px;
+    margin-top: 10%;
 }
 
 .navbar-logo{

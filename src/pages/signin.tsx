@@ -14,9 +14,9 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Logo from "../components/mockuppics/logo.png";
+import Logo from "../components/mockuppics/ShippingSeaLogo.png";
 import { useState } from 'react';
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../firebase/auth';
+import { doSignInWithEmailAndPassword, doSignInWithGoogle, doSignInWithFacebook } from '../firebase/auth';
 import { useAuth } from '../context/authContext';
 import GoogleIcon from "../components/assets/google.svg"
 import FacebookIcon from "../components/assets/facebook.svg"
@@ -60,6 +60,20 @@ export default function SignInSide() {
       setIsSigningIn(true);
       try {
         await doSignInWithGoogle();
+      } catch (err) {
+        setErrorMessage(err.message);
+        setIsSigningIn(false);
+      }
+    }
+  };
+
+  const onFacebookSignIn = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    setErrorMessage('');
+    if (!isSigningIn) {
+      setIsSigningIn(true);
+      try {
+        await doSignInWithFacebook();
       } catch (err) {
         setErrorMessage(err.message);
         setIsSigningIn(false);
@@ -256,6 +270,8 @@ export default function SignInSide() {
                         }
                       }}
                       disabled={isSigningIn}
+                      onClick={onFacebookSignIn}
+                      className={`facebook-button`}
                     >
                       {isSigningIn ? 'SIGNING IN...' : 'Facebook'}
                     </Button>

@@ -2,7 +2,7 @@ import "./styles/styles.css";
 import SearchIcon from "./assets/search.svg";
 import CartIcon from "./assets/cart.svg";
 import UserIcon from "./assets/user.svg";
-import Logo from "./mockuppics/logo.png";
+import Logo from "./mockuppics/ShippingSeaLogo.png";
 import { Link } from 'react-router-dom'
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
