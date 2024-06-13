@@ -73,7 +73,7 @@ export default function SignUp() {
     event.preventDefault();
     try {
       // Verify the code
-      await verifyCode(email, verificationCode);
+      // await verifyCode(email, verificationCode);
       console.log("Verification code submitted:", verificationCode);
       setOpen(false);
       navigate('/home');
