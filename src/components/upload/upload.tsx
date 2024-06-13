@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 const Upload = ({ inputs = [], title }) => {
   const [file, setFile] = useState(null);
   const [data, setData] = useState({});
+  const [path, setPath] = useState("pfps"); // Default path is "pfps/"
   const [per, setPerc] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,16 +26,13 @@ const Upload = ({ inputs = [], title }) => {
   useEffect(() => {
     const uploadFile = () => {
       const name = `${file.name}`;
-      console.log(name);
-      let path = "pfps/"
-      const storageRef = ref(storage, `${path}${name}`);
+      const storageRef = ref(storage, `${path}/${name}`); // Use the path state variable
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
         "state_changed",
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Upload is ${progress}% done`);
           setPerc(progress);
           switch (snapshot.state) {
             case "paused":
@@ -59,10 +57,11 @@ const Upload = ({ inputs = [], title }) => {
         }
       );
     };
+
     if (file) {
       uploadFile();
     }
-  }, [file]);
+  }, [file, path]); // Include path in the dependency array
 
   const handleInput = (e) => {
     const { id, value } = e.target;
@@ -115,6 +114,19 @@ const Upload = ({ inputs = [], title }) => {
                   onChange={(e) => setFile(e.target.files[0])}
                   style={{ display: "none" }}
                 />
+              </div>
+
+              <div className="formInput">
+                <label htmlFor="path">Upload Path</label>
+                <select
+                  id="path"
+                  value={path}
+                  onChange={(e) => setPath(e.target.value)}
+                >
+                  <option value="pfps">pfps</option>
+                  <option value="products">products</option>
+                  <option value="ads">ads</option>
+                </select>
               </div>
 
               {inputs.length > 0 && inputs.map((input) => (
