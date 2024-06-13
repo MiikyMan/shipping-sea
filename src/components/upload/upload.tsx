@@ -24,9 +24,10 @@ const Upload = ({ inputs = [], title }) => {
 
   useEffect(() => {
     const uploadFile = () => {
-      const name = `${new Date().getTime()}_${file.name}`;
+      const name = `${file.name}`;
       console.log(name);
-      const storageRef = ref(storage, name);
+      let path = "pfps/"
+      const storageRef = ref(storage, `${path}${name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
