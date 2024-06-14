@@ -48,18 +48,21 @@ function Ads() {
             <div className="slideshow-container">
                 <div className="mySlides ads-container">
                     <img src={ads1} alt="Ad 1" />
+                    <div className="prev" onClick={() => plusSlides(-1)}>❮</div>
+                    <div className="next" onClick={() => plusSlides(1)}>❯</div>
                 </div>
 
                 <div className="mySlides ads-container">
                     <img src={ads2} alt="Ad 2" />
+                    <div className="prev" onClick={() => plusSlides(-1)}>❮</div>
+                    <div className="next" onClick={() => plusSlides(1)}>❯</div>
                 </div>
 
                 <div className="mySlides ads-container">
                     <img src={ads3} alt="Ad 3" />
+                    <div className="prev" onClick={() => plusSlides(-1)}>❮</div>
+                    <div className="next" onClick={() => plusSlides(1)}>❯</div>
                 </div>
-
-                <a className="prev" onClick={() => plusSlides(-1)}>❮</a>
-                <a className="next" onClick={() => plusSlides(1)}>❯</a>
                 
                 <div className="dot-container">
                     <span className="dot" onClick={() => currentSlide(1)}></span>

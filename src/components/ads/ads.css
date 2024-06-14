@@ -10,13 +10,17 @@ img { vertical-align: middle; }
     height: 400px;
     background-color: #D9D9D9;
     justify-content: center;
-    align-items: center;
 }
 
 .slideshow-container {
+    display: flex;
+    justify-content: center;
     position: relative;
     margin: auto;
+}
 
+.mySlides .ads-container{
+    width: 1vw;
 }
 
 .prev, .next {
@@ -24,19 +28,23 @@ img { vertical-align: middle; }
     position: absolute;
     top: 50%;
     width: auto;
-    padding: 16px;
+    margin: 10px;
+    padding: 16px 25px 16px 25px;
     margin-top: -22px;
     color: white;
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
+    border-radius: 50%;
     user-select: none;
+}
+
+.prev{
+    left: 0;
 }
 
 .next {
     right: 0;
-    border-radius: 3px 0 0 3px;
 }
 
 .prev:hover, .next:hover {
