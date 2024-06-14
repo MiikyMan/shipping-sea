@@ -1,4 +1,4 @@
-import Ads from "../components/ads"
+import Ads from "../components/ads/ads"
 import Categories from "../components/categories"
 import Navbar from "../components/navbar"
 import Products from "../components/products"
@@ -8,8 +8,8 @@ function home(){
     return(
         <>
             <Navbar/>
+            <Ads/>
             <div className="page-container">
-                <Ads/>
                 <Categories/>
                 <Products/>
             </div>

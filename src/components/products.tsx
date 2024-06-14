@@ -110,7 +110,6 @@ function Products() {
               >
                 <Link to="/product" className="product">
                   <img className="product-img" src={product.productPicUrl} alt={product.name} />
-                  {/* <div className="product-discount">{calculateDiscountPercentage(product.price, product.fullPrice)}% off</div> */}
                   {calculateDiscountPercentage(product.price, product.fullPrice) !== 0 && (
                     <div className="product-discount">
                       -{calculateDiscountPercentage(product.price, product.fullPrice)}%
