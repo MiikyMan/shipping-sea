@@ -348,6 +348,7 @@ textarea:focus, input:focus{
     background-color: white;
     border: none;
     transition: 0.3s;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 4px 4px 0px
 }
 
 .product-heart:hover{
@@ -459,18 +460,21 @@ textarea:focus, input:focus{
 
 .product-stock {
     font-size: 14px;
+    margin-right: 2px;
     color: #777777;
 
 }
 
 .product-discount {
     position: absolute;
+    font-size: 15px;
     display: flex;
     margin: 0px 0px 0px 0px;
     background-color: rgb(255, 168, 168);
     color:white;
     border-radius: 0px 0px 16px 0px;
     padding: 6px;
+    
 }
 
 .bread-nav{

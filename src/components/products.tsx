@@ -113,7 +113,7 @@ function Products() {
                   {/* <div className="product-discount">{calculateDiscountPercentage(product.price, product.fullPrice)}% off</div> */}
                   {calculateDiscountPercentage(product.price, product.fullPrice) !== 0 && (
                     <div className="product-discount">
-                      {calculateDiscountPercentage(product.price, product.fullPrice)}% off
+                      -{calculateDiscountPercentage(product.price, product.fullPrice)}%
                     </div>
                   )}
                   <div className="product-desc">
