@@ -6,8 +6,9 @@ import RedHeartIcon from "./assets/redheart.svg";
 import { Button, Dropdown, Menu } from 'antd';
 import Rating from '@mui/material/Rating';
 import Skeleton from '@mui/material/Skeleton';
-import { doFetchAllProducts } from "../firebase/crud";
+import { doFetchAllProducts, addLike, removeLike, doQuerySpecificFavourites } from "../firebase/crud";
 import type { MenuProps } from 'antd';
+import { useAuth } from '../context/authContext';
 
 interface Props {
   fullPrice: number;
@@ -17,12 +18,15 @@ interface Props {
   productPicUrl: string;
   rating: number;
   stock: number;
+  productID: string;
 }
 
 function Products() {
   const [products, setProducts] = useState<Props[]>([]);
+  const [favourites, setFavourites] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -32,22 +36,50 @@ function Products() {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
+        setLoading(false);
       }
     };
 
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    if (!currentUser) return;
+    
+    const fetchFavourites = async () => {
+      try {
+        const fetchedFavourites = await doQuerySpecificFavourites(currentUser.uid);
+        const favouriteProductIds = fetchedFavourites.flatMap((fav: { favourite: any[]; }) => fav.favourite.map(item => item.productID));
+        setFavourites(favouriteProductIds);
+      } catch (error) {
+        console.error("Error fetching favourites:", error);
+      }
+    };
+
+    fetchFavourites();
+  }, [currentUser]);
+
   const formatProductName = (name: string) => {
     return name.length > 12 ? name.slice(0, 11) + "..." : name;
   };
 
-  const toggleLike = (index: number) => {
-    setProducts((prevProducts) => {
-      return prevProducts.map((product, i) => 
-        i === index ? { ...product, like: product.like === 1 ? 0 : 1 } : product
-      );
-    });
+  const toggleLike = async (productID: string) => {
+    try {
+      if (favourites.includes(productID)) {
+        // Product is already liked, so unlike it
+        await removeLike(currentUser.uid, productID);
+        setFavourites((prevFavourites) =>
+          prevFavourites.filter((id) => id !== productID)
+        );
+      } else {
+        // Product is not liked, so add it as favourite
+        await addLike(currentUser.uid, { productID });
+        setFavourites((prevFavourites) => [...prevFavourites, productID]);
+      }
+  
+    } catch (error) {
+      console.error("Error toggling like:", error);
+    }
   };
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
@@ -63,7 +95,6 @@ function Products() {
 
   const calculateDiscountPercentage = (price: number, fullPrice: number) => {
     if (fullPrice <= 0) return 0;
-    if (fullPrice - price === 0) return 0;
     return ((fullPrice - price) / fullPrice * 100).toFixed(0);
   };
 
@@ -76,82 +107,77 @@ function Products() {
   );
 
   return (
-    <>
-      <div className="products-container">
-        <div className="products-title-bar">
-          <div className="products-title">Suggestion</div>
-          <div className="products-filter">
-            <Dropdown overlay={menu} placement="bottomLeft">
-              <Button>
-                Filter
-                <img src={FilterIcon} alt="Filter Icon" />
-              </Button>
-            </Dropdown>
-          </div>
-        </div>
-        <div className="all-products">
-          {loading ? (
-            Array.from(new Array(10)).map((_, index) => (
-              <div className="product" key={`skeleton-${index}`}>
-                <Skeleton animation="wave" variant="rectangular" width={228} height={228} sx={{borderRadius:'16px 16px 0px 0px'}}/>
-                <div className="product-desc">
-                  <Skeleton animation="wave" variant="text" width="200px" height="30px" />
-                  <Skeleton animation="wave" variant="text" width="70px" height="30px" />
-                </div>
-              </div>
-            ))
-          ) : (
-            products.map((product, i) => (
-              <div
-                className="product"
-                key={i}
-                onMouseEnter={() => setHoveredProduct(i)}
-                onMouseLeave={() => setHoveredProduct(null)}
-              >
-                <Link to="/product" className="product">
-                  <img className="product-img" src={product.productPicUrl} alt={product.name} />
-                  {calculateDiscountPercentage(product.price, product.fullPrice) !== 0 && (
-                    <div className="product-discount">
-                      -{calculateDiscountPercentage(product.price, product.fullPrice)}%
-                    </div>
-                  )}
-                  <div className="product-desc">
-                    <div className="product-desc-top">
-                      <div className="product-name-container">
-                        <span className="product-name">
-                          {hoveredProduct === i ? product.name : formatProductName(product.name)}
-                        </span>
-                      </div>
-                      <div className="product-rating">
-                        <Rating name="size-small" className="star" defaultValue={1} size="small" max={1} readOnly />
-                        <div className="rating">{product.rating}</div>
-                      </div>
-                    </div>
-                    <div className="product-desc-bottom">
-                      <div className="prices">
-                        <div className="product-price">${product.price}</div>
-                        {
-                          calculateDiscountPercentage(product.price, product.fullPrice) !== 0 &&
-                          <div className="product-fullprice"><del>${product.fullPrice}</del></div>
-                        }
-                        
-                        
-                      </div>
-                      <div className="product-stock">{product.stock}</div>
-                    </div>
-                  </div>
-                </Link>
-                {hoveredProduct === i && (
-                  <button className="product-heart" onClick={(e) => { e.preventDefault(); toggleLike(i); }}>
-                    <img src={product.like === 1 ? RedHeartIcon : HeartIcon} alt="Heart Icon" />
-                  </button>
-                )}
-              </div>
-            ))
-          )}
+    <div className="products-container">
+      <div className="products-title-bar">
+        <div className="products-title">Suggestion</div>
+        <div className="products-filter">
+          <Dropdown overlay={menu} placement="bottomLeft">
+            <Button>
+              Filter
+              <img src={FilterIcon} alt="Filter Icon" />
+            </Button>
+          </Dropdown>
         </div>
       </div>
-    </>
+      <div className="all-products">
+        {loading ? (
+          Array.from(new Array(10)).map((_, index) => (
+            <div className="product" key={`skeleton-${index}`}>
+              <Skeleton animation="wave" variant="rectangular" width={228} height={228} sx={{ borderRadius: '16px 16px 0px 0px' }} />
+              <div className="product-desc">
+                <Skeleton animation="wave" variant="text" width="200px" height="30px" />
+                <Skeleton animation="wave" variant="text" width="70px" height="30px" />
+              </div>
+            </div>
+          ))
+        ) : (
+          products.map((product, i) => (
+            <div
+              className="product"
+              key={i}
+              onMouseEnter={() => setHoveredProduct(i)}
+              onMouseLeave={() => setHoveredProduct(null)}
+            >
+              <Link to={`/product/${product.productID}`} className="product-link">
+                {calculateDiscountPercentage(product.price, product.fullPrice) !== "0" && (
+                  <div className="product-discount">
+                    -{calculateDiscountPercentage(product.price, product.fullPrice)}%
+                  </div>
+                )}
+                <img className="product-img" src={product.productPicUrl} alt={product.name} />
+                <div className="product-desc">
+                  <div className="product-desc-top">
+                    <div className="product-name-container">
+                      <span className="product-name">
+                        {hoveredProduct === i ? product.name : formatProductName(product.name)}
+                      </span>
+                    </div>
+                    <div className="product-rating">
+                      <Rating name="size-small" className="star" defaultValue={1} size="small" max={1} readOnly />
+                      <div className="rating">{product.rating}</div>
+                    </div>
+                  </div>
+                  <div className="product-desc-bottom">
+                    <div className="prices">
+                      <div className="product-price">${product.price}</div>
+                      {calculateDiscountPercentage(product.price, product.fullPrice) !== "0" && (
+                        <div className="product-fullprice"><del>${product.fullPrice}</del></div>
+                      )}
+                    </div>
+                    <div className="product-stock">{product.stock}</div>
+                  </div>
+                </div>
+              </Link>
+              {hoveredProduct === i && (
+                <button className="product-heart" onClick={(e) => { e.preventDefault(); toggleLike(product.productID); }}>
+                  <img src={favourites.includes(product.productID) ? RedHeartIcon : HeartIcon} alt="Heart Icon" />
+                </button>
+              )}
+            </div>
+          ))
+        )}
+      </div>
+    </div>
   );
 }
 

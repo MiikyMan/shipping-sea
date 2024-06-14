@@ -302,7 +302,7 @@ textarea:focus, input:focus{
 }
 
 .product-heart {
-    z-index: 1;
+    z-index: 999;
     position: absolute;
     top: 0;
     right: 0;
