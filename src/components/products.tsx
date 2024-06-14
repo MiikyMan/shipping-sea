@@ -5,6 +5,7 @@ import HeartIcon from "./assets/heart.svg";
 import RedHeartIcon from "./assets/redheart.svg";
 import { Button, Dropdown, Menu } from 'antd';
 import Rating from '@mui/material/Rating';
+import Skeleton from '@mui/material/Skeleton';
 import { doFetchAllProducts } from "../firebase/crud";
 import type { MenuProps } from 'antd';
 
@@ -20,6 +21,7 @@ interface Props {
 
 function Products() {
   const [products, setProducts] = useState<Props[]>([]);
+  const [loading, setLoading] = useState(true);
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
 
   useEffect(() => {
@@ -27,6 +29,7 @@ function Products() {
       try {
         const fetchedProducts = await doFetchAllProducts();
         setProducts(fetchedProducts);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -41,12 +44,9 @@ function Products() {
 
   const toggleLike = (index: number) => {
     setProducts((prevProducts) => {
-      const updatedProducts = [...prevProducts];
-      updatedProducts[index] = {
-        ...updatedProducts[index],
-        like: updatedProducts[index].like === 1 ? 0 : 1
-      };
-      return updatedProducts;
+      return prevProducts.map((product, i) => 
+        i === index ? { ...product, like: product.like === 1 ? 0 : 1 } : product
+      );
     });
   };
 
@@ -59,6 +59,11 @@ function Products() {
       sortedProducts.sort((a, b) => b.price - a.price);
     }
     setProducts(sortedProducts);
+  };
+
+  const calculateDiscountPercentage = (price: number, fullPrice: number) => {
+    if (fullPrice <= 0) return 0;
+    return ((fullPrice - price) / fullPrice * 100).toFixed(0);
   };
 
   const menu = (
@@ -84,36 +89,62 @@ function Products() {
           </div>
         </div>
         <div className="all-products">
-          {products.map((product, i) => (
-            <div
-              className="product"
-              key={i}
-              onMouseEnter={() => setHoveredProduct(i)}
-              onMouseLeave={() => setHoveredProduct(null)}
-            >
-              <Link to="/product" className="product">
-                <img src={product.productPicUrl} alt={product.name} />
+          {loading ? (
+            Array.from(new Array(10)).map((_, index) => (
+              <div className="product" key={`skeleton-${index}`}>
+                <Skeleton animation="wave" variant="rectangular" width={228} height={228} sx={{borderRadius:'16px 16px 0px 0px'}}/>
                 <div className="product-desc">
-                  <div className="product-desc-top">
-                    <div className="product-name">{formatProductName(product.name)}</div>
-                    <div className="product-rating">
-                      <Rating name="size-small" defaultValue={1} size="small" max={1} readOnly />
-                      {product.rating}
+                  <Skeleton animation="wave" variant="text" width="200px" height="30px" />
+                  <Skeleton animation="wave" variant="text" width="70px" height="30px" />
+                </div>
+              </div>
+            ))
+          ) : (
+            products.map((product, i) => (
+              <div
+                className="product"
+                key={i}
+                onMouseEnter={() => setHoveredProduct(i)}
+                onMouseLeave={() => setHoveredProduct(null)}
+              >
+                <Link to="/product" className="product">
+                  <img className="product-img" src={product.productPicUrl} alt={product.name} />
+                  {/* <div className="product-discount">{calculateDiscountPercentage(product.price, product.fullPrice)}% off</div> */}
+                  {calculateDiscountPercentage(product.price, product.fullPrice) > 0 && (
+                    <div className="product-discount">
+                      {calculateDiscountPercentage(product.price, product.fullPrice)}% off
+                    </div>
+                  )}
+                  <div className="product-desc">
+                    <div className="product-desc-top">
+                      <div className="product-name-container">
+                        <span className="product-name">
+                          {hoveredProduct === i ? product.name : formatProductName(product.name)}
+                        </span>
+                      </div>
+                      <div className="product-rating">
+                        <Rating name="size-small" className="star" defaultValue={1} size="small" max={1} readOnly />
+                        <div className="rating">{product.rating}</div>
+                      </div>
+                    </div>
+                    <div className="product-desc-bottom">
+                      <div className="prices">
+                        <div className="product-price">${product.price}</div>
+                        <div className="product-fullprice"><del>${product.fullPrice}</del></div>
+                        
+                      </div>
+                      <div className="product-stock">{product.stock}</div>
                     </div>
                   </div>
-                  <div className="product-desc-bottom">
-                    <div className="product-qty">{product.stock}</div>
-                    <div className="product-price">${product.price}</div>
-                  </div>
-                </div>
-              </Link>
-              {hoveredProduct === i && (
-                <button className="product-heart" onClick={(e) => { e.stopPropagation(); toggleLike(i); }}>
-                  <img src={product.like === 1 ? RedHeartIcon : HeartIcon} alt="Heart Icon" />
-                </button>
-              )}
-            </div>
-          ))}
+                </Link>
+                {hoveredProduct === i && (
+                  <button className="product-heart" onClick={(e) => { e.preventDefault(); toggleLike(i); }}>
+                    <img src={product.like === 1 ? RedHeartIcon : HeartIcon} alt="Heart Icon" />
+                  </button>
+                )}
+              </div>
+            ))
+          )}
         </div>
       </div>
     </>

@@ -12,6 +12,7 @@ import HeartIcon from "../components/assets/favourite.svg";
 import VouchersIcon from "../components/assets/voucher.svg";
 import ClockIcon from "../components/assets/clock.svg";
 import LogoutIcon from "../components/assets/logout.svg";
+import Edit from "../components/assets/edit.svg";
 import UserIcon from "../components/assets/user.svg";
 import ProductDetails from "../components/productDetails";
 import { doSignOut } from '../firebase/auth';
@@ -102,6 +103,12 @@ function Profile() {
                 </div>
                 <img src={Next} alt="next" className="next" />
               </div>
+              <div className="profile-edit">
+                <img src={Edit} className="profile-edit-pen"/>
+                <div className="profile-edit-text">
+                  Edit Profile
+                </div>
+                </div>
             </div>
           </div>
           <div className="profile-bar-right">
@@ -125,7 +132,7 @@ function Profile() {
             <li onClick={() => handleClick(3)} className={sidenavState === 3 ? `active` : ``}>
               <img src={HeartIcon} className="sidenav-icon" alt="Heart Icon" />
               <div className="sidenav-content">
-                <div className="sidenav-detail">Favourites</div>
+                <div className="sidenav-detail">Favorites</div>
               </div>
             </li>
             <li onClick={() => handleClick(4)} className={sidenavState === 4 ? `active` : ``}>

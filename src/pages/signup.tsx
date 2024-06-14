@@ -42,11 +42,11 @@ export default function SignUp() {
     setShowPassword(!showPassword);
   };
 
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     try {
       const additionalData = {
@@ -69,7 +69,7 @@ export default function SignUp() {
     }
   };
 
-  const handleVerificationSubmit = async (event) => {
+  const handleVerificationSubmit = async (event: any) => {
     event.preventDefault();
     try {
       // Verify the code
