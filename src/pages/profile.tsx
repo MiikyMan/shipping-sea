@@ -106,7 +106,7 @@ function Profile() {
               <div className="profile-edit">
                 <img src={Edit} className="profile-edit-pen"/>
                 <div className="profile-edit-text">
-                  Edit Profile
+                 &nbsp;Edit Profile
                 </div>
                 </div>
             </div>

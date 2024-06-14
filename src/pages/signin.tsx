@@ -235,7 +235,7 @@ export default function SignInSide() {
                       sx={{
                         mt: 2,
                         height: '40px',
-                        width: '200px',
+                        width: '190px',
                         bgcolor: '#ffffff',
                         borderColor: 'divider',
                         color: '#202020',
@@ -259,7 +259,7 @@ export default function SignInSide() {
                       sx={{
                         mt: 2,
                         height: '40px',
-                        width: '200px',
+                        width: '190px',
                         bgcolor: '#ffffff',
                         borderColor: 'divider',
                         color: '#202020',
