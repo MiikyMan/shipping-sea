@@ -63,6 +63,7 @@ function Products() {
 
   const calculateDiscountPercentage = (price: number, fullPrice: number) => {
     if (fullPrice <= 0) return 0;
+    if (fullPrice - price === 0) return 0;
     return ((fullPrice - price) / fullPrice * 100).toFixed(0);
   };
 
@@ -110,7 +111,7 @@ function Products() {
                 <Link to="/product" className="product">
                   <img className="product-img" src={product.productPicUrl} alt={product.name} />
                   {/* <div className="product-discount">{calculateDiscountPercentage(product.price, product.fullPrice)}% off</div> */}
-                  {calculateDiscountPercentage(product.price, product.fullPrice) > 0 && (
+                  {calculateDiscountPercentage(product.price, product.fullPrice) !== 0 && (
                     <div className="product-discount">
                       {calculateDiscountPercentage(product.price, product.fullPrice)}% off
                     </div>
@@ -130,7 +131,11 @@ function Products() {
                     <div className="product-desc-bottom">
                       <div className="prices">
                         <div className="product-price">${product.price}</div>
-                        <div className="product-fullprice"><del>${product.fullPrice}</del></div>
+                        {
+                          calculateDiscountPercentage(product.price, product.fullPrice) !== 0 &&
+                          <div className="product-fullprice"><del>${product.fullPrice}</del></div>
+                        }
+                        
                         
                       </div>
                       <div className="product-stock">{product.stock}</div>
