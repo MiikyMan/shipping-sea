@@ -1,29 +1,36 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import FilterIcon from "./assets/filter.svg";
 import HeartIcon from "./assets/heart.svg";
 import RedHeartIcon from "./assets/redheart.svg";
 import { Button, Dropdown, Menu } from 'antd';
 import Rating from '@mui/material/Rating';
+import axios from 'axios';
 import Skeleton from '@mui/material/Skeleton';
-import { doFetchAllProducts, addLike, removeLike, doQuerySpecificFavourites } from "../firebase/crud";
-import type { MenuProps } from 'antd';
 import { useAuth } from '../context/authContext';
 
-interface Props {
+interface Product {
+  productID: string;
   fullPrice: number;
-  like: number;
-  name: string;
   price: number;
+  name: string;
   productPicUrl: string;
   rating: number;
   stock: number;
-  productID: string;
 }
 
-function Products() {
-  const [products, setProducts] = useState<Props[]>([]);
-  const [favourites, setFavourites] = useState<string[]>([]);
+interface Favourite {
+  uID: string;
+  fID: string; // Should match the type of productID (string in this case)
+  favouriteID: string;
+}
+
+const baseUser = '1';
+const baseURL = 'http://localhost:6969'; // Replace with your actual backend URL
+
+const Products: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [favourites, setFavourites] = useState<Favourite[]>([]); // State for favourites
   const [loading, setLoading] = useState(true);
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
   const { currentUser } = useAuth();
@@ -31,11 +38,11 @@ function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const fetchedProducts = await doFetchAllProducts();
-        setProducts(fetchedProducts);
+        const response = await axios.get<Product[]>(`${baseURL}/products`); // Specify the response type
+        setProducts(response.data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error('Error fetching products:', error);
         setLoading(false);
       }
     };
@@ -44,46 +51,41 @@ function Products() {
   }, []);
 
   useEffect(() => {
-    if (!currentUser) return;
-    
     const fetchFavourites = async () => {
-      try {
-        const fetchedFavourites = await doQuerySpecificFavourites(currentUser.uid);
-        const favouriteProductIds = fetchedFavourites.flatMap((fav: { favourite: any[]; }) => fav.favourite.map(item => item.productID));
-        setFavourites(favouriteProductIds);
-      } catch (error) {
-        console.error("Error fetching favourites:", error);
+      if (currentUser) {
+        try {
+          const response = await axios.get<Favourite[]>(`${baseURL}/favourites/${baseUser}`); // Specify the response type
+          const favouriteProductIDs = response.data.map(fav => fav.fID); // Extract fID values
+          setFavourites(favouriteProductIDs);
+        } catch (error) {
+          console.error('Error fetching favourites:', error);
+        }
       }
     };
 
     fetchFavourites();
   }, [currentUser]);
-
-  const formatProductName = (name: string) => {
-    return name.length > 12 ? name.slice(0, 11) + "..." : name;
-  };
+  console.log(favourites);
 
   const toggleLike = async (productID: string) => {
     try {
       if (favourites.includes(productID)) {
         // Product is already liked, so unlike it
-        await removeLike(currentUser.uid, productID);
-        setFavourites((prevFavourites) =>
-          prevFavourites.filter((id) => id !== productID)
-        );
+        await axios.delete(`${baseURL}/favourites/${baseUser}/${productID}`);
+        setFavourites(favourites.filter(fav => fav !== productID));
       } else {
         // Product is not liked, so add it as favourite
-        await addLike(currentUser.uid, { productID });
-        setFavourites((prevFavourites) => [...prevFavourites, productID]);
+        await axios.post(`${baseURL}/favourites/${baseUser}/${productID}`);
+        setFavourites([...favourites, productID]);
       }
-  
     } catch (error) {
-      console.error("Error toggling like:", error);
+      console.error('Error toggling like:', error);
     }
   };
+  
 
-  const handleMenuClick: MenuProps['onClick'] = (e) => {
-    const key = e.key;
+  const handleMenuClick = (e: { key: React.Key }) => {
+    const key = e.key.toString();
     let sortedProducts = [...products];
     if (key === '2') {
       sortedProducts.sort((a, b) => a.price - b.price);
@@ -96,6 +98,10 @@ function Products() {
   const calculateDiscountPercentage = (price: number, fullPrice: number) => {
     if (fullPrice <= 0) return 0;
     return ((fullPrice - price) / fullPrice * 100).toFixed(0);
+  };
+
+  const formatProductName = (name: string) => {
+    return name.length > 12 ? name.slice(0, 11) + "..." : name;
   };
 
   const menu = (
@@ -134,7 +140,7 @@ function Products() {
           products.map((product, i) => (
             <div
               className="product"
-              key={i}
+              key={product.productID}
               onMouseEnter={() => setHoveredProduct(i)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
@@ -153,7 +159,7 @@ function Products() {
                       </span>
                     </div>
                     <div className="product-rating">
-                      <Rating name="size-small" className="star" defaultValue={1} size="small" max={1} readOnly />
+                      <Rating name="size-small" className="star" value={product.rating} readOnly />
                       <div className="rating">{product.rating}</div>
                     </div>
                   </div>
@@ -169,7 +175,7 @@ function Products() {
                 </div>
               </Link>
               {hoveredProduct === i && (
-                <button className="product-heart" onClick={(e) => { e.preventDefault(); toggleLike(product.productID); }}>
+                <button className="product-heart" onClick={() => toggleLike(product.productID)}>
                   <img src={favourites.includes(product.productID) ? RedHeartIcon : HeartIcon} alt="Heart Icon" />
                 </button>
               )}
@@ -179,6 +185,6 @@ function Products() {
       </div>
     </div>
   );
-}
+};
 
 export default Products;
