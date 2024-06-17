@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./styles/styles.css";
 import SearchIcon from "./assets/search.svg";
 import CartIcon from "./assets/cart.svg";
-import UserIcon from "./assets/user.svg";
 import Logo from "./mockuppics/ShippingSeaLogo.png";
 import { Link } from 'react-router-dom'
 import Badge, { BadgeProps } from '@mui/material/Badge';
@@ -14,7 +13,8 @@ import { SupervisedUserCircleRounded } from "@mui/icons-material";
 
 
 async function getData() {
-    const res = await fetch('http://localhost:6967/users');
+    const baseUser = '1';
+    const res = await fetch(`http://localhost:6967/users/${baseUser}`);
     return res.json();
   }
   
@@ -93,12 +93,7 @@ function Navbar() {
                     <>
                         <Link to="/profile" >
                         <button className="navbar-login-user">
-                            {/* {photoURL ? (
-                                <img src={photoURL} alt={displayName} className="navbar-user-photo" />
-                                ) : (
-                                <img src={UserIcon} alt="User" className="navbar-user-photo-empty" />
-                            )} */}
-                            <img src={data?.profilePicUrl || UserIcon} alt={data?.name} className="navbar-user-photo"/>
+                                <img src={ data?.profilePicUrl || photoURL } alt={data?.name} className="navbar-user-photo"/>
                         </button>
                         </Link>
                     </>

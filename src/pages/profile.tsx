@@ -22,6 +22,7 @@ import UserIcon from "../components/assets/user.svg";
 import ProductDetails from "../components/productDetails";
 import { doSignOut } from '../firebase/auth';
 import { useAuth } from '../context/authContext';
+import Amplify, { Storage } from '@aws-amplify/core';
 
 const onChange = (key: string) => {
   console.log(key);
@@ -41,7 +42,8 @@ const items: TabsProps['items'] = [
 ];
 
 async function getData() {
-  const res = await fetch('http://localhost:6967/users');
+  const baseUser = '3';
+  const res = await fetch(`http://localhost:6967/users/${baseUser}`);
   return res.json();
 }
 
@@ -83,7 +85,6 @@ function Profile() {
         setData(result[0]);
       }
     };
-
     fetchData();
   }, []);
 
@@ -172,7 +173,7 @@ function Profile() {
               ) : (
                 <img src={UserIcon} alt="User" className="profile-user-photo-empty" />
               )} */}
-              <img src={data?.profilePicUrl || UserIcon } alt={data?.name} className="profile-user-photo"/>
+              <img src={data?.profilePicUrl || photoURL } alt={data?.name} className="profile-user-photo"/>
               <label htmlFor="file-input" className="profile-camera">
                 <img src={Camera}/>
               </label>

@@ -162,25 +162,17 @@ textarea:focus, input:focus{
 }
 
 .navbar-login-user{
-    margin-right: 20px;
+    /* margin-right: 20px; */
     font-size: 20px;
     border: none;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
-    width: 50px;
-    background-color: #0e65b1;
+    height: 46px;
+    width: 46px;
+    background: #5ab2ff;
     color: white;
-}
-
-.navbar-login-user:hover{
-    background-color: #4798CC;
-}
-
-.navbar-login-user img{
-    width: 35px;
 }
 
 .page-one{
@@ -793,7 +785,7 @@ textarea:focus, input:focus{
 
 .profile-bar-avatar {
     width: 100px;
-    background-color: #0e65b1;
+    background-color: #5ab2ff;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -808,7 +800,6 @@ textarea:focus, input:focus{
 }
 
 .profile-camera {
-    transition: 0.2s;
     position: absolute;
     width: 100px;
     height: 100px;
@@ -847,7 +838,6 @@ textarea:focus, input:focus{
     padding: 4px;
     width: 135px;
     margin-top: 4px;
-    
 }
 
 .profile-bar-rank:hover {
@@ -862,7 +852,6 @@ textarea:focus, input:focus{
     display: flex;
     margin-right: 30px;
     background-color: #f3f3f3;
-    transition: 0.2s;
 }
 
 .profile-bar-right:hover {
@@ -888,7 +877,6 @@ textarea:focus, input:focus{
     padding: 5px;
     width: 94px;
 }
-
 
 .profile-edit:hover{
     cursor: pointer;
@@ -918,14 +906,11 @@ textarea:focus, input:focus{
     background-color: #ADDEFF;
 }
 
-.navbar-login-user img{
-    width: 50px;
-}
-
-
 .navbar-user-photo {
     width: 50px;
+    height: 50px;
     border-radius: 50%;
+    aspect-ratio: 1/1;
 }
 
 .navbar-login-user :hover {
@@ -934,8 +919,16 @@ textarea:focus, input:focus{
     box-shadow: 0px 12px 6px -6px rgba(0, 0, 0, 0.118);
 }
 
+.navbar-user-photo:hover {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    box-shadow: 0px 12px 6px -6px rgba(0, 0, 0, 0.118);
+}
+
 .navbar-user-photo-empty:hover {
     width: 52px;
+    height: 52px;
     border-radius: 0%;
     box-shadow: 0px 12px 6px -6px rgba(0, 0, 0, 0.118);
 }
