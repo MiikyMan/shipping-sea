@@ -26,7 +26,7 @@ interface Favourite {
 }
 
 const baseUser = '1';
-const baseURL = 'http://localhost:6969'; // Replace with your actual backend URL
+const baseURL = 'http://localhost:6967'; // Replace with your actual backend URL
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -101,7 +101,7 @@ const Products: React.FC = () => {
   };
 
   const formatProductName = (name: string) => {
-    return name.length > 12 ? name.slice(0, 11) + "..." : name;
+    return name.length > 15 ? name.slice(0, 14) + "..." : name;
   };
 
   const menu = (
@@ -159,7 +159,7 @@ const Products: React.FC = () => {
                       </span>
                     </div>
                     <div className="product-rating">
-                      <Rating name="size-small" className="star" value={product.rating} readOnly />
+                      <Rating name="size-small" className="star" value={1} max={1}readOnly />
                       <div className="rating">{product.rating}</div>
                     </div>
                   </div>

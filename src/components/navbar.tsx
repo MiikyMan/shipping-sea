@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import "./styles/styles.css";
 import SearchIcon from "./assets/search.svg";
 import CartIcon from "./assets/cart.svg";
@@ -9,12 +10,37 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import { useAuth } from '../context/authContext';
-import { useState } from "react";
 import { SupervisedUserCircleRounded } from "@mui/icons-material";
+
+
+async function getData() {
+    const res = await fetch('http://localhost:6967/users');
+    return res.json();
+  }
+  
+  interface usersType {
+    userID: string,
+    name: string,
+    email: string,
+    role: string,
+    profilePicUrl: string,
+    rank: number,
+  }
 
 function Navbar() {
 
     const { userLoggedIn, displayName, photoURL } = useAuth();
+
+    const [data, setData] = useState<usersType | null>(null);
+    useEffect(() => {
+        const fetchData = async () => {
+          const result = await getData();
+          if (result && result.length > 0) {
+            setData(result[0]);
+          }
+        };
+        fetchData();
+      }, []);
 
     
     // console.log("Photo URL:", photoURL);
@@ -66,13 +92,13 @@ function Navbar() {
                     { userLoggedIn ?
                     <>
                         <Link to="/profile" >
-                        <button className="navbar-login-user"
-                        >
-                            {photoURL ? (
+                        <button className="navbar-login-user">
+                            {/* {photoURL ? (
                                 <img src={photoURL} alt={displayName} className="navbar-user-photo" />
                                 ) : (
                                 <img src={UserIcon} alt="User" className="navbar-user-photo-empty" />
-                            )}
+                            )} */}
+                            <img src={data?.profilePicUrl || UserIcon} alt={data?.name} className="navbar-user-photo"/>
                         </button>
                         </Link>
                     </>

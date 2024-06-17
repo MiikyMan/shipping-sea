@@ -387,7 +387,6 @@ textarea:focus, input:focus{
 }
 
 .product-rating {
-    margin-bottom: 8px;
     display: flex;
 }
 
@@ -770,7 +769,7 @@ textarea:focus, input:focus{
 .profile-bar{
     width: 1260px;
     position: relative;
-    z-index: 10;
+    z-index: 4;
     padding: 15px;
     border-radius: 50px;
     background-color: white;
@@ -783,12 +782,11 @@ textarea:focus, input:focus{
 .Rank{
     margin-right: 40px;
     width: 70px;
-    /* border-radius: 50%; */
     aspect-ratio: 1/1;
 }
 
 .profile-bar-left{
-    margin-left: 40px;
+    margin-left: 30px;
     gap: 15px;
     display: flex;
 }
@@ -804,16 +802,25 @@ textarea:focus, input:focus{
 
 .profile-user-photo {
     width: 100px;
+    height: 100px;
     border-radius: 50%;
+
 }
 
-.profile-user-photo-empty {
-    width: 100%;
+.profile-camera {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding: 25px;
+    border-radius: 50%;
+    opacity: 0;
 }
 
-.next {
-    display: flex;
-    justify-content: flex-end;
+.profile-camera:hover{
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0.7;
+    box-shadow: rgba(50, 50, 93, 0.27) 0px 13px 27px -5px, rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
 }
 
 .profile-bar-details{
@@ -836,13 +843,38 @@ textarea:focus, input:focus{
     font-size: 14px;
     color: white;
     border-radius: 13px;
-    padding: 5px;
-    background-color: #ff4c4c;
+    padding: 4px;
+    width: 135px;
+    margin-top: 4px;
 }
 
 .profile-bar-rank:hover {
     cursor: pointer;
-    background-color:#fd7878;
+    filter: brightness(92%);
+}
+
+.profile-bar-right {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    margin-right: 30px;
+    background-color: #f3f3f3;
+}
+
+.profile-bar-right:hover {
+    cursor: pointer;
+    filter: brightness(101%);
+    box-shadow: rgba(50, 50, 93, 0.27) 0px 13px 27px -5px, rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
+}
+
+.Rank {
+    width: 55px;
+    margin: auto;
+}
+
+.profile-rank-text {
+    margin-left: 5px;
 }
 
 .profile-edit {
@@ -933,14 +965,14 @@ textarea:focus, input:focus{
 }
 
 .sidenav-icon {
-    z-index: 10;
+    z-index: 3;
     position: absolute;
     width: 40px;
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Adjust to center correctly */
 }
 
-.sidenav-content {
+.sidenav-content , .sidenav-content-logout{
     white-space: nowrap;
     overflow: visible;
     z-index: 2;
@@ -953,20 +985,27 @@ textarea:focus, input:focus{
     justify-content: flex-end; /* Center content */
     width: 100px; /* Initially collapsed */
     opacity: 0; /* Initially hidden */
-    transition: width 0.3s, opacity 0.3s; /* Smooth transition */
+    transition: opacity 0.4s ease-in-out,width 0.2s;
     box-shadow: rgba(50, 50, 93, 0.27) 0px 13px 27px -5px, rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
 }
 
 
-.profile-sidenav li:hover .sidenav-content {
+.profile-sidenav li:hover .sidenav-content,
+.profile-sidenav li:hover .sidenav-detail,
+.profile-sidenav li:hover .sidenav-content-logout,
+.profile-sidenav li:hover .sidenav-detail-logout{
     cursor: pointer;
-    padding-right: 40px;
     opacity: 1;
-    width: 180px; /* Expand on hover */
+    width: 180px;
 }
 
-.sidenav-detail {
+
+.sidenav-detail, .sidenav-detail-logout {
     display: flex;
+    margin-left: 90px;
+    margin-right: 20px;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out,width 0.2s ease-in-out;
 }
 
 .profile-content {
@@ -979,4 +1018,23 @@ textarea:focus, input:focus{
     display: flex;
     justify-content: flex-start;
 }
+  
+.rank-silver {
+    background-color: #c2c2c2;
+}
 
+.rank-gold {
+    background-color: #F6C619;
+}
+
+.rank-platinum {
+    background-color: #80f2d6;
+}
+
+.rank-diamond {
+    background-color: #9cf1f7;
+}
+
+.rank-god {
+    background-color: #ff4c4c;
+}

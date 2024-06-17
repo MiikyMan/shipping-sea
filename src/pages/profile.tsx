@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
 import { Breadcrumb, Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import Footer from "../components/footer";
-import Rank from "../components/assets/crown-god.svg";
+import Camera from "../components/assets/camera.svg";
+import SilverRank from "../components/assets/crown-silver.svg";
+import GoldRank from "../components/assets/crown-gold.svg";
+import PlatinumRank from "../components/assets/crown-platinum.svg";
+import DiamondRank from "../components/assets/crown-diamond.svg";
+import GodRank from "../components/assets/crown-god.svg";
 import Next from "../components/assets/next.svg";
 import ProfileIcon from "../components/assets/profile.svg";
 import PurchasesIcon from "../components/assets/purchases.svg";
@@ -35,11 +40,27 @@ const items: TabsProps['items'] = [
   },
 ];
 
+async function getData() {
+  const res = await fetch('http://localhost:6967/users');
+  return res.json();
+}
+
+interface usersType {
+  userID: string,
+  name: string,
+  email: string,
+  role: string,
+  profilePicUrl: string,
+  rank: number,
+}
+
 function Profile() {
 
+  const [data, setData] = useState<usersType | null>(null);
   const { userLoggedIn, displayName, photoURL } = useAuth();
 
   const [sidenavState, setSidenavState] = useState<number>(1);
+  const [formVisible, setFormVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleClick = (index: number) => {
@@ -52,6 +73,69 @@ function Profile() {
       navigate('/signin');
     } catch (error) {
       console.error("Error signing out: ", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getData();
+      if (result && result.length > 0) {
+        setData(result[0]);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const RankDict: { [key: number]: string } = {
+    1: "Silver",
+    2: "Gold",
+    3: "Platinum",
+    4: "Diamond",
+    5: "God tier",
+  };
+
+  const getRankClass = (rank: number) => {
+    switch (rank) {
+      case 1:
+        return "rank-silver";
+      case 2:
+        return "rank-gold";
+      case 3:
+        return "rank-platinum";
+      case 4:
+        return "rank-diamond";
+      case 5:
+        return "rank-god";
+      default:
+        return "";
+    }
+  };
+
+  const getRankSVGClass = (ranksvg: number) => {
+    switch (ranksvg) {
+      case 1:
+        return SilverRank;
+      case 2:
+        return GoldRank;
+      case 3:
+        return PlatinumRank;
+      case 4:
+        return DiamondRank;
+      case 5:
+        return GodRank;
+      default:
+        return "";
+    }
+  };
+
+  const handleProfilePhotoChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      // Assuming you have a function to upload the file and get the URL
+      const uploadedUrl = await uploadProfilePhoto(file); // Implement this function
+      // Update the user's profile photo URL in your backend and state
+      setData(prevData => prevData ? { ...prevData, pfpUrl: uploadedUrl } : null);
     }
   };
 
@@ -83,36 +167,37 @@ function Profile() {
         <div className="profile-bar">
           <div className="profile-bar-left">
             <div className="profile-bar-avatar">
-              {photoURL ? (
+              {/* {photoURL ? (
                 <img src={photoURL} alt={displayName} className="profile-user-photo" />
               ) : (
                 <img src={UserIcon} alt="User" className="profile-user-photo-empty" />
-              )}
+              )} */}
+              <img src={data?.profilePicUrl || UserIcon } alt={data?.name} className="profile-user-photo"/>
+              <label htmlFor="file-input" className="profile-camera">
+                <img src={Camera}/>
+              </label>
+              <input id="file-input" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleProfilePhotoChange} />
             </div>
             <div className="profile-bar-details">
               <div className="profile-bar-details-name">
-                {displayName ? (
-                  <div>{displayName}</div>
-                ) : (
-                  <div>Username</div>
-                )}
+                {data?.name || 'Username'}
               </div>
-              <div className="profile-bar-rank">
-                <div>
-                  God tier member
+              <div className={`profile-bar-rank ${getRankClass(data?.rank || 1)}`}>
+                <div className="profile-rank-text">
+                  {RankDict[data?.rank || 1]} member
                 </div>
-                <img src={Next} alt="next" className="next" />
+                <img src={Next} alt="next" className="profile-rank-next" />
               </div>
               <div className="profile-edit">
                 <img src={Edit} className="profile-edit-pen"/>
                 <div className="profile-edit-text">
                  &nbsp;Edit Profile
                 </div>
-                </div>
+              </div>
             </div>
           </div>
           <div className="profile-bar-right">
-            <img src={Rank} alt="Rank" className="Rank" />
+            <img src={getRankSVGClass(data?.rank || 1)} alt="Rank" className="Rank" />
           </div>
         </div>
         <div className="profile-detail">
@@ -149,8 +234,8 @@ function Profile() {
             </li>
             <li onClick={handleSignOut} className={sidenavState === 6 ? `active` : ``}>
               <img src={LogoutIcon} className="sidenav-icon" alt="Logout Icon" />
-              <div className="sidenav-content">
-                <div className="sidenav-detail">Logout</div>
+              <div className="sidenav-content-logout">
+                <div className="sidenav-detail-logout"><div className="sidenav-Logout">Logout</div></div>
               </div>
             </li>
           </div>
