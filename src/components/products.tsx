@@ -8,6 +8,7 @@ import Rating from '@mui/material/Rating';
 import axios from 'axios';
 import Skeleton from '@mui/material/Skeleton';
 import { useAuth } from '../context/authContext';
+import { baseUser } from './userIDConfig';
 
 interface Product {
   productID: string;
@@ -25,7 +26,7 @@ interface Favourite {
   favouriteID: string;
 }
 
-const baseUser = '1';
+
 const baseURL = 'http://localhost:6967'; // Replace with your actual backend URL
 
 interface ProductsProps {
@@ -176,7 +177,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName }) => {
                       </span>
                     </div>
                     <div className="product-rating">
-                      <Rating name="size-small" className="star" value={product.rating} max={5} readOnly />
+                      <Rating name="size-small" className="star" value={1} max={1} readOnly />
                       <div className="rating">{product.rating}</div>
                     </div>
                   </div>
