@@ -808,6 +808,7 @@ textarea:focus, input:focus{
 }
 
 .profile-camera {
+    transition: 0.2s;
     position: absolute;
     width: 100px;
     height: 100px;
@@ -846,6 +847,7 @@ textarea:focus, input:focus{
     padding: 4px;
     width: 135px;
     margin-top: 4px;
+    
 }
 
 .profile-bar-rank:hover {
@@ -860,6 +862,7 @@ textarea:focus, input:focus{
     display: flex;
     margin-right: 30px;
     background-color: #f3f3f3;
+    transition: 0.2s;
 }
 
 .profile-bar-right:hover {

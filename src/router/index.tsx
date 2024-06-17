@@ -7,6 +7,7 @@ import ShoppingCart from '../pages/shoppingcart'
 import Profile from '../pages/profile'
 import Login from '../pages/login'
 import Upload from '../components/upload/upload'
+import Category from '../pages/category'
 
 export const router = createBrowserRouter([
     {
@@ -70,6 +71,14 @@ export const router = createBrowserRouter([
       element: (
         <div>
           <Upload/>
+        </div>
+      ),
+    },
+    {
+      path: '/category',
+      element: (
+        <div>
+          <Category/>
         </div>
       ),
     },

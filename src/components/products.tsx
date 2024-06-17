@@ -28,34 +28,55 @@ interface Favourite {
 const baseUser = '1';
 const baseURL = 'http://localhost:6967'; // Replace with your actual backend URL
 
-const Products: React.FC = () => {
+interface ProductsProps {
+  categoryName: string;
+}
+
+const Products: React.FC<ProductsProps> = ({ categoryName }) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [favourites, setFavourites] = useState<Favourite[]>([]); // State for favourites
+  const [favourites, setFavourites] = useState<string[]>([]); // Store only productIDs
   const [loading, setLoading] = useState(true);
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
   const { currentUser } = useAuth();
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get<Product[]>(`${baseURL}/products`); // Specify the response type
+        const response = await axios.get<Product[]>(`${baseURL}/categories/${categoryName}`);
         setProducts(response.data);
-        setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchProducts();
-  }, []);
+    const fetchAllProducts = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get<Product[]>(`${baseURL}/products`);
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (categoryName) {
+      fetchProducts();
+    } else {
+      fetchAllProducts();
+    }
+  }, [categoryName]);
 
   useEffect(() => {
     const fetchFavourites = async () => {
       if (currentUser) {
         try {
-          const response = await axios.get<Favourite[]>(`${baseURL}/favourites/${baseUser}`); // Specify the response type
-          const favouriteProductIDs = response.data.map(fav => fav.fID); // Extract fID values
+          const response = await axios.get<Favourite[]>(`${baseURL}/favourites/${baseUser}`);
+          const favouriteProductIDs = response.data.map(fav => fav.fID);
           setFavourites(favouriteProductIDs);
         } catch (error) {
           console.error('Error fetching favourites:', error);
@@ -65,16 +86,13 @@ const Products: React.FC = () => {
 
     fetchFavourites();
   }, [currentUser]);
-  console.log(favourites);
 
   const toggleLike = async (productID: string) => {
     try {
       if (favourites.includes(productID)) {
-        // Product is already liked, so unlike it
         await axios.delete(`${baseURL}/favourites/${baseUser}/${productID}`);
         setFavourites(favourites.filter(fav => fav !== productID));
       } else {
-        // Product is not liked, so add it as favourite
         await axios.post(`${baseURL}/favourites/${baseUser}/${productID}`);
         setFavourites([...favourites, productID]);
       }
@@ -82,7 +100,6 @@ const Products: React.FC = () => {
       console.error('Error toggling like:', error);
     }
   };
-  
 
   const handleMenuClick = (e: { key: React.Key }) => {
     const key = e.key.toString();
@@ -111,7 +128,7 @@ const Products: React.FC = () => {
       <Menu.Item key="3">Price: Descending</Menu.Item>
     </Menu>
   );
-
+  console.log(products);
   return (
     <div className="products-container">
       <div className="products-title-bar">
@@ -159,7 +176,7 @@ const Products: React.FC = () => {
                       </span>
                     </div>
                     <div className="product-rating">
-                      <Rating name="size-small" className="star" value={1} max={1}readOnly />
+                      <Rating name="size-small" className="star" value={product.rating} max={5} readOnly />
                       <div className="rating">{product.rating}</div>
                     </div>
                   </div>
@@ -170,7 +187,7 @@ const Products: React.FC = () => {
                         <div className="product-fullprice"><del>${product.fullPrice}</del></div>
                       )}
                     </div>
-                    <div className="product-stock">{product.stock}</div>
+                    <div className="product-stock">{product.stock} in stock</div>
                   </div>
                 </div>
               </Link>
