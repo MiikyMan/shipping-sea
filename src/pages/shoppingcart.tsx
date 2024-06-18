@@ -160,18 +160,18 @@ const ShoppingCart = () => {
       dataIndex: 'price',
       key: 'price',
       width: '17%',
-      render: (price) => `$${price.toFixed(2)}`,
+      render: (_,record) => `$${record.price.toFixed(2)}`,
     },  
     {
       title: 'Quantity',
-      dataIndex: 'qty',
-      key: 'qty',
+      dataIndex: 'total_qty',
+      key: 'total_qty',
       width: '25%',
       align: 'center' as const,
       render: (_, record) => (
         <div>
           <Button onClick={() => handleQuantityChange(record.key, false)} disabled={record.qty <= 1}>-</Button>
-          <span style={{ margin: '0 8px' }}>{record.qty}</span>
+          <span style={{ margin: '0 8px' }}>{record.total_qty}</span>
           <Button onClick={() => handleQuantityChange(record.key, true)}>+</Button>
         </div>
       ),
