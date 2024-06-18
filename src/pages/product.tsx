@@ -53,6 +53,7 @@ function product(){
     const [product, setProduct] = useState<ProductType[]>([]);
     let query = useQuery();
     let URLproductID = query.get("productID");
+    const [qty, setQty] = useState(1);
     console.log("pID",URLproductID)
 
     useEffect(() => {
@@ -74,6 +75,15 @@ function product(){
     console.log("hah",product[0]?.productPicUrl);
     console.log("rating",(product[0]?.rating));
     const value = 3.5;
+
+    const handleAddtocart = async(productID: any, qty: number) =>{
+        try {
+            await axios.post(`${baseURL}/carts/add/${baseUser}/${productID}/${qty}`);
+          } catch (error) {
+            console.error('Error toggling like:', error);
+          }
+    }
+
     return(
         <>
             <Navbar/>
@@ -125,7 +135,7 @@ function product(){
                             <div className="product-page-qty"></div>
                         </div>
                         <div className="product-page-row5">
-                        <Button className="product-page-cart" variant="contained" sx={{ 
+                        <Button className="product-page-cart" variant="contained" onClick={() => handleAddtocart(product[0]?.productID, qty)} sx={{ 
                             borderRadius: 3,
                             height:60,
                             fontSize:20,
