@@ -661,6 +661,18 @@ textarea:focus, input:focus{
     gap: 10px;
 }
 
+.record-pic{
+    color: black;
+    text-decoration: none;
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+}
+
+.record-pic img{
+    width: 100px;
+}
+
 .title-bar-container{
     margin-bottom: 10px;
     padding-top: 10px;

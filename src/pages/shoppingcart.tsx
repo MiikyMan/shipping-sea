@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Footer from "../components/footer";
 import axios from 'axios';
 import { baseUser, baseURL } from '../components/userIDConfig';
+import { Link } from "react-router-dom";
 
 const { confirm } = Modal;
 
@@ -143,20 +144,29 @@ const ShoppingCart = () => {
   
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Product Name',
+      width: '38%',
+      dataIndex: 'productPic',
+      key: 'productPic',
+      render: (_,record) =>(
+          <Link to={`/product/?productID=${record.productID}`} className="record-pic">
+            <img src={record.productPicUrl} />
+            <div className="record-pic-text">{record.name}</div>
+          </Link>
+      ),
     },
     {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
+      width: '17%',
       render: (price) => `$${price.toFixed(2)}`,
     },  
     {
       title: 'Quantity',
       dataIndex: 'qty',
       key: 'qty',
+      width: '25%',
       align: 'center' as const,
       render: (_, record) => (
         <div>
@@ -169,6 +179,7 @@ const ShoppingCart = () => {
     {
       title: 'Action',
       key: 'action',
+      width: '15%',
       align: 'center' as const,
       render: (_, record) => (
         <Tooltip title="Delete">
