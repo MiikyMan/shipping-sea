@@ -79,7 +79,7 @@ const ShoppingCart = () => {
 
   const handleDelete = async (key) => {
     try {
-      await axios.delete(`${baseURL}/carts/${baseUser}/remove/${key}`);
+      await axios.delete(`${baseURL}/carts/${baseUser}/${key}/remove`);
       const newData = dataSource.filter(item => item.key !== key);
       setDataSource(newData);
       const newSelectedRowKeys = selectedRowKeys.filter(selectedKey => selectedKey !== key);
@@ -90,7 +90,13 @@ const ShoppingCart = () => {
     }
   };
 
-  const handleQuantityChange = async (key, increment) => {
+  const handleQuantityChange = async (key: any, increment: boolean) => {
+    const updateQTY = increment ? 1 : -1 ;
+    console.log("user",baseUser);
+    console.log("key",key);
+    console.log("updateQTY",updateQTY);
+    const q = await axios.post(`${baseURL}/carts/${baseUser}/${key}/${updateQTY}`);
+    console.log("q",q);
     const newData = dataSource.map(item =>
       item.key === key ? { ...item, qty: increment ? item.qty + 1 : item.qty - 1 } : item
     );
