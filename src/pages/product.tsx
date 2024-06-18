@@ -2,6 +2,7 @@ import Navbar from "../components/navbar"
 import Products from "../components/products"
 import { Breadcrumb } from 'antd';
 import HeartIcon from "../components/assets/heart.svg"
+import RedHeartIcon from "../components/assets/redheart.svg"
 import Iphone from "../components/mockuppics/iphone.png"
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
@@ -10,6 +11,26 @@ import { Rating } from "@mui/material";
 import Share from "../components/share";
 import Button from '@mui/material/Button';
 import Footer from "../components/footer"
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { baseUser, baseURL } from '../components/userIDConfig';
+
+interface productType {
+    productPicUrl: string;
+    name: string;
+    fullPrice: number;
+    price: number;
+    productID: string;
+    rating: number;
+    stock: number;
+    sales: number;
+    tags: string;
+}
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 const onChange = (key: string) => {
     console.log(key);
@@ -29,6 +50,25 @@ const items: TabsProps['items'] = [
 ];
 
 function product(){
+    const [product, setProduct] = useState<ProductType[]>([]);
+    let query = useQuery();
+    let URLproductID = query.get("productID");
+    console.log("pID",URLproductID)
+
+    useEffect(() => {
+        const fetchProductData = async () => {
+          try {
+            const response = await axios.get(`${baseURL}/products/${URLproductID}`);
+            setProduct(response.data)
+          } catch (error) {
+            console.error("Error fetching cart data: ", error);
+          }
+        };
+    
+        fetchProductData();
+    }, [URLproductID]);
+
+    console.log("hah",product[0]?.productPicUrl);
     return(
         <>
             <Navbar/>
@@ -50,11 +90,11 @@ function product(){
                 <div className="product-container">
                     <div className="product-container-left">
                         <div className="main-pic">
-                            <img src={Iphone}/>
+                            <img src={product[0]?.productPicUrl}/>
                         </div>
                         <div className="sub-pic">
-                            <img src={Iphone}/>
-                            <img src={Iphone}/>
+                            <img src={product[0]?.productPicUrl}/>
+                            <img src={product[0]?.productPicUrl}/>
                         </div>
                     </div>
                     <div className="product-container-right">
@@ -63,16 +103,18 @@ function product(){
                             <Share/>
                         </div>
                         <div className="product-page-row1">
-                            <div className="product-page-name">iPhone 16 Pro Max</div>
-                            <div className="product-page-id">product code: ad342312ouuuo334</div>
+                            <div className="product-page-name">{product[0]?.name}</div>
+                            <div className="product-page-id">Product Code: {product[0]?.productID}</div>
                         </div>
                         <div className="product-page-row2">
-                            <div className="product-page-price">$699.99</div>
-                            <Rating className="rating-star" name="half-rating-read" defaultValue={4.5} precision={0.5} readOnly/>
-                            <div className="rating">4.6</div>
+                            <div className="product-page-price">${product[0]?.price}</div>
+                            <Rating className="rating-star" name="half-rating-read" defaultValue={parseInt(product[0]?.rating)} precision={0.5} readOnly/>
+ 
+                            {/* can't fix :( */}
+                            <div className="rating">{product[0]?.rating}</div>
                         </div>
                         <div className="product-page-row3">
-                            <div className="product-page-option">Hello</div>
+                            <div className="product-page-option">{product[0]?.stock}</div>
                         </div>
                         <div className="product-page-row4">
                             <div className="product-page-qty"></div>
@@ -107,8 +149,8 @@ function product(){
                         Buy now
                         </Button>
                             <div className="product-page-like">
-                                <button className="product-page-like-btn" onClick={(e) => { e.stopPropagation(); toggleLike(i); }}>
-                                    <img src={product.like === 1 ? RedHeartIcon : HeartIcon} alt="Heart Icon" />
+                                <button className="product-page-like-btn" onClick={(e) => { e.stopPropagation();}}>
+                                    <img src={product[0]?.like === 1 ? RedHeartIcon : HeartIcon} alt="Heart Icon" />
                                 </button>
                                 1.2M
                             </div>

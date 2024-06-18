@@ -161,7 +161,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName }) => {
               onMouseEnter={() => setHoveredProduct(i)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
-              <Link to={`/product/?productName=${product.productID}`} className="product-link">
+              <Link to={`/product/?productID=${product.productID}`} className="product-link">
                 {calculateDiscountPercentage(product.price, product.fullPrice) !== "0" && (
                   <div className="product-discount">
                     -{calculateDiscountPercentage(product.price, product.fullPrice)}%
