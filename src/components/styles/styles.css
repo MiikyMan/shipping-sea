@@ -220,6 +220,7 @@ textarea:focus, input:focus{
 }
 
 .products-container{
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -252,6 +253,7 @@ textarea:focus, input:focus{
 }
 
 .all-products {
+    width: 100%;
     justify-content: flex-start; 
     display: flex;
     flex-wrap: wrap;

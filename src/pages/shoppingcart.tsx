@@ -147,10 +147,18 @@ const ShoppingCart = () => {
       <div className="title-bar-container">
         <div className="title-bar-content">
           <div className="bread-nav">
-            <Breadcrumb separator=">">
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>Shopping Cart</Breadcrumb.Item>
-            </Breadcrumb>
+            <Breadcrumb
+                        separator=">"
+                        items={[
+                        {
+                            title: 'Home',
+                            href: '/home',
+                        },
+                        {
+                            title: 'Shopping Cart',
+                        },
+                        ]}
+            />
           </div>
           <div className="page-title-bar">
             <div className="page-title">Shopping Cart</div>

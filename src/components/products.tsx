@@ -133,7 +133,9 @@ const Products: React.FC<ProductsProps> = ({ categoryName }) => {
   return (
     <div className="products-container">
       <div className="products-title-bar">
-        <div className="products-title">Suggestion</div>
+        <div className="products-title">
+          {categoryName ? categoryName :'suggestion' }
+        </div>
         <div className="products-filter">
           <Dropdown overlay={menu} placement="bottomLeft">
             <Button>
@@ -162,7 +164,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName }) => {
               onMouseEnter={() => setHoveredProduct(i)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
-              <Link to={`/product/${product.productID}`} className="product-link">
+              <Link to={`/product/?productName=${product.productID}`} className="product-link">
                 {calculateDiscountPercentage(product.price, product.fullPrice) !== "0" && (
                   <div className="product-discount">
                     -{calculateDiscountPercentage(product.price, product.fullPrice)}%
