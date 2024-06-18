@@ -47,6 +47,23 @@ body {
     background-color: #4798CC;
   }
 
+.custom-modal .ant-modal-content {
+    background-color: #f0f0f0; /* Customize modal background */
+  }
+  
+  .custom-modal .ant-modal-header {
+    background-color: #c24b47; /* Customize modal header background */
+    color: white; /* Customize modal header text color */
+  }
+  
+  .custom-modal .ant-modal-title {
+    color: white; /* Customize modal title text color */
+  }
+  
+  .custom-modal .ant-modal-footer {
+    border-top: none; /* Remove the footer border */
+  }
+  
 li{
     list-style-type: none;
 }

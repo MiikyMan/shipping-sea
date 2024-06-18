@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/navbar";
 import Products from "../components/products";
-import { Breadcrumb, Table } from 'antd';
+import { Breadcrumb, Modal, Table } from 'antd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import Footer from "../components/footer";
 import axios from 'axios';
 import { baseUser, baseURL } from '../components/userIDConfig';
+
+const { confirm } = Modal;
 
 const ShoppingCart = () => {
   const [dataSource, setDataSource] = useState([]);
@@ -88,6 +90,43 @@ const ShoppingCart = () => {
     }
   };
 
+  const showDeleteConfirm = (key) => {
+    confirm({
+      title: 'Are you sure you want to delete this item?',
+      content: 'This action cannot be undone.',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        handleDelete(key);
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+      okButtonProps: {
+        style: {
+          backgroundColor: 'red',
+          borderColor: 'red',
+          color: 'white'
+        },
+        onMouseEnter: (e) => {
+          e.target.style.backgroundColor = '#ff4d4d';
+          e.target.style.borderColor = '#ff4d4d';
+        },
+        onMouseLeave: (e) => {
+          e.target.style.backgroundColor = 'red';
+          e.target.style.borderColor = 'red';
+        }
+      },
+      cancelButtonProps: {
+        style: {
+          color: 'black'
+        }
+      },
+      className: 'custom-modal' // Add a custom class name if needed
+    });
+  };
+
   const handleQuantityChange = async (key: any, increment: boolean) => {
     const updateQTY = increment ? 1 : -1 ;
     console.log("user",baseUser);
@@ -118,6 +157,7 @@ const ShoppingCart = () => {
       title: 'Quantity',
       dataIndex: 'qty',
       key: 'qty',
+      align: 'center' as const,
       render: (_, record) => (
         <div>
           <Button onClick={() => handleQuantityChange(record.key, false)} disabled={record.qty <= 1}>-</Button>
@@ -129,9 +169,10 @@ const ShoppingCart = () => {
     {
       title: 'Action',
       key: 'action',
+      align: 'center' as const,
       render: (_, record) => (
         <Tooltip title="Delete">
-          <Button onClick={() => handleDelete(record.key)}>
+          <Button onClick={() => showDeleteConfirm(record.key)}>
             <DeleteIcon />
           </Button>
         </Tooltip>
