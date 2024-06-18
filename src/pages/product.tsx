@@ -65,7 +65,10 @@ function product(){
           }
         };
     
-        fetchProductData();
+        if (URLproductID) {
+            fetchProductData();
+            window.scrollTo(0, 0);
+        }
     }, [URLproductID]);
 
     console.log("hah",product[0]?.productPicUrl);
