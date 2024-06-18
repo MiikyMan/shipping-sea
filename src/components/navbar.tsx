@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import { useAuth } from '../context/authContext';
 import { SupervisedUserCircleRounded } from "@mui/icons-material";
 import { baseUser, baseURL } from './userIDConfig';
+import { motion } from "framer-motion"
 
 
 
@@ -83,6 +84,7 @@ function Navbar() {
                     </form>
                     <button className="navbar-cart">
                         <Link to="/shoppingcart">
+                            
                             <IconButton aria-label="cart">
                                 <StyledBadge badgeContent={2} color="error">
                                     <img src={CartIcon} className="navbar-cart-svg" alt="Cart" />
@@ -90,6 +92,9 @@ function Navbar() {
                             </IconButton>
                         </Link>
                     </button>
+                    <div className="example-container">
+                    <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }} />
+                    </div>
                     { userLoggedIn ?
                     <>
                         <Link to="/profile" >

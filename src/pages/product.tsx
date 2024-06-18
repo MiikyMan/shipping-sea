@@ -72,6 +72,8 @@ function product(){
     }, [URLproductID]);
 
     console.log("hah",product[0]?.productPicUrl);
+    console.log("rating",(product[0]?.rating));
+    const value = 3.5;
     return(
         <>
             <Navbar/>
@@ -111,7 +113,7 @@ function product(){
                         </div>
                         <div className="product-page-row2">
                             <div className="product-page-price">${product[0]?.price}</div>
-                            <Rating className="rating-star" name="half-rating-read" defaultValue={parseInt(product[0]?.rating)} precision={0.5} readOnly/>
+                            <Rating className="rating-star" name="half-rating-read" defaultValue={value} precision={0.5} readOnly/>
  
                             {/* can't fix :( */}
                             <div className="rating">{product[0]?.rating}</div>
