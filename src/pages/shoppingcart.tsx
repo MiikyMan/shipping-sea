@@ -7,9 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import Footer from "../components/footer";
 import axios from 'axios';
-import { baseUser } from '../components/userIDConfig';
-
-const baseURL = 'http://localhost:6967';
+import { baseUser, baseURL } from '../components/userIDConfig';
 
 const ShoppingCart = () => {
   const [dataSource, setDataSource] = useState([]);

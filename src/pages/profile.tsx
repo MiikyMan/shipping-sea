@@ -23,7 +23,7 @@ import ProductDetails from "../components/productDetails";
 import { doSignOut } from '../firebase/auth';
 import { useAuth } from '../context/authContext';
 import Amplify, { Storage } from '@aws-amplify/core';
-import { baseUser } from '../components/userIDConfig';
+import { baseUser, baseURL } from '../components/userIDConfig';
 
 const onChange = (key: string) => {
   console.log(key);
@@ -43,7 +43,7 @@ const items: TabsProps['items'] = [
 ];
 
 async function getData() {
-  const res = await fetch(`http://localhost:6967/users/${baseUser}`);
+  const res = await fetch(`${baseURL}/users/${baseUser}`);
   return res.json();
 }
 

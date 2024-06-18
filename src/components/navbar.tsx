@@ -10,12 +10,12 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import { useAuth } from '../context/authContext';
 import { SupervisedUserCircleRounded } from "@mui/icons-material";
-import { baseUser } from './userIDConfig';
+import { baseUser, baseURL } from './userIDConfig';
 
 
 
 async function getData() {
-    const res = await fetch(`http://localhost:6967/users/${baseUser}`);
+    const res = await fetch(`${baseURL}/users/${baseUser}`);
     return res.json();
   }
   

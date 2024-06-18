@@ -8,7 +8,7 @@ import Rating from '@mui/material/Rating';
 import axios from 'axios';
 import Skeleton from '@mui/material/Skeleton';
 import { useAuth } from '../context/authContext';
-import { baseUser } from './userIDConfig';
+import { baseUser, baseURL } from './userIDConfig';
 
 interface Product {
   productID: string;
@@ -25,9 +25,6 @@ interface Favourite {
   fID: string; // Should match the type of productID (string in this case)
   favouriteID: string;
 }
-
-
-const baseURL = 'http://localhost:6967'; // Replace with your actual backend URL
 
 interface ProductsProps {
   categoryName: string;
