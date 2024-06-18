@@ -13,6 +13,7 @@ import { SupervisedUserCircleRounded } from "@mui/icons-material";
 import { baseUser } from './userIDConfig';
 
 
+
 async function getData() {
     const res = await fetch(`http://localhost:6967/users/${baseUser}`);
     return res.json();
