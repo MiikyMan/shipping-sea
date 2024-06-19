@@ -14,6 +14,7 @@ const { confirm } = Modal;
 
 const ShoppingCart = () => {
   const [dataSource, setDataSource] = useState([]);
+  console.log("🚀 ~ ShoppingCart ~ dataSource:", dataSource)
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const [fullPrice, setFullPrice] = useState(0);
@@ -45,11 +46,11 @@ const ShoppingCart = () => {
   const calculateTotals = (selectedKeys, data) => {
     const selectedRows = data.filter(item => selectedKeys.includes(item.key));
     const totalSelectedPrice = selectedRows.reduce((total, row) => total + (row.price * row.qty), 0);
-    const totalSelectedFullPrice = selectedRows.reduce((total, row) => total + (row.fullprice * row.qty), 0);
+    const totalSelectedFullPrice = selectedRows.reduce((total, row) => total + (row.fullPrice * row.qty), 0);
     const totalVat = totalSelectedPrice * 0.07;
     const totalFee = totalSelectedPrice * 0.05;
     const totalDiscount = selectedRows.reduce((total, row) => {
-      const priceDifference = row.fullprice - row.price;
+      const priceDifference = row.fullPrice - row.price;
       return total + (priceDifference * row.qty);
     }, 0);
 
@@ -59,14 +60,14 @@ const ShoppingCart = () => {
     setFee(totalFee);
     setDiscount(totalDiscount);
     setTotal(totalSelectedPrice + totalVat + totalFee);
-    console.log('totalSelectedPrice', totalSelectedPrice)
-    console.log('fullprice', fullPrice)
-    console.log('subtotal',subTotal)
-    console.log('total',total)
-    console.log('discount',discount)
-    console.log('totalVat',totalVat)
-    console.log('totalFee',totalFee)
-    console.log('totalSelectedFullPrice',totalSelectedFullPrice)
+    // console.log('totalSelectedPrice', totalSelectedPrice)
+    // console.log('fullprice', fullPrice)
+    // console.log('subtotal',subTotal)
+    // console.log('total',total)
+    // console.log('discount',discount)
+    // console.log('totalVat',totalVat)
+    // console.log('totalFee',totalFee)
+    // console.log('totalSelectedFullPrice',totalSelectedFullPrice)
 
   };
 
@@ -148,6 +149,7 @@ const ShoppingCart = () => {
       width: '38%',
       dataIndex: 'productPic',
       key: 'productPic',
+      align: 'center' as const,
       render: (_,record) =>(
           <Link to={`/product/?productID=${record.productID}`} className="record-pic">
             <img src={record.productPicUrl} />
@@ -160,18 +162,19 @@ const ShoppingCart = () => {
       dataIndex: 'price',
       key: 'price',
       width: '17%',
+      align: 'center' as const,
       render: (_,record) => `$${record.price.toFixed(2)}`,
     },  
     {
       title: 'Quantity',
-      dataIndex: 'total_qty',
-      key: 'total_qty',
+      dataIndex: 'qty',
+      key: 'qty',
       width: '25%',
       align: 'center' as const,
       render: (_, record) => (
         <div>
           <Button onClick={() => handleQuantityChange(record.key, false)} disabled={record.qty <= 1}>-</Button>
-          <span style={{ margin: '0 8px' }}>{record.total_qty}</span>
+          <span style={{ margin: '0 8px' }}>{record.qty}</span>
           <Button onClick={() => handleQuantityChange(record.key, true)}>+</Button>
         </div>
       ),
@@ -182,8 +185,8 @@ const ShoppingCart = () => {
       width: '15%',
       align: 'center' as const,
       render: (_, record) => (
-        <Tooltip title="Delete">
-          <Button onClick={() => showDeleteConfirm(record.key)}>
+        <Tooltip title="Remove" placement="right">
+          <Button className="delete-icon-wrapper" onClick={() => showDeleteConfirm(record.key)}>
             <DeleteIcon />
           </Button>
         </Tooltip>
@@ -236,7 +239,7 @@ const ShoppingCart = () => {
               <div className="check-out-list">
                 <div className="sub-check-out-list">
                   <div className="listname">Sub total</div>
-                  <div className="listvalue">${subTotal.toFixed(2)}</div>
+                  <div className="listvalue">${fullPrice.toFixed(2)}</div>
                 </div>
                 <div className="sub-check-out-list">
                   <div className="listname">Vat</div>
@@ -258,7 +261,18 @@ const ShoppingCart = () => {
                 <div className="total-listvalue">${total.toFixed(2)}</div>
               </div>
               <div className="place-order">
-                <Button className="check-out-btn" variant="contained">
+              <Button className="check-out-btn" variant="contained" sx={{
+                  borderRadius: 3,
+                  height: 60,
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  bgcolor: '#5AB2FF',
+                  ':hover': {
+                    bgcolor: '#4798CC',
+                    color: 'white',
+                  },
+                }}
+                >
                   Check out
                 </Button>
               </div>

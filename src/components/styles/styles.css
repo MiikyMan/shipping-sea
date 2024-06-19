@@ -192,7 +192,6 @@ textarea:focus, input:focus{
     color: white;
 }
 
-
 .page-one{
     border: none;
     height: 15px;
@@ -771,10 +770,11 @@ textarea:focus, input:focus{
     background-color: #0f8fff;
 }
 
-.delete-icon-wrapper {
+.delete-icon-wrapper svg{
     display: inline-flex;
     align-items: center;
     cursor: pointer;
+    color: #5ab2ff;
   }
   
   .delete-icon-wrapper:hover svg {
@@ -1066,4 +1066,8 @@ textarea:focus, input:focus{
 
 .rank-god {
     background-color: #ff4c4c;
+}
+
+.record-pic-text {
+    margin-left: 40px;
 }
