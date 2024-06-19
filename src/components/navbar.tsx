@@ -27,6 +27,7 @@ async function getData() {
     role: string,
     profilePicUrl: string,
     rank: number,
+    total_productID: number,
   }
 
 function Navbar() {
@@ -55,7 +56,6 @@ function Navbar() {
           padding: '0 4px',
         },
       }));
-
     return (
         <div className="navbar-container">
             <div className="navbar-content">
@@ -86,7 +86,7 @@ function Navbar() {
                         <Link to="/shoppingcart">
                             
                             <IconButton aria-label="cart">
-                                <StyledBadge badgeContent={2} color="error">
+                                <StyledBadge badgeContent={data?.total_productID} color="error">
                                     <img src={CartIcon} className="navbar-cart-svg" alt="Cart" />
                                 </StyledBadge>
                             </IconButton>
