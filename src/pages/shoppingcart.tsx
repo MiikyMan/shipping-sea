@@ -29,7 +29,7 @@ const ShoppingCart = () => {
         const response = await axios.get(`${baseURL}/carts/${baseUser}`);
         const cartitems = response.data;
         const combinedData = cartitems.map(data => ({
-          key: data.cartID,
+          key: data.productID,
           ...data
         }));
         
@@ -44,15 +44,15 @@ const ShoppingCart = () => {
   }, [selectedRowKeys]);
 
   const calculateTotals = (selectedKeys, data) => {
-    const selectedRows = data.filter(item => selectedKeys.includes(item.key));
+    const selectedRows = data.filter(item => selectedKeys.includes(item.productID));
     const totalSelectedPrice = selectedRows.reduce((total, row) => total + (row.price * row.qty), 0);
     const totalSelectedFullPrice = selectedRows.reduce((total, row) => total + (row.fullPrice * row.qty), 0);
     const totalVat = totalSelectedPrice * 0.07;
-    const totalFee = totalSelectedPrice *
-    // const totalDiscount = selectedRows.reduce((total, row) => {
-    //   const priceDifference = row.fullPrice - row.price;
-    //   return total + (priceDifference * row.qty);
-    // }, 0);
+    const totalFee = totalSelectedPrice * 0.01;
+    const totalDiscount = selectedRows.reduce((total, row) => {
+      const priceDifference = row.fullPrice - row.price;
+      return total + (priceDifference * row.qty);
+    }, 0);
 
     setSubTotal(totalSelectedPrice);
     setFullPrice(totalSelectedFullPrice);
@@ -60,13 +60,13 @@ const ShoppingCart = () => {
     setFee(totalFee);
     setDiscount(totalDiscount);
     setTotal(totalSelectedPrice + totalVat + totalFee);
-    // console.log('totalSelectedPrice', totalSelectedPrice)
+    console.log('totalSelectedPrice', totalSelectedPrice)
     // console.log('fullprice', fullPrice)
     // console.log('subtotal',subTotal)
     // console.log('total',total)
     // console.log('discount',discount)
-    // console.log('totalVat',totalVat)
-    // console.log('totalFee',totalFee)
+    console.log('totalVat',totalVat)
+    console.log('totalFee',totalFee)
     // console.log('totalSelectedFullPrice',totalSelectedFullPrice)
 
   };
