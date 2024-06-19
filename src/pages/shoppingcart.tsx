@@ -48,11 +48,11 @@ const ShoppingCart = () => {
     const totalSelectedPrice = selectedRows.reduce((total, row) => total + (row.price * row.qty), 0);
     const totalSelectedFullPrice = selectedRows.reduce((total, row) => total + (row.fullPrice * row.qty), 0);
     const totalVat = totalSelectedPrice * 0.07;
-    const totalFee = totalSelectedPrice * 0.05;
-    const totalDiscount = selectedRows.reduce((total, row) => {
-      const priceDifference = row.fullPrice - row.price;
-      return total + (priceDifference * row.qty);
-    }, 0);
+    const totalFee = totalSelectedPrice *
+    // const totalDiscount = selectedRows.reduce((total, row) => {
+    //   const priceDifference = row.fullPrice - row.price;
+    //   return total + (priceDifference * row.qty);
+    // }, 0);
 
     setSubTotal(totalSelectedPrice);
     setFullPrice(totalSelectedFullPrice);
@@ -136,8 +136,9 @@ const ShoppingCart = () => {
     console.log("updateQTY",updateQTY);
     const q = await axios.post(`${baseURL}/carts/${baseUser}/${key}/${updateQTY}`);
     console.log("q",q);
+    
     const newData = dataSource.map(item =>
-      item.key === key ? { ...item, qty: increment ? item.qty + 1 : item.qty - 1 } : item
+      item.productID === key ? { ...item, qty: increment ? item.qty + 1 : item.qty - 1 } : item
     );
     setDataSource(newData);
     calculateTotals(selectedRowKeys, newData);
@@ -167,15 +168,15 @@ const ShoppingCart = () => {
     },  
     {
       title: 'Quantity',
-      dataIndex: 'total_qty',
-      key: 'total_qty',
+      dataIndex: 'qty',
+      key: 'qty',
       width: '25%',
       align: 'center' as const,
       render: (_, record) => (
         <div>
-          <Button onClick={() => handleQuantityChange(record.key, false)} disabled={record.qty <= 1}>-</Button>
-          <span style={{ margin: '0 8px' }}>{record.total_qty}</span>
-          <Button onClick={() => handleQuantityChange(record.key, true)}>+</Button>
+          <Button onClick={() => handleQuantityChange(record.productID, false)} disabled={record.qty <= 1}>-</Button>
+          <span style={{ margin: '0 8px' }}>{record.qty}</span>
+          <Button onClick={() => handleQuantityChange(record.productID, true)}>+</Button>
         </div>
       ),
     },
