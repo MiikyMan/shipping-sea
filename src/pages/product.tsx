@@ -54,7 +54,18 @@ function product(){
     let query = useQuery();
     let URLproductID = query.get("productID");
     const [qty, setQty] = useState(1);
-    console.log("pID",URLproductID)
+    console.log("🚀 ~ product ~ qty:", qty)
+
+    const handleIncrement = () => {
+        setQty(qty + 1);
+      };
+
+      const handleDecrement = () => {
+        setQty(qty - 1);
+      };
+
+    
+    // console.log("pID",URLproductID)
 
     useEffect(() => {
         const fetchProductData = async () => {
@@ -72,9 +83,9 @@ function product(){
         }
     }, [URLproductID]);
 
-    console.log("hah",product[0]?.productPicUrl);
-    console.log("rating",(product[0]?.rating));
-    const value:number = product[0]?.rating+0; //idk y but its work😭
+    // console.log("hah",product[0]?.productPicUrl);
+    // console.log("rating",(product[0]?.rating));
+    const value:number = product[0]?.rating+0; //idk y but it works😭
 
     const handleAddtocart = async(productID: any, qty: number) =>{
         try {
@@ -129,10 +140,19 @@ function product(){
                             <div className="rating">{value}</div>
                         </div>
                         <div className="product-page-row3">
-                            <div className="product-page-option">{product[0]?.stock}</div>
+                            {/* <div className="product-page-option">{product[0]?.stock}</div> */}
                         </div>
                         <div className="product-page-row4">
                             <div className="product-page-qty"></div>
+                        </div>
+                        <div className="product-qty">
+                            <div>Quantity</div>
+                            <div className="product-qty-btn">
+                            <Button className="product-qty-decrement-btn"onClick={handleDecrement} disabled={qty <= 1} variant="outlined" sx={{borderRadius:'10px 0px 0px 10px',height:'34px'}}>-</Button>
+                            <div className="product-qty-text">{qty}</div>
+                            <Button onClick={handleIncrement} variant="outlined" sx={{borderRadius:'0px 10px 10px 0px',height:'34px'}}>+</Button>
+                            </div>
+                            <div>{product[0]?.stock} pieces available</div>
                         </div>
                         <div className="product-page-row5">
                         <Button className="product-page-cart" variant="contained" onClick={() => handleAddtocart(product[0]?.productID, qty)} sx={{ 
