@@ -50,7 +50,7 @@ const items: TabsProps['items'] = [
 ];
 
 function product(){
-    const [product, setProduct] = useState<ProductType[]>([]);
+    const [product, setProduct] = useState<productType[]>([]);
     let query = useQuery();
     let URLproductID = query.get("productID");
     const [qty, setQty] = useState(1);
@@ -74,7 +74,7 @@ function product(){
 
     console.log("hah",product[0]?.productPicUrl);
     console.log("rating",(product[0]?.rating));
-    const value = 3.5;
+    const value:number = product[0]?.rating+0; //idk y but its work😭
 
     const handleAddtocart = async(productID: any, qty: number) =>{
         try {
@@ -123,10 +123,10 @@ function product(){
                         </div>
                         <div className="product-page-row2">
                             <div className="product-page-price">${product[0]?.price}</div>
-                            <Rating className="rating-star" name="half-rating-read" defaultValue={value} precision={0.5} readOnly/>
+                            <Rating className="rating-star" name="half-rating-read" value={value} precision={0.5} readOnly/>
  
                             {/* can't fix :( */}
-                            <div className="rating">{product[0]?.rating}</div>
+                            <div className="rating">{value}</div>
                         </div>
                         <div className="product-page-row3">
                             <div className="product-page-option">{product[0]?.stock}</div>
