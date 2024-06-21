@@ -4,7 +4,6 @@ import SearchIcon from "./assets/search.svg";
 import CartIcon from "./assets/cart.svg";
 import Logo from "./mockuppics/ShippingSeaLogo.png";
 import { Link } from 'react-router-dom'
-import Badge, { BadgeProps } from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
@@ -12,7 +11,7 @@ import { useAuth } from '../context/authContext';
 import { SupervisedUserCircleRounded } from "@mui/icons-material";
 import { baseUser, baseURL } from './userIDConfig';
 import { motion } from "framer-motion"
-
+import { Badge } from 'antd';
 
 
 async function getData() {
@@ -43,19 +42,8 @@ function Navbar() {
           }
         };
         fetchData();
-      }, []);
+      }, [data]);
 
-    
-    // console.log("Photo URL:", photoURL);
-
-    const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-        '& .MuiBadge-badge': {
-          right: -3,
-          top: 13,
-          border: `2px solid ${theme.palette.background.paper}`,
-          padding: '0 4px',
-        },
-      }));
     return (
         <div className="navbar-container">
             <div className="navbar-content">
@@ -83,46 +71,42 @@ function Navbar() {
                         </button>
                     </form>
                     <button className="navbar-cart">
-                        <Link to="/shoppingcart">
-                            
-                            <IconButton aria-label="cart">
-                                <StyledBadge badgeContent={data?.total_productID} color="error">
-                                    <img src={CartIcon} className="navbar-cart-svg" alt="Cart" />
-                                </StyledBadge>
-                            </IconButton>
+                        <Link to="/shoppingcart" className="navbar-cart-icon">
+                                <img src={CartIcon} className="navbar-cart-svg" alt="Cart" />
+                                <Badge count={data?.total_productID} overflowCount={99} offset={[10, 0]} className="cart-badge" />
                         </Link>
                     </button>
                     <div className="example-container">
-                    <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }} />
-                    </div>
-                    { userLoggedIn ?
-                    <>
-                        <Link to="/profile" >
-                        <button className="navbar-login-user">
-                                <img src={ data?.profilePicUrl || photoURL } alt={data?.name} className="navbar-user-photo"/>
-                        </button>
-                        </Link>
-                    </>
-                    :
-                    <>
-                        <Link to="/signin" >
-                            <Button className="navbar-login" variant="contained" sx={{ 
-                                borderRadius: 3,
-                                fontSize:16,
-                                fontWeight: 'bold',
-                                bgcolor:'#5AB2FF',
-                                ':hover': {
-                                    bgcolor: '#4798CC',
-                                    color: 'white',
-                                    },
+                        <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }} />
+                        </div>
+                        { userLoggedIn ?
+                        <>
+                            <Link to="/profile" >
+                            <button className="navbar-login-user">
+                                    <img src={ data?.profilePicUrl || photoURL } alt={data?.name} className="navbar-user-photo"/>
+                            </button>
+                            </Link>
+                        </>
+                        :
+                        <>
+                            <Link to="/signin" >
+                                <Button className="navbar-login" variant="contained" sx={{ 
+                                    borderRadius: 3,
+                                    fontSize:16,
+                                    fontWeight: 'bold',
+                                    bgcolor:'#5AB2FF',
+                                    ':hover': {
+                                        bgcolor: '#4798CC',
+                                        color: 'white',
+                                        },
+                                    }
                                 }
-                            }
-                            >
-                            Login
-                            </Button>
-                        </Link>
-                    </>
-                    }
+                                >
+                                Login
+                                </Button>
+                            </Link>
+                        </>
+                        }
                     
                 </div>
             </div>

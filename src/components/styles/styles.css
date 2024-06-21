@@ -156,12 +156,20 @@ textarea:focus, input:focus{
 }
 
 .navbar-cart{
+    position: relative;
     border: none;
     background-color: rgba(0, 0, 0, 0);
 }
 
 .navbar-cart-svg{
     width: 35px;
+}
+
+.cart-badge{
+    scale: 1.3;
+    position: absolute;
+    left: 23px;
+    top: -4px;
 }
 
 .listdiscount{
