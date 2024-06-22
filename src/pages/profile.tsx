@@ -178,7 +178,7 @@ function Profile() {
               </div>
               <div className="profile-edit">
                 <img src={Edit} className="profile-edit-pen" />
-                <div className="profile-edit-text">
+                <div onClick={() => handleClick(1)} className={sidenavState === 1 ? `active` : ``} >
                   &nbsp;Edit Profile
                 </div>
               </div>
