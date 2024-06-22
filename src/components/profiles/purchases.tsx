@@ -2,63 +2,7 @@ import React, { useState } from "react";
 import { Tabs } from 'antd'; // Importing Tabs component from antd
 import './profile.scss'
 
-const initDetails = [
-    { title: "Page", detail: "Purchases" },
-];
-
-function PurchasesAll() {
-    const [details, setDetails] = useState(initDetails);
-    return (
-        <>
-            {
-                details.map((detail) => (
-                    <div className="profile-purchases-component">
-                        <div className="product-details-component-title">{detail.title}</div>
-                        <div className="product-details-component-detail">{detail.detail}</div>
-                    </div>
-                ))
-            }
-        </>
-    );
-}
-
-const items = [
-    {
-        key: '1',
-        label: 'All',
-        children: <PurchasesAll />,
-    },
-    {
-        key: '2',
-        label: 'To Pay',
-        children: '',
-    },
-    {
-        key: '3',
-        label: 'To Ship',
-        children: '',
-    },
-    {
-        key: '4',
-        label: 'To Receive',
-        children: '',
-    },
-    {
-        key: '5',
-        label: 'Completed',
-        children: '',
-    },
-    {
-        key: '6',
-        label: 'Cancelled',
-        children: '',
-    },
-    {
-        key: '7',
-        label: 'Return/Refund',
-        children: '',
-    },
-];
+const { TabPane } = Tabs;
 
 function Purchases() {
     const onChange = (key) => {
@@ -66,11 +10,29 @@ function Purchases() {
     };
 
     return (
-        <Tabs
-            defaultActiveKey="1"
-            items={items}
-            onChange={onChange}
-        />
+        <Tabs defaultActiveKey="1" onChange={onChange}>
+            <TabPane tab='All' key='1'>
+                test 1
+            </TabPane>
+            <TabPane tab='To Pay' key='2'>
+                test 2
+            </TabPane>
+            <TabPane tab='To Ship' key='3'>
+                test 3
+            </TabPane>
+            <TabPane tab='To Receive' key='4'>
+                test 4
+            </TabPane>
+            <TabPane tab='Completed' key='5'>
+                test 5
+            </TabPane>
+            <TabPane tab='Cancelled' key='6'>
+                test 6
+            </TabPane>
+            <TabPane tab='Return/Refund' key='7'>
+                test 7
+            </TabPane>
+        </Tabs>
     );
 }
 

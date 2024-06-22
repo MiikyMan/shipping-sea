@@ -1073,6 +1073,8 @@ textarea:focus, input:focus{
     padding: 15px;
     display: flex;
     justify-content: flex-start;
+    /* width: 1072px; */
+    /* background: #000; */
 }
   
 .rank-silver {

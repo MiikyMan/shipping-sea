@@ -2,63 +2,7 @@ import React, { useState } from "react";
 import { Tabs } from 'antd'; // Importing Tabs component from antd
 import './profile.scss'
 
-const initDetails = [
-    { title: "Page", detail: "Profile Detail" },
-];
-
-function ProfileDetailAll() {
-    const [details, setDetails] = useState(initDetails);
-    return (
-        <>
-            {
-                details.map((detail) => (
-                    <div className="profile-purchases-component">
-                        <div className="product-details-component-title">{detail.title}</div>
-                        <div className="product-details-component-detail">{detail.detail}</div>
-                    </div>
-                ))
-            }
-        </>
-    );
-}
-
-const items = [
-    {
-        key: '1',
-        label: 'All',
-        children: <ProfileDetailAll />,
-    },
-    {
-        key: '2',
-        label: 'To Pay',
-        children: '',
-    },
-    {
-        key: '3',
-        label: 'To Ship',
-        children: '',
-    },
-    {
-        key: '4',
-        label: 'To Receive',
-        children: '',
-    },
-    {
-        key: '5',
-        label: 'Completed',
-        children: '',
-    },
-    {
-        key: '6',
-        label: 'Cancelled',
-        children: '',
-    },
-    {
-        key: '7',
-        label: 'Return/Refund',
-        children: '',
-    },
-];
+const { TabPane } = Tabs;
 
 function ProfileDetail() {
     const onChange = (key) => {
@@ -66,11 +10,17 @@ function ProfileDetail() {
     };
 
     return (
-        <Tabs
-            defaultActiveKey="1"
-            items={items}
-            onChange={onChange}
-        />
+        <Tabs defaultActiveKey="1" onChange={onChange}>
+            <TabPane tab='Tab 1' key='1'>
+                test 1
+            </TabPane>
+            <TabPane tab='Tab 2' key='2'>
+                test 2
+            </TabPane>
+            <TabPane tab='Tab 3' key='3'>
+                test 3
+            </TabPane>
+        </Tabs>
     );
 }
 
