@@ -662,15 +662,6 @@ textarea:focus, input:focus{
     background-color: #0e65b1;
 }
 
-.product-page-detail-container{
-    width: 100%;
-    padding: 10px 20px 10px 20px;
-    background-color: white;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
 .product-details-component{
     display: flex;
 }
@@ -1107,3 +1098,4 @@ textarea:focus, input:focus{
 .record-pic-text {
     margin-left: 40px;
 }
+

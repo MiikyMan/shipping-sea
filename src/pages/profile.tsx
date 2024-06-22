@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
-import { Breadcrumb, Tabs } from 'antd';
-import type { TabsProps } from 'antd';
+import { Breadcrumb } from 'antd';
 import Footer from "../components/footer";
 import Camera from "../components/assets/camera.svg";
 import SilverRank from "../components/assets/crown-silver.svg";
@@ -19,28 +18,13 @@ import ClockIcon from "../components/assets/clock.svg";
 import LogoutIcon from "../components/assets/logout.svg";
 import Edit from "../components/assets/edit.svg";
 import UserIcon from "../components/assets/user.svg";
-import ProductDetails from "../components/productDetails";
 import { doSignOut } from '../firebase/auth';
 import { useAuth } from '../context/authContext';
-import Amplify, { Storage } from '@aws-amplify/core';
 import { baseUser, baseURL } from '../components/userIDConfig';
-
-const onChange = (key: string) => {
-  console.log(key);
-};
-
-const items: TabsProps['items'] = [
-  {
-    key: '1',
-    label: 'Product details',
-    children: <ProductDetails />,
-  },
-  {
-    key: '2',
-    label: 'Rating and Reviews',
-    children: '',
-  },
-];
+import Purchases from '../components/profiles/purchases';
+import ProfileDetail from '../components/profiles/profileDetail';
+import Favorites from '../components/profiles/favorites';
+import Vouchers from '../components/profiles/vouchers';
 
 async function getData() {
   const res = await fetch(`${baseURL}/users/${baseUser}`);
@@ -57,12 +41,9 @@ interface usersType {
 }
 
 function Profile() {
-
   const [data, setData] = useState<usersType | null>(null);
   const { userLoggedIn, displayName, photoURL } = useAuth();
-
   const [sidenavState, setSidenavState] = useState<number>(1);
-  const [formVisible, setFormVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleClick = (index: number) => {
@@ -140,6 +121,21 @@ function Profile() {
     }
   };
 
+  const renderContent = () => {
+    switch (sidenavState) {
+      case 1:
+        return <ProfileDetail />;
+      case 2:
+        return <Purchases />;
+      case 3:
+        return <Favorites />;
+      case 4:
+        return <Vouchers />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -168,14 +164,9 @@ function Profile() {
         <div className="profile-bar">
           <div className="profile-bar-left">
             <div className="profile-bar-avatar">
-              {/* {photoURL ? (
-                <img src={photoURL} alt={displayName} className="profile-user-photo" />
-              ) : (
-                <img src={UserIcon} alt="User" className="profile-user-photo-empty" />
-              )} */}
-              <img src={data?.profilePicUrl || photoURL } alt={data?.name} className="profile-user-photo"/>
+              <img src={data?.profilePicUrl || photoURL} alt={data?.name} className="profile-user-photo" />
               <label htmlFor="file-input" className="profile-camera">
-                <img src={Camera}/>
+                <img src={Camera} />
               </label>
               <input id="file-input" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleProfilePhotoChange} />
             </div>
@@ -190,9 +181,9 @@ function Profile() {
                 <img src={Next} alt="next" className="profile-rank-next" />
               </div>
               <div className="profile-edit">
-                <img src={Edit} className="profile-edit-pen"/>
+                <img src={Edit} className="profile-edit-pen" />
                 <div className="profile-edit-text">
-                 &nbsp;Edit Profile
+                  &nbsp;Edit Profile
                 </div>
               </div>
             </div>
@@ -242,13 +233,7 @@ function Profile() {
           </div>
           <div className="profile-content">
             <div className="profile-content-navbar">
-              <div className="product-page-detail-container">
-                <Tabs
-                  defaultActiveKey="1"
-                  items={items}
-                  onChange={onChange}
-                />
-              </div>
+              {renderContent()}
             </div>
           </div>
         </div>
