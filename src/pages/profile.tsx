@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
 import { Breadcrumb } from 'antd';
 import Footer from "../components/footer";
-import Camera from "../components/assets/camera.svg";
 import SilverRank from "../components/assets/crown-silver.svg";
 import GoldRank from "../components/assets/crown-gold.svg";
 import PlatinumRank from "../components/assets/crown-platinum.svg";
@@ -165,9 +164,6 @@ function Profile() {
           <div className="profile-bar-left">
             <div className="profile-bar-avatar">
               <img src={data?.profilePicUrl || photoURL} alt={data?.name} className="profile-user-photo" />
-              <label htmlFor="file-input" className="profile-camera">
-                <img src={Camera} />
-              </label>
               <input id="file-input" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleProfilePhotoChange} />
             </div>
             <div className="profile-bar-details">
