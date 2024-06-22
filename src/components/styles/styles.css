@@ -1073,8 +1073,19 @@ textarea:focus, input:focus{
     padding: 15px;
     display: flex;
     justify-content: flex-start;
+    flex-direction: column;
     /* width: 1072px; */
     /* background: #000; */
+}
+
+.profile-content-navbar-text {
+    font-size: 20px;
+    background: #7cc2ff;
+    padding: 5px 10px 5px 10px;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+
 }
   
 .rank-silver {

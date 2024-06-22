@@ -52,75 +52,77 @@ function ProfileDetail() {
                         <div className="title">My Profile</div>
                         <div className="sub-title">Manage and protect your account</div>
                     </div>
-                    <div className="all-container">
-                        <Tooltip title="File size: maximum 1 MB | File extension: .JPEG, .PNG" placement="right">
-                        <div className="img-container">
-                                <img src={data?.profilePicUrl} alt={data?.name} className="profile-user-photo" />
-                                <label className="profile-camera">
-                                    <img src={Camera} />
-                                </label>
-                        </div>
-                        </Tooltip>
-                        <label className="select-image">
+                    <div className="idk">
+                        <div className="all-container">
                             <Tooltip title="File size: maximum 1 MB | File extension: .JPEG, .PNG" placement="right">
-                                <Button variant="outlined" component="label" size="medium" sx={{
-                                    borderRadius: 3,
-                                    height: 30,
-                                    fontSize: 14,
-                                }}
-                                >
-                                    Select Image
-                                    <input type="file" hidden />
-                                </Button>
+                                <div className="img-container">
+                                    <img src={data?.profilePicUrl} alt={data?.name} className="profile-user-photo" />
+                                    <label className="profile-camera">
+                                        <img src={Camera} />
+                                    </label>
+                                </div>
                             </Tooltip>
-                        </label>
-                        <div className="profile-content">
-                            <div className="left-title-container">
-                                <div className="left-text">Username</div>
-                                <div className="left-text">Name</div>
-                                <div className="left-text">Email</div>
-                                <div className="left-text">Phone Number</div>
-                                <div className="left-text">Gender</div>
-                                <div className="left-text">Date of birth</div>
+                            <label className="select-image">
+                                <Tooltip title="File size: maximum 1 MB | File extension: .JPEG, .PNG" placement="right">
+                                    <Button variant="outlined" component="label" size="medium" sx={{
+                                        borderRadius: 3,
+                                        height: 30,
+                                        fontSize: 14,
+                                    }}
+                                    >
+                                        Select Image
+                                        <input type="file" hidden />
+                                    </Button>
+                                </Tooltip>
+                            </label>
+                            <div className="profile-content">
+                                <div className="left-title-container">
+                                    <div className="left-text">Username</div>
+                                    <div className="left-text">Name</div>
+                                    <div className="left-text">Email</div>
+                                    <div className="left-text">Phone Number</div>
+                                    <div className="left-text">Gender</div>
+                                    <div className="left-text">Date of birth</div>
+                                </div>
+                                <div className="right-title-container">
+                                    <div className="right-text-username">masahiro</div>
+                                    <div className="right-text-name">
+                                        <Input style={{width:'230px'}} value={data?.name} />
+                                    </div>
+                                    <div className="right-text-email">
+                                        <div>{data?.email}</div>
+                                        <div className="email-change">Change</div>
+                                    </div>
+                                    <div className="right-text-phone">
+                                        <div>********89</div>
+                                        <div className="phone-change">Change</div>
+                                    </div>
+                                    <div className="right-text-gender">
+                                        <RadioGroup className="radio-group" row aria-label="gender" name="gender" defaultValue="Male" >
+                                            <FormControlLabel value="Male" control={<Radio size="small" sx={{ '&.Mui-checked': { color: '#0f8fff', }, }} />} label="Male" />
+                                            <FormControlLabel value="Female" control={<Radio size="small" sx={{ '&.Mui-checked': { color: '#0f8fff', }, }} />} label="Female" />
+                                            <FormControlLabel value="Other" control={<Radio size="small" sx={{ '&.Mui-checked': { color: '#0f8fff', }, }} />} label="Other" />
+                                        </RadioGroup>
+                                    </div>
+                                    <div className="right-text-birth">
+                                        <div>**/06/20**</div>
+                                        <div className="birth-change">Change</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="right-title-container">
-                                <div className="right-text-username">masahiro</div>
-                                <div className="right-text-name">
-                                    <Input value={data?.name} />
-                                </div>
-                                <div className="right-text-email">
-                                    <div>{data?.email}</div>
-                                    <div className="email-change">Change</div>
-                                </div>
-                                <div className="right-text-phone">
-                                    <div>********89</div>
-                                    <div className="phone-change">Change</div>
-                                </div>
-                                <div className="right-text-gender">
-                                    <RadioGroup className="radio-group" row aria-label="gender" name="gender" defaultValue="Male" >
-                                        <FormControlLabel value="Male" control={<Radio size="small" sx={{ '&.Mui-checked': { color: '#0f8fff', }, }} />} label="Male" />
-                                        <FormControlLabel value="Female" control={<Radio size="small" sx={{ '&.Mui-checked': { color: '#0f8fff', }, }} />} label="Female" />
-                                        <FormControlLabel value="Other" control={<Radio size="small" sx={{ '&.Mui-checked': { color: '#0f8fff', }, }} />} label="Other" />
-                                    </RadioGroup>
-                                </div>
-                                <div className="right-text-birth">
-                                    <div>**/06/20**</div>
-                                    <div className="birth-change">Change</div>
-                                </div>
+                            <div className="save-button">
+                                <Button variant="contained" size="medium" sx={{
+                                    borderRadius: 3,
+                                    height: 40,
+                                    fontSize: 18,
+                                    fontWeight: 'bold',
+                                    bgcolor: '#5AB2FF',
+                                    ':hover': {
+                                        bgcolor: '#4798CC',
+                                        color: 'white',
+                                    },
+                                }}>Save</Button>
                             </div>
-                        </div>
-                        <div className="save-button">
-                            <Button variant="contained" size="medium" sx={{
-                                borderRadius: 3,
-                                height: 40,
-                                fontSize: 18,
-                                fontWeight: 'bold',
-                                bgcolor: '#0f8fff',
-                                ':hover': {
-                                    bgcolor: '#0e65b1',
-                                    color: 'white',
-                                },
-                            }}>Save</Button>
                         </div>
                     </div>
                 </div>

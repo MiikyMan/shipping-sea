@@ -24,6 +24,12 @@ import Purchases from '../components/profiles/purchases';
 import ProfileDetail from '../components/profiles/profileDetail';
 import Favorites from '../components/profiles/favorites';
 import Vouchers from '../components/profiles/vouchers';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Fade from '@mui/material/Fade';
+import Backdrop from '@mui/material/Backdrop';
+import Button from '@mui/material/Button';
 
 async function getData() {
   const res = await fetch(`${baseURL}/users/${baseUser}`);
@@ -135,6 +141,39 @@ function Profile() {
     }
   };
 
+  const renderContentText = () => {
+    switch (sidenavState) {
+      case 1:
+        return 'Profile Detail';
+      case 2:
+        return 'Purchases';
+      case 3:
+        return 'Favorites';
+      case 4:
+        return 'Vouchers';
+      case 5:
+        return 'History';
+      default:
+        return null;
+    }
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
     <>
       <Navbar />
@@ -170,7 +209,7 @@ function Profile() {
               <div className="profile-bar-details-name">
                 {data?.name || 'Username'}
               </div>
-              <div className={`profile-bar-rank ${getRankClass(data?.rank || 1)}`}>
+              <div className={`profile-bar-rank ${getRankClass(data?.rank || 1)}`} onClick={handleOpen}>
                 <div className="profile-rank-text">
                   {RankDict[data?.rank || 1]} member
                 </div>
@@ -185,7 +224,7 @@ function Profile() {
             </div>
           </div>
           <div className="profile-bar-right">
-            <img src={getRankSVGClass(data?.rank || 1)} alt="Rank" className="Rank" />
+            <img src={getRankSVGClass(data?.rank || 1)} alt="Rank" className="Rank" onClick={handleOpen} />
           </div>
         </div>
         <div className="profile-detail">
@@ -229,10 +268,47 @@ function Profile() {
           </div>
           <div className="profile-content">
             <div className="profile-content-navbar">
+              <div>
+                <span className="profile-content-navbar-text">{renderContentText()}</span>
+              </div>
               {renderContent()}
             </div>
           </div>
         </div>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <Typography id="transition-modal-title" variant="h6" component="h2">
+                Member tier list
+              </Typography>
+              <div>
+                <img src={SilverRank} />
+                <img src={GoldRank} />
+                <img src={PlatinumRank} />
+                <img src={DiamondRank} />
+                <img src={GodRank} />
+              </div>
+              <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              </Typography>
+              <Button onClick={handleClose}>
+                OK
+              </Button>
+            </Box>
+          </Fade>
+        </Modal>
       </div>
       <Footer />
     </>
