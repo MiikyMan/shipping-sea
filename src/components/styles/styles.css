@@ -1101,3 +1101,11 @@ textarea:focus, input:focus{
     margin-left: 40px;
 }
 
+.product-page-detail-container{
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+    background-color: white;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}

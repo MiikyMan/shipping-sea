@@ -10,7 +10,7 @@ function ProfileDetail() {
     };
 
     return (
-        <Tabs defaultActiveKey="1" onChange={onChange}>
+        <Tabs defaultActiveKey="1" onChange={onChange} >
             <TabPane tab='Tab 1' key='1'>
                 test 1
             </TabPane>
