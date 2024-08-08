@@ -15,6 +15,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUser, baseURL } from '../components/userIDConfig';
+import RatingAndReviews from "../components/ratingAndReviews";
 
 interface productType {
     productPicUrl: string;
@@ -36,25 +37,28 @@ const onChange = (key: string) => {
     console.log(key);
 };
 
-const items: TabsProps['items'] = [
-    {
-      key: '1',
-      label: 'Product details',
-      children: <ProductDetails />,
-    },
-    {
-      key: '2',
-      label: 'Rating and Reviews',
-      children: '',
-    },
-];
+
 
 function product(){
     const [product, setProduct] = useState<productType[]>([]);
     let query = useQuery();
     let URLproductID = query.get("productID");
+    console.log(URLproductID);
     const [qty, setQty] = useState(1);
-    console.log("🚀 ~ product ~ qty:", qty)
+    console.log("🚀 ~ product ~ qty:", qty);
+
+    const items: TabsProps['items'] = [
+        {
+          key: '1',
+          label: 'Product details',
+          children: <ProductDetails />,
+        },
+        {
+          key: '2',
+          label: 'Rating and Reviews',
+          children: <RatingAndReviews productOBJ={product[0]}/>,
+        },
+    ];
 
     const handleIncrement = () => {
         setQty(qty + 1);
@@ -122,11 +126,14 @@ function product(){
                             <img src={product[0]?.productPicUrl}/>
                             <img src={product[0]?.productPicUrl}/>
                         </div>
+                        <div className="">
+                            <Share/>
+                        </div>
                     </div>
                     <div className="product-container-right">
                         <div className="product-share">
                             {/* <img src={ShareIcon}/> */}
-                            <Share/>
+                            {/* <Share/> */}
                         </div>
                         <div className="product-page-row1">
                             <div className="product-page-name">{product[0]?.name}</div>
@@ -190,6 +197,7 @@ function product(){
                                 1.2M
                             </div>
                         </div>
+                        
                     </div>
                 </div>
                 <div className="product-page-detail-container">
