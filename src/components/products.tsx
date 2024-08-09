@@ -146,7 +146,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
     <div className="products-container">
       <div className="products-title-bar">
         <div className="products-title">
-          {categoryName ? categoryName :'suggestion' }
+          {categoryName ? categoryName : (searchName ? `Results of '${searchName}'` : 'Suggestion') }
         </div>
         <div className="products-filter">
           <Dropdown overlay={menu} placement="bottomLeft">
