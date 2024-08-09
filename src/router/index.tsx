@@ -2,12 +2,13 @@ import { Outlet, createBrowserRouter } from 'react-router-dom'
 import Home from "../pages/home"
 import Product from '../pages/product'
 import Signin from '../pages/signin'
-import Signup from '../pages/signup'
+import Signup from '../pages/firbaseSignup'
 import ShoppingCart from '../pages/shoppingcart'
 import Profile from '../pages/profile'
 import Login from '../pages/login'
 import Upload from '../components/upload/upload'
 import Category from '../pages/category'
+import Search from '../pages/search'
 
 export const router = createBrowserRouter([
     {
@@ -34,14 +35,14 @@ export const router = createBrowserRouter([
         </div>
       ),
     },
-    {
-      path: '/signup',
-      element: (
-        <div>
-          <Signup/>
-        </div>
-      ),
-    },
+    // {
+    //   path: '/signup',
+    //   element: (
+    //     <div>
+    //       <Signup/>
+    //     </div>
+    //   ),
+    // },
     {
       path: '/shoppingcart',
       element: (
@@ -79,6 +80,14 @@ export const router = createBrowserRouter([
       element: (
         <div>
           <Category/>
+        </div>
+      ),
+    },
+    {
+      path: '/search',
+      element: (
+        <div>
+          <Search/>
         </div>
       ),
     },

@@ -28,9 +28,10 @@ interface Favourite {
 
 interface ProductsProps {
   categoryName: string;
+  searchName: string;
 }
 
-const Products: React.FC<ProductsProps> = ({ categoryName }) => {
+const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [favourites, setFavourites] = useState<string[]>([]); // Store only productIDs
   const [loading, setLoading] = useState(true);
@@ -42,6 +43,18 @@ const Products: React.FC<ProductsProps> = ({ categoryName }) => {
       setLoading(true);
       try {
         const response = await axios.get<Product[]>(`${baseURL}/categories/${categoryName}`);
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchSearchProducts = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get<Product[]>(`${baseURL}/categories/search/${searchName}`);
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -64,10 +77,12 @@ const Products: React.FC<ProductsProps> = ({ categoryName }) => {
 
     if (categoryName) {
       fetchProducts();
+    } else if (searchName) {
+      fetchSearchProducts();
     } else {
       fetchAllProducts();
     }
-  }, [categoryName]);
+  }, [categoryName, searchName]);
 
   useEffect(() => {
     const fetchFavourites = async () => {

@@ -228,7 +228,7 @@ function Profile() {
           </div>
         </div>
         <div className="profile-detail">
-          <div className="profile-sidenav">
+          <div className="profile-sidenav p-10">
             <li onClick={() => handleClick(1)} className={sidenavState === 1 ? `active` : ``}>
               <img src={ProfileIcon} className="sidenav-icon" alt="Profile Icon" />
               <div className="sidenav-content">
@@ -267,7 +267,7 @@ function Profile() {
             </li>
           </div>
           <div className="profile-content">
-            <div className="profile-content-navbar">
+            <div className="profile-content-navbar p-10">
               <div>
                 <span className="profile-content-navbar-text">{renderContentText()}</span>
               </div>
