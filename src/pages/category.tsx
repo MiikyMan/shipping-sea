@@ -13,11 +13,13 @@ function category(){
     console.log(categoryName);
     return(
         <>
+        <div className="flex flex-col min-h-screen">
             <Navbar/>
-            <div className="page-container">
+            <div className="page-container flex-grow p-4">
                 <Products categoryName={categoryName}/>
             </div>
             <Footer/>
+        </div>
         </>
     )
 }

@@ -13,11 +13,13 @@ function search(){
     console.log(searchName);
     return(
         <>
+        <div className="flex flex-col min-h-screen">
             <Navbar/>
-            <div className="page-container">
+            <div className="page-container flex-grow p-4">
                 <Products searchName={searchName}/>
             </div>
             <Footer/>
+        </div>
         </>
     )
 }
