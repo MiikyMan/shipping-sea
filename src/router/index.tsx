@@ -9,6 +9,7 @@ import Login from '../pages/login'
 import Upload from '../components/upload/upload'
 import Category from '../pages/category'
 import Search from '../pages/search'
+import Test from '../pages/test'
 
 export const router = createBrowserRouter([
     {
@@ -88,6 +89,14 @@ export const router = createBrowserRouter([
       element: (
         <div>
           <Search/>
+        </div>
+      ),
+    },
+    {
+      path: '/kuay',
+      element: (
+        <div>
+          <Test/>
         </div>
       ),
     },

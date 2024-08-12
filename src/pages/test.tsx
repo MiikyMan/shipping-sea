@@ -1,21 +1,24 @@
-import Ads from "../components/ads/ads"
 import Categories from "../components/categories"
 import Navbar from "../components/navbar"
 import Products from "../components/products"
 import Footer from "../components/footer"
+import Ads from "../components/ads/ads"
 
-function home(){
+function Test(){
     return(
         <>
             <Navbar/>
             <Ads/>
-            <div className="page-container max-md:w-3/4">
+            <div 
+                className="mt-3 page-container max-md:w-full max-md:bg-white max-md:px-10"
+                style={{borderRadius: '40px'}}    
+            >
                 <Categories/>
                 <Products/>
             </div>
-            <Footer/>
+            {/* <Footer/> */}
         </>
     )
 }
 
-export default home
+export default Test

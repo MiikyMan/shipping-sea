@@ -47,9 +47,11 @@ function Ads() {
         if (dots[n - 1]) dots[n - 1].className += " active";
     };
 
+    const [currentIndex, setCurrentIndex] = useState(0);
+
     return (
         <>
-            <div className="slideshow-container">
+            <div className="slideshow-container max-md:hidden">
                 <div className="mySlides ads-container">
                     <img src={ads[0]} alt="Ad 1" />
                     <div className="prev" onClick={() => plusSlides(-1)}>❮</div>
@@ -72,6 +74,20 @@ function Ads() {
                     <span className="dot" onClick={() => currentSlide(1)}></span>
                     <span className="dot" onClick={() => currentSlide(2)}></span>
                     <span className="dot" onClick={() => currentSlide(3)}></span>
+                </div>
+            </div>
+            <div className="w-full overflow-x-scroll md:hidden snap-x snap-mandatory">
+                <div className="flex ">
+                    <div className="flex transition-transform duration-500 " style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+                        {ads.map((image, index) => (
+                            <div key={index} className="flex-shrink-0 w-full ml-10">
+                                <img 
+                                    src={image} alt={`Slide ${index + 1}`} 
+                                    className="w-11/12 snap-center aspect-video rounded-3xl"
+                                />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </>
