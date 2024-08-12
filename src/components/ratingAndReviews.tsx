@@ -82,17 +82,20 @@ function RatingAndReviews(productOBJ: { productOBJ: any; }){
                     <Rating className="" name="half-rating-read" value={productRating.rating} precision={0.5} readOnly/>
                 </div>
                 <div className="flex flex-col justify-between p-2 w-full">
-                    {[...ratingCounts].reverse().map((count, i) => (
-                        <div key={i} className="flex gap-2 items-center">
-                            <div>
-                                {5 - i}
+                    {[...ratingCounts].reverse().map((count, i) => {
+                        return (
+                            <div key={i} className="flex gap-2 items-center">
+                                <div>{5 - i}</div>
+                                <div className="flex-grow bg-gray-200 h-4 rounded-md overflow-hidden">
+                                    <div
+                                        className="bg-yellow-400 h-4 rounded-md transition-all duration-1000 ease-out"
+                                        style={{ width: `${totalRatingCount !== 0 ? (count / totalRatingCount) * 100 : 0}%` }}
+                                    ></div>
+                                </div>
+                                <div>({count})</div>
                             </div>
-                            {totalRatingCount !== 0 &&
-                                <div className="bg-yellow-400 h-4 rounded-md" style={{ width: `${(count / totalRatingCount) * 100}%` }}></div>
-                            }
-                            <div>({count})</div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
             <div className="products-filter flex justify-end mr-6">
