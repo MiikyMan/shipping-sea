@@ -78,10 +78,12 @@ function Navbar() {
                                     className="navbar-search-input"
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
-                                    />
-                                <IconButton type="submit" className="navbar-search-btn">
-                                    <img src={SearchIcon} className="navbar-search-svg" alt="Search" />
-                                </IconButton>
+                                />
+                                <Link to={`/search?name=${inputValue}`} className="navbar-search-btn">
+                                    <IconButton>
+                                        <img src={SearchIcon} className="navbar-search-svg" alt="Search" />
+                                    </IconButton>
+                                </Link>
                             </form>
                         <Link to="/shoppingcart" className="navbar-cart">
                             <IconButton>

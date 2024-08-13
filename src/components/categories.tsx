@@ -12,7 +12,7 @@ function Categories(){
 
     return(
         <>
-            <div className="categories-container">
+            <div className="categories-container justify-between w-full ">
                 <motion.div
                 className="box"
                 initial={{ opacity: 0, scale: 0.5 }}
@@ -28,13 +28,13 @@ function Categories(){
                     }
                 }}
                 >
-                <div className="category">
-                    <Link to={`/category?name=smartphones`} className="category-btn">
+                <div className="">
+                    <Link to={`/category?name=smartphones`} className="category-btn max-md:scale-90">
                         <IconButton className="category-btn" sx={{ fontSize: 90}}>
                             <PhoneIphoneIcon sx={{ color:'#ffffff', fontSize: 50}}/>
                         </IconButton>
                     </Link>
-                    <div className="category-desc">
+                    <div className="category-desc max-md:scale-90 max-md:-mt-1">
                         Phone
                     </div>
                 </div>
@@ -54,13 +54,13 @@ function Categories(){
                     }
                 }}
                 >
-                <div className="category">
-                    <Link to={`/category?name=electronics`} className="category-btn">
+                <div className="">
+                    <Link to={`/category?name=electronics`} className="category-btn max-md:scale-90">
                         <IconButton className="category-btn" sx={{ fontSize: 90}}>
                             <ComputerIcon sx={{ color:'#ffffff', fontSize: 50}}/>
                         </IconButton>
                     </Link>
-                    <div className="category-desc">
+                    <div className="category-desc max-md:scale-90 max-md:-mt-1">
                         Electronics
                     </div>
                 </div>
@@ -80,13 +80,13 @@ function Categories(){
                     }
                 }}
                 >
-                <div className="category">
-                    <Link to={`/category?name=cameras`} className="category-btn">
+                <div className="">
+                    <Link to={`/category?name=cameras`} className="category-btn max-md:scale-90">
                         <IconButton className="category-btn" sx={{ fontSize: 90}}>
                             <CameraAltIcon sx={{ color:'#ffffff', fontSize: 50}}/>
                         </IconButton>
                     </Link>
-                    <div className="category-desc">
+                    <div className="category-desc max-md:scale-90 max-md:-mt-1">
                         Camera
                     </div>
                 </div>
@@ -106,13 +106,13 @@ function Categories(){
                     }
                 }}
                 >
-                <div className="category">
-                    <Link to={`/category?name=headphones`} className="category-btn">
+                <div className="">
+                    <Link to={`/category?name=headphones`} className="category-btn max-md:scale-90">
                         <IconButton className="category-btn" sx={{ fontSize: 90}}>
                             <HeadphonesIcon sx={{ color:'#ffffff', fontSize: 50}}/>
                         </IconButton>
                     </Link>
-                    <div className="category-desc">
+                    <div className="category-desc max-md:scale-90 max-md:-mt-1">
                         Headset
                     </div>
                 </div>
@@ -132,13 +132,13 @@ function Categories(){
                     }
                 }}
                 >
-                <div className="category">
-                    <Link to={`/category?name=speakers`} className="category-btn">
+                <div className="">
+                    <Link to={`/category?name=speakers`} className="category-btn max-md:scale-90">
                         <IconButton className="category-btn" sx={{ fontSize: 90}}>
                             <SurroundSoundIcon sx={{ color:'#ffffff', fontSize: 50}}/>
                         </IconButton>
                     </Link>
-                    <div className="category-desc">
+                    <div className="category-desc max-md:scale-90 max-md:-mt-1">
                         Speaker
                     </div>
                 </div>

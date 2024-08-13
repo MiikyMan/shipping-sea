@@ -145,10 +145,10 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
   return (
     <div className="products-container">
       <div className="products-title-bar">
-        <div className="products-title">
+        <div className="products-title max-md:text-2xl">
           {categoryName ? categoryName : (searchName ? `Results of '${searchName}'` : 'Suggestion') }
         </div>
-        <div className="products-filter">
+        <div className="products-filter max-md:w-1/4">
           <Dropdown overlay={menu} placement="bottomLeft">
             <Button>
               Filter
@@ -157,7 +157,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
           </Dropdown>
         </div>
       </div>
-      <div className="all-products">
+      <div className="max-md:grid max-md:grid-cols-2 max-md:max-w-screen-lg max-md:mx-auto max-md:gap-2 flex flex-wrap justify-start gap-3">
         {loading ? (
           Array.from(new Array(10)).map((_, index) => (
             <div className="product" key={`skeleton-${index}`}>
@@ -171,7 +171,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
         ) : (
           products.map((product, i) => (
             <div
-              className="product"
+              className="product max-md:shadow-xl max-md:max-h-64"
               key={product.productID}
               onMouseEnter={() => setHoveredProduct(i)}
               onMouseLeave={() => setHoveredProduct(null)}
@@ -186,28 +186,33 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
                 <div className="product-desc">
                   <div className="product-desc-top">
                     <div className="product-name-container">
-                      <span className="product-name">
+                      <span className="product-name max-md:text-xl">
                         {hoveredProduct === i ? product.name : formatProductName(product.name)}
                       </span>
                     </div>
-                    <div className="product-rating">
-                      <Rating name="size-small" className="star" value={1} max={1} readOnly />
-                      <div className="rating">{product.rating}</div>
+                    <div className="product-rating max-md:text-sm">
+                      <Rating name="size-small" className="star max-md:scale-75" value={1} max={1} readOnly />
+                      <div className="rating ">{product.rating}</div>
                     </div>
                   </div>
                   <div className="product-desc-bottom">
                     <div className="prices">
-                      <div className="product-price">${product.price}</div>
+                      <div className="product-price max-md:text-xl">${product.price}</div>
                       {calculateDiscountPercentage(product.price, product.fullPrice) !== "0" && (
-                        <div className="product-fullprice"><del>${product.fullPrice}</del></div>
+                        <div className="product-fullprice "><del>${product.fullPrice}</del></div>
                       )}
                     </div>
-                    <div className="product-stock">{product.stock} in stock</div>
+                    <div 
+                      className="product-stock max-md:text-sm"
+                    >
+                      {product.stock} 
+                      {/* in stock */}
+                    </div>
                   </div>
                 </div>
               </Link>
               {hoveredProduct === i && (
-                <button className="product-heart" onClick={() => toggleLike(product.productID)}>
+                <button className="product-heart max-md:scale-90" onClick={() => toggleLike(product.productID)}>
                   <img src={favourites.includes(product.productID) ? RedHeartIcon : HeartIcon} alt="Heart Icon" />
                 </button>
               )}

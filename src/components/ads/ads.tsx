@@ -51,7 +51,7 @@ function Ads() {
 
     return (
         <>
-            <div className="slideshow-container max-md:hidden">
+            <div className="slideshow-container max-md:hidden mb-3">
                 <div className="mySlides ads-container">
                     <img src={ads[0]} alt="Ad 1" />
                     <div className="prev" onClick={() => plusSlides(-1)}>❮</div>
@@ -76,7 +76,7 @@ function Ads() {
                     <span className="dot" onClick={() => currentSlide(3)}></span>
                 </div>
             </div>
-            <div className="w-full overflow-x-scroll md:hidden snap-x snap-mandatory">
+            <div className="w-full overflow-x-scroll md:hidden snap-x snap-mandatory mb-2">
                 <div className="flex ">
                     <div className="flex transition-transform duration-500 " style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                         {ads.map((image, index) => (

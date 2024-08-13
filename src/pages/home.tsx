@@ -9,8 +9,14 @@ function home(){
         <>
             <Navbar/>
             <Ads/>
-            <div className="page-container max-md:w-3/4">
+            <div className="page-container max-md:hidden">
                 <Categories/>
+                <Products/>
+            </div>
+            <div className="bg-white rounded-3xl px-5 mt-1 py-1 md:hidden">
+                <div className="">
+                    <Categories/>
+                </div>
                 <Products/>
             </div>
             <Footer/>

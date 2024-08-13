@@ -214,16 +214,15 @@ textarea:focus, input:focus{
     margin-right: auto;
     display: flex;
     justify-content: center;
+    max-width: 500px;
 }
 
 .category{
     margin-top: 10px;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .category-btn {
-    height: 70px;
-    width: 70px;
     border-radius: 50%;
     background-color: #5AB2FF;
     display: flex;
@@ -299,7 +298,7 @@ textarea:focus, input:focus{
     max-width: 228px;
     display: flex;
     flex-direction: column;
-    flex: 1 1 calc(20% - 30px); 
+    /* flex: 1 1 calc(20% - 30px);  */
     transition: transform 0.5s, box-shadow 0.5s; /* Add transition for smooth scaling and shadow effect */
     transform: scale(1); /* Default scale */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 10px, rgba(0, 0, 0, 0.22) 0px 5px 12px;
