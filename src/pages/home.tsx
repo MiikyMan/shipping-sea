@@ -13,7 +13,7 @@ function home(){
                 <Categories/>
                 <Products/>
             </div>
-            <div className="bg-white rounded-3xl px-5 mt-1 py-1 md:hidden">
+            <div className="bg-white/75 rounded-3xl px-5 mt-1 py-1 md:hidden max-md:pb-10">
                 <div className="">
                     <Categories/>
                 </div>

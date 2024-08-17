@@ -171,7 +171,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
         ) : (
           products.map((product, i) => (
             <div
-              className="product max-md:shadow-xl max-md:max-h-64"
+              className="product max-md:shadow-md max-md:max-h-64"
               key={product.productID}
               onMouseEnter={() => setHoveredProduct(i)}
               onMouseLeave={() => setHoveredProduct(null)}
