@@ -58,6 +58,8 @@ function Navbar() {
         }
     }
 
+    console.log("bro",data?.total_productID);
+
     return (
         <>
             {/* {window.innerWidth > 375 ? ( */}
@@ -125,12 +127,12 @@ function Navbar() {
                 </div>
             </div>
             {/* ) : ( */}
-                <div className="flex md:hidden bg-gradient-to-b from-blue-300/60 to-blue-200/25 h-24 w-full items-center justify-between px-3">
+                <div className="flex md:hidden bg-gradient-to-b from-blue-300/60 to-blue-200/25 h-20 w-full items-center justify-between px-3">
                     <div className=" h-full flex items-center justify-between opacity-60">
-                        <img src={Hamburger} className="w-8"/>
+                        <img src={Hamburger} className="w-6"/>
                     </div>
                     <Link to="/home" className=" h-full flex items-center justify-between">
-                        <img src={Logo} alt="Logo" className="w-36"/>
+                        <img src={Logo} alt="Logo" className="w-32"/>
                     </Link>
                     {/* <div className="navbar-mobile-icons">
                         <Link to="/shoppingcart" className="navbar-cart-mobile">
@@ -150,7 +152,7 @@ function Navbar() {
                         </Link>
                     </div> */}
                     <div>
-                        <img src={Magnify} className="w-8 flex items-center justify-between opacity-60" />
+                        <img src={Magnify} className="w-6 flex items-center justify-between opacity-60" />
                     </div>
                 </div>
             {/* )} */}
