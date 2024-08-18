@@ -4,7 +4,7 @@ import SearchIcon from "./assets/search.svg";
 import CartIcon from "./assets/cart.svg";
 import Hamburger from "./assets/Hamburger.svg";
 import Magnify from "./assets/hehe.svg";
-import Logo from "./mockuppics/ShippingSeaLogo.png";
+import Logo from "./mockuppics/logo.png";
 import { Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
@@ -127,8 +127,8 @@ function Navbar() {
                 </div>
             </div>
             {/* ) : ( */}
-                <div className="flex md:hidden bg-gradient-to-b from-blue-300/60 to-blue-200/25 h-20 w-full items-center justify-between px-3">
-                    <div className=" h-full flex items-center justify-between opacity-60">
+                <div className="flex md:hidden  h-20 w-full items-center justify-between px-3">
+                    <div className=" h-full flex items-center justify-between ">
                         <img src={Hamburger} className="w-6"/>
                     </div>
                     <Link to="/home" className=" h-full flex items-center justify-between">
@@ -152,7 +152,7 @@ function Navbar() {
                         </Link>
                     </div> */}
                     <div>
-                        <img src={Magnify} className="w-6 flex items-center justify-between opacity-60" />
+                        <img src={Magnify} className="w-6 flex items-center justify-between " />
                     </div>
                 </div>
             {/* )} */}
