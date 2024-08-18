@@ -8,8 +8,8 @@ import Button from '@mui/material/Button';
 import Footer from "../components/footer";
 import axios from 'axios';
 import { baseUser, baseURL } from '../components/userIDConfig';
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import Goback from "../components/assets/goback.svg"
 const { confirm } = Modal;
 
 const ShoppingCart = () => {
@@ -22,6 +22,7 @@ const ShoppingCart = () => {
   const [fee, setFee] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [total, setTotal] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -32,7 +33,7 @@ const ShoppingCart = () => {
           key: data.productID,
           ...data
         }));
-        
+
         setDataSource(combinedData);
         calculateTotals(selectedRowKeys, combinedData);
       } catch (error) {
@@ -42,6 +43,10 @@ const ShoppingCart = () => {
 
     fetchCartData();
   }, [selectedRowKeys]);
+
+  useEffect(() => {
+    calculateTotals(selectedRowKeys, dataSource);
+  }, [selectedRowKeys, dataSource]);
 
   const calculateTotals = (selectedKeys, data) => {
     const selectedRows = data.filter(item => selectedKeys.includes(item.productID));
@@ -65,8 +70,8 @@ const ShoppingCart = () => {
     // console.log('subtotal',subTotal)
     // console.log('total',total)
     // console.log('discount',discount)
-    console.log('totalVat',totalVat)
-    console.log('totalFee',totalFee)
+    console.log('totalVat', totalVat)
+    console.log('totalFee', totalFee)
     // console.log('totalSelectedFullPrice',totalSelectedFullPrice)
 
   };
@@ -77,6 +82,15 @@ const ShoppingCart = () => {
       calculateTotals(selectedRowKeys, dataSource);
     },
     selectedRowKeys,
+  };
+
+  const handleCheckboxChange = (key: string) => {
+    setSelectedRowKeys(prev => {
+      const newSelection = prev.includes(key)
+        ? prev.filter(k => k !== key)
+        : [...prev, key];
+      return newSelection;
+    });
   };
 
   const handleDelete = async (key) => {
@@ -130,20 +144,20 @@ const ShoppingCart = () => {
   };
 
   const handleQuantityChange = async (key: any, increment: boolean) => {
-    const updateQTY = increment ? 1 : -1 ;
-    console.log("user",baseUser);
-    console.log("key",key);
-    console.log("updateQTY",updateQTY);
+    const updateQTY = increment ? 1 : -1;
+    console.log("user", baseUser);
+    console.log("key", key);
+    console.log("updateQTY", updateQTY);
     const q = await axios.post(`${baseURL}/carts/${baseUser}/${key}/${updateQTY}`);
-    console.log("q",q);
-    
+    console.log("q", q);
+
     const newData = dataSource.map(item =>
       item.productID === key ? { ...item, qty: increment ? item.qty + 1 : item.qty - 1 } : item
     );
     setDataSource(newData);
     calculateTotals(selectedRowKeys, newData);
   };
-  
+
   const columns = [
     {
       title: 'Product Name',
@@ -151,11 +165,11 @@ const ShoppingCart = () => {
       dataIndex: 'productPic',
       key: 'productPic',
       align: 'center' as const,
-      render: (_,record) =>(
-          <Link to={`/product/?productID=${record.productID}`} className="record-pic">
-            <img src={record.productPicUrl} />
-            <div className="record-pic-text">{record.name}</div>
-          </Link>
+      render: (_, record) => (
+        <Link to={`/product/?productID=${record.productID}`} className="record-pic">
+          <img src={record.productPicUrl} />
+          <div className="record-pic-text">{record.name}</div>
+        </Link>
       ),
     },
     {
@@ -164,8 +178,8 @@ const ShoppingCart = () => {
       key: 'price',
       width: '17%',
       align: 'center' as const,
-      render: (_,record) => `$${record.price.toFixed(2)}`,
-    },  
+      render: (_, record) => `$${record.price.toFixed(2)}`,
+    },
     {
       title: 'Quantity',
       dataIndex: 'qty',
@@ -195,34 +209,47 @@ const ShoppingCart = () => {
     },
   ];
 
+  console.log("dataSource", dataSource);
+  console.log("selectedRowKeys", selectedRowKeys);
   return (
     <>
-      <Navbar />
-      <div className="title-bar-container">
-        <div className="title-bar-content">
-          <div className="bread-nav">
-            <Breadcrumb
-                        separator=">"
-                        items={[
-                        {
-                            title: 'Home',
-                            href: '/home',
-                        },
-                        {
-                            title: 'Shopping Cart',
-                        },
-                        ]}
-            />
-          </div>
-          <div className="page-title-bar">
-            <div className="page-title">Shopping Cart</div>
-            <div className="page-sub-title">({dataSource.length} items)</div>
+      <div className="max-md:hidden ">
+
+        <Navbar />
+        <div className="title-bar-container ">
+          <div className="title-bar-content">
+            <div className="bread-nav">
+              <Breadcrumb
+                separator=">"
+                items={[
+                  {
+                    title: 'Home',
+                    href: '/home',
+                  },
+                  {
+                    title: 'Shopping Cart',
+                  },
+                ]}
+              />
+            </div>
+            <div className="page-title-bar">
+              <div className="page-title">Shopping Cart</div>
+              <div className="page-sub-title">({dataSource.length} items)</div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="page-container">
-        <div className="shoppingcart-container">
-          <div className="cart-list">
+      <div className="w-full flex justify-center relative overflow-hidden h-16 bg-white shadow-lg md:hidden">
+        <div onClick={() => navigate(-1)} className="absolute left-3 w-3 flex m-auto h-full">
+          <img src={Goback} />
+        </div>
+        <div className="flex justify-center items-center flex-2 w-full text-2xl font-semibold">
+          My Cart
+        </div>
+      </div>
+      <div className="page-container px-2 w-full">
+        <div className="shoppingcart-container max-md:flex-col w-full">
+          <div className="cart-list max-md:hidden">
             <Table
               rowSelection={{
                 type: 'checkbox',
@@ -234,7 +261,38 @@ const ShoppingCart = () => {
               scroll={{ y: 450 }}
             />
           </div>
-          <div className="check-out">
+          <div className="cart-list flex flex-col gap-3 bg-transparent md:hidden w-full">
+            {dataSource.map((data, index) => (
+              <div className="flex p-4 bg-white rounded-xl shadow-md gap-4 w-full">
+                <input
+                  type="checkbox"
+                  className="bg-red-100 scale-125"
+                  checked={selectedRowKeys.includes(data.key)}
+                  onChange={() => handleCheckboxChange(data.key)}
+                />
+                <img src={data.productPicUrl} className="w-20" />
+                <div className="flex flex-col w-full justify-between">
+                  <div className="flex justify-between items-center mb-5">
+                    <div className="font-semibold">{data.name}</div>
+                    <div className="flex">
+                      <button className="delete-icon-wrapper " onClick={() => showDeleteConfirm(data.key)}>
+                        <DeleteIcon />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex justify-end items-end gap-2">
+                    <div className="text-lg font-extrabold text-blue-400">${data.price.toFixed(2)}</div>
+                    <div className="flex justify-between items-center bg-slate-100 rounded-lg w-20 px-3">
+                      <button onClick={() => handleQuantityChange(data.productID, false)} disabled={data.qty <= 1} >-</button>
+                      <span className="text-base">{data.qty}</span>
+                      <button onClick={() => handleQuantityChange(data.productID, true)}>+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="check-out max-md:hidden">
             <div className="check-out-top">
               <div className="check-out-title">Summary</div>
               <div className="check-out-list">
@@ -262,7 +320,7 @@ const ShoppingCart = () => {
                 <div className="total-listvalue">${total.toFixed(2)}</div>
               </div>
               <div className="place-order">
-              <Button className="check-out-btn" variant="contained" sx={{
+                <Button className="check-out-btn" variant="contained" sx={{
                   borderRadius: 3,
                   height: 60,
                   fontSize: 20,
@@ -279,10 +337,42 @@ const ShoppingCart = () => {
               </div>
             </div>
           </div>
+
         </div>
-        <Products />
+
+        <div className="check-out px-5 md:hidden fixed bottom-0 z-50 w-full rotate-180 shadow-md rounded-b-3xl rounded-t-none ">
+          <div className="flex justify-between rotate-180">
+            <div className="bg-transparent flex-col">
+              <div className="total-listvalue text-3xl font-semibold">${subTotal.toFixed(2)}</div>
+              <div className="totla-listname text-lg font-medium">Subtotal</div>
+            </div>
+            <div className="">
+              <Button className="check-out-btn" variant="contained" sx={{
+                borderRadius: 3,
+                height: 60,
+                width: 160,
+                fontSize: 15,
+                fontWeight: 'bold',
+                bgcolor: '#5AB2FF',
+                ':hover': {
+                  bgcolor: '#4798CC',
+                  color: 'white',
+                },
+              }}
+              >
+                Check out
+              </Button>
+            </div>
+          </div>
+          <hr className="mt-5 mb-1 border-t-2" />
+          <div className="check-out-top rotate-180 mr-auto flex gap-2 items-center text-base h-full ">
+            <p className=" h-full mb-1">select your vouchers</p>
+            <img src={Goback} className="w-2 rotate-180 h-full" />
+          </div>
+        </div>
+        {/* <Products /> */}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
