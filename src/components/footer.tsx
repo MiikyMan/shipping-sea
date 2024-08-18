@@ -2,15 +2,18 @@ import React, { FC, ReactElement } from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { Link } from 'react-router-dom'
 
-
 export const Footer: FC = (): ReactElement => {
   return (
-    <div className="footer-container w-full">
+    <div className="footer-container w-full ">
       <Box
         sx={{
           width: "100%",
           height: "auto",
-          background: 'linear-gradient(to bottom, #d9f7ff, #5AB2FF)',
+          // background: {
+          //   // xs: 'transparent', 
+          //   sm: 'linear-gradient(to bottom, transparent, #5AB2FF)',
+          // },
+          background: "linear-gradient(to bottom, transparent, #5AB2FF)",
           paddingTop: "1rem",
           paddingBottom: "1rem",
           mt: 10 ,
