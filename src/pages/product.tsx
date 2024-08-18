@@ -91,34 +91,34 @@ function product() {
 
     useEffect(() => {
         const fetchProductData = async () => {
-          try {
-            const result = await getCartQuantity();
-            if (result) {
-              setData(result[0]?.total_productID);
-              console.log("Cart Quantity: ", result[0]);
-            }
-    
-            const response = await axios.get(`${baseURL}/products/${URLproductID}`);
-            setProduct(response.data);
-    
-            const getCartData = await axios.get(`${baseURL}/carts/${baseUser}`);
-            const cartitems = getCartData.data;
-    
-            const cartData = cartitems.map(data => data.productID);
-            setCart(cartData);
-            
-          } catch (error) {
-            console.error("Error fetching cart data: ", error);
-          }
-        };
-    
-        if (URLproductID) {
-          fetchProductData();
-          window.scrollTo(0, 0);
-        }
-      }, [URLproductID, baseURL, baseUser]);
+            try {
+                const result = await getCartQuantity();
+                if (result) {
+                    setData(result[0]?.total_productID);
+                    console.log("Cart Quantity: ", result[0]);
+                }
 
-    console.log("hah",data);
+                const response = await axios.get(`${baseURL}/products/${URLproductID}`);
+                setProduct(response.data);
+
+                const getCartData = await axios.get(`${baseURL}/carts/${baseUser}`);
+                const cartitems = getCartData.data;
+
+                const cartData = cartitems.map(data => data.productID);
+                setCart(cartData);
+
+            } catch (error) {
+                console.error("Error fetching cart data: ", error);
+            }
+        };
+
+        if (URLproductID) {
+            fetchProductData();
+            window.scrollTo(0, 0);
+        }
+    }, [URLproductID, baseURL, baseUser]);
+
+    console.log("hah", data);
     // console.log("rating",(product[0]?.rating));
     const value: number = product[0]?.rating + 0; //idk y but it works😭
 
@@ -128,16 +128,16 @@ function product() {
         } catch (error) {
             console.error('Error toggling like:', error);
         }
-        if (cart.includes(product[0]?.productID)){
+        if (cart.includes(product[0]?.productID)) {
             setClicked(true);
-        } else if(!clicked){
-            setData(data+1);
+        } else if (!clicked) {
+            setData(data + 1);
             setClicked(true);
         }
     }
 
-    console.log("cart",cart);
-    console.log("cart",product[0]?.productID);
+    console.log("cart", cart);
+    console.log("cart", product[0]?.productID);
 
     return (
         <>
@@ -152,7 +152,7 @@ function product() {
                                 href: '/home',
                             },
                             {
-                                title: 'iPhone16 Pro Max',
+                                title: product[0]?.name,
                             },
                         ]}
                     />
@@ -160,7 +160,7 @@ function product() {
                 <div className="product-container max-md:flex-col max-md:h-fit">
                     <div className="product-container-left max-md:w-full">
                         <div className="main-pic max-md:mx-auto aspect-square max-md:scale-90">
-                            <img src={product[0]?.productPicUrl}/>
+                            <img src={product[0]?.productPicUrl} />
                         </div>
                         <div className="sub-pic max-md:hidden ">
                             <img src={product[0]?.productPicUrl} />
@@ -254,43 +254,46 @@ function product() {
                         onChange={onChange}
                     />
                 </div>
-                <div className="bg-white/75 rounded-3xl px-5 mt-3 py-1 md:hidden max-md:pb-10">
+                <div className="bg-gradient-to-t from-blue-400 via-blue-400 to-blue-50 rounded-3xl px-5 mt-3 py-1 md:hidden max-md:pb-40">
+                    <Products />
+                </div>
+                <div className="max-md:hidden max-md:pb-40">
                     <Products />
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
             <div className="md:hidden fixed bottom-0 flex justify-between w-full min-h-24 items-center px-3 gap-2 rounded-b-2xl rotate-180 shadow-sm bg-white">
                 <div className="h-3/4 flex justify-center items-center rounded-2xl w-2/5 rotate-180 ">
                     <Button className="product-page-buy" variant="contained" sx={{
-                                        borderRadius: 3,
-                                        height: 60,
-                                        fontSize: 15,
-                                        fontWeight: 'bold',
-                                        bgcolor: '#0f8fff',
-                                        ':hover': {
-                                            bgcolor: '#0e65b1',
-                                            color: 'white',
-                                        },
-                                    }}
-                                    >
-                                        Buy now
-                                    </Button>
+                        borderRadius: 3,
+                        height: 60,
+                        fontSize: 15,
+                        fontWeight: 'bold',
+                        bgcolor: '#0f8fff',
+                        ':hover': {
+                            bgcolor: '#0e65b1',
+                            color: 'white',
+                        },
+                    }}
+                    >
+                        Buy now
+                    </Button>
                 </div>
                 <div className="h-3/4 flex justify-center items-center rounded-2xl w-2/5 rotate-180 ">
                     <Button className="product-page-cart" variant="contained" onClick={() => handleAddtocart(product[0]?.productID, qty)} sx={{
-                                        borderRadius: 3,
-                                        height: 60,
-                                        fontSize: 15,
-                                        fontWeight: 'bold',
-                                        bgcolor: '#5AB2FF',
-                                        ':hover': {
-                                            bgcolor: '#4798CC',
-                                            color: 'white',
-                                        },
-                                    }}
-                                    >
-                                        Add to cart
-                                    </Button>
+                        borderRadius: 3,
+                        height: 60,
+                        fontSize: 15,
+                        fontWeight: 'bold',
+                        bgcolor: '#5AB2FF',
+                        ':hover': {
+                            bgcolor: '#4798CC',
+                            color: 'white',
+                        },
+                    }}
+                    >
+                        Add to cart
+                    </Button>
                 </div>
                 <Link to="/shoppingcart" className="h-3/4 flex justify-center items-center rounded-2xl w-1/5 rotate-180">
                     <IconButton>

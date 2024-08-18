@@ -157,7 +157,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
           </Dropdown>
         </div>
       </div>
-      <div className="max-md:grid max-md:grid-cols-2 max-md:max-w-screen-lg max-md:mx-auto max-md:gap-2 flex flex-wrap justify-start gap-3">
+      <div className="max-md:grid max-md:grid-cols-2 max-md:max-w-screen-lg max-md:mx-auto max-md:gap-3 flex flex-wrap justify-start gap-3">
         {loading ? (
           Array.from(new Array(10)).map((_, index) => (
             <div className="product" key={`skeleton-${index}`}>
@@ -171,7 +171,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
         ) : (
           products.map((product, i) => (
             <div
-              className="product max-md:shadow-md max-md:max-h-64"
+              className="product max-md:max-h-64 md:shadow-lg"
               key={product.productID}
               onMouseEnter={() => setHoveredProduct(i)}
               onMouseLeave={() => setHoveredProduct(null)}
