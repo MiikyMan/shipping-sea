@@ -61,7 +61,7 @@ function Categories(){
                         </IconButton>
                     </Link>
                     <div className="category-desc max-md:scale-90 max-md:-mt-1">
-                        Electronics
+                        Electronic
                     </div>
                 </div>
                 </motion.div>
