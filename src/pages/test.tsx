@@ -2,7 +2,7 @@ import Categories from "../components/categories"
 import Navbar from "../components/navbar"
 import Products from "../components/products"
 import Footer from "../components/footer"
-import Ads from "../components/ads/adsSlideShow"
+import Ads from "../components/adsSildeShow/adsSlideShow"
 
 function Test(){
     return(
