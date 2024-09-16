@@ -1,4 +1,4 @@
-import Ads from "../components/ads/ads"
+import Ads from "../components/ads/adsSlideShow"
 import Categories from "../components/categories"
 import Navbar from "../components/navbar"
 import Products from "../components/products"
