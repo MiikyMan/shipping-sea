@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ads.css';
 
 const ads = [
+    "https://shippingsea-images.s3.ap-southeast-1.amazonaws.com/ads/blackfriday.png",
     "https://shippingsea-images.s3.ap-southeast-1.amazonaws.com/ads/limitedtime.png",
     "https://shippingsea-images.s3.ap-southeast-1.amazonaws.com/ads/cybermonday.png"
 ]
@@ -63,9 +64,16 @@ function Ads() {
                     <div className="next" onClick={() => plusSlides(1)}>❯</div>
                 </div>
 
+                <div className="mySlides ads-container">
+                    <img src={ads[2]} alt="Ad 3" />
+                    <div className="prev" onClick={() => plusSlides(-1)}>❮</div>
+                    <div className="next" onClick={() => plusSlides(1)}>❯</div>
+                </div>
+
                 <div className="dot-container">
                     <span className="dot" onClick={() => currentSlide(1)}></span>
                     <span className="dot" onClick={() => currentSlide(2)}></span>
+                    <span className="dot" onClick={() => currentSlide(3)}></span>
                 </div>
             </div>
             <div className="w-full overflow-x-scroll md:hidden snap-x snap-mandatory mb-2">
