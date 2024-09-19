@@ -2,7 +2,7 @@ import { Outlet, createBrowserRouter } from 'react-router-dom'
 import Home from "../pages/home"
 import Product from '../pages/product'
 import Signin from '../pages/signin'
-import Signup from '../pages/firbaseSignup'
+import Signup from '../pages/signup'
 import ShoppingCart from '../pages/shoppingcart'
 import Profile from '../pages/profile'
 import Login from '../pages/login'
@@ -36,14 +36,14 @@ export const router = createBrowserRouter([
         </div>
       ),
     },
-    // {
-    //   path: '/signup',
-    //   element: (
-    //     <div>
-    //       <Signup/>
-    //     </div>
-    //   ),
-    // },
+    {
+      path: '/signup',
+      element: (
+        <div>
+          <Signup/>
+        </div>
+      ),
+    },
     {
       path: '/shoppingcart',
       element: (

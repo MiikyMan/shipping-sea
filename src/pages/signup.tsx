@@ -45,19 +45,32 @@ export default function SignUp() {
   const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
-
+  
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     try {
-      const additionalData = {
-        name,
-        photoURL,
-        phoneNumber,
-        role: 'user', // Default role or get it from input if needed
-        rank: 'silver',
-      };
-      const userCredential = await doSignUpWithEmailAndPassword(email, password, additionalData);
+      const userCredential = await doSignUpWithEmailAndPassword(email, password, name);
       console.log("Signed up successfully:", userCredential);
+      
+      
+      
+      // const userData = {
+      //   userID,
+      //   name,
+      //   email
+      // };
+    
+      // try {
+      //   const response = await axios.post('http://localhost:3000/addNewUser', userData, {
+      //     headers: {
+      //       'Content-Type': 'application/json'
+      //     }
+      //   });
+      //   console.log('User added successfully:', response.data);
+      // } catch (error) {
+      //   console.error('Error adding user:', error.response ? error.response.data : error.message);
+      // }
+      
       
       // Send verification email and code
       await setVerificationCode(email);
