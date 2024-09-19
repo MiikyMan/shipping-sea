@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { baseURL } from '../components/userIDConfig';
 import { auth, db } from "./firebase";
 import {
   createUserWithEmailAndPassword,
@@ -13,22 +15,13 @@ import {
 import { doc, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore"; 
 
 // Register a new user with email and password
-export const doSignUpWithEmailAndPassword = async (email, password, additionalData) => {
+export const doSignUpWithEmailAndPassword = async (email, password, username) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      email: user.email,
-      name: additionalData.name || "", // Include displayName if provided
-      role: additionalData.role || "user",
-      rank: additionalData.rank || "silver",
-      Timestamp: serverTimestamp(),
-    });
-
-    await sendEmailVerification(user);
-    
+    console.log("asdasd", userCredential.user.uid);
+    console.log("asdasd:",{ useruid, username, email });
+    const response = await axios.post(`${baseURL}/users/addNewUser/${user.uid}/${username}/${email}/?profilePicUrl=https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Fvector-art%2F5005788-user-icon-in-trendy-flat-style-isolated-on-grey-background-user-symbol-for-your-web-site-design-logo-app-ui-vector-illustration-eps10&psig=AOvVaw1CEQsLjNo4rMgMjOBfMTmr&ust=1726804979399000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCOCqlf6PzogDFQAAAAAdAAAAABAE`);
     return userCredential;
   } catch (error) {
     console.error("Error signing up with email and password:", error);
@@ -56,15 +49,15 @@ export const doSignInWithGoogle = async () => {
 
     const token = await user.getIdToken();
     console.log("Google OAuth Token:", token);
-
     
     const credentialResponse = GoogleAuthProvider.credentialFromResult(result);
     console.log("Credential Response:", credentialResponse);
+    console.log("Credential Response:", user);
 
-    console.log("User Name:", user.displayName);
+    console.log("User Name:", user.displayName, user.uid, user.email, user.photoURL);
     console.log("Profile Picture URL:", user.photoURL);
-      
-    // You can add the user to Firestore here if needed
+    const response = await axios.post(`${baseURL}/users/addNewUser/${user.uid}/${user.displayName}/${user.email}/?profilePicUrl=${user.photoURL}`);
+    
     return user;
   } catch (error) {
     console.error("Error signing in with Google:", error);
