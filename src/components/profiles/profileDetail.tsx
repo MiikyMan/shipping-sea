@@ -8,10 +8,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import { baseUser, baseURL } from '../userIDConfig';
 import Camera from "../assets/camera.svg";
-
+import { useAuth } from '../../context/authContext';
+import axios from "axios";
 
 async function getData() {
-    const res = await fetch(`${baseURL}/users/${baseUser}`);
+    const res = await fetch(`${baseURL}/users/${uid}`);
     return res.json();
 }
 
@@ -27,15 +28,16 @@ interface usersType {
 const { TabPane } = Tabs;
 
 function ProfileDetail() {
-
+    
+    const { uid, displayName } = useAuth();
+    console.log("uidss",uid );
     const [data, setData] = useState<usersType | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await getData();
-            if (result && result.length > 0) {
-                setData(result[0]);
-            }
+            const response = await axios.get(`${baseURL}/users/${uid}`);
+            setData(response.data[0]);
+            console.log("response",response);
         };
         fetchData();
     }, []);
@@ -44,6 +46,7 @@ function ProfileDetail() {
         console.log('Tab changed to:', key);
     };
 
+    console.log("data",data);
     return (
         <Tabs defaultActiveKey="1" onChange={onChange}>
             <TabPane tab='Profile' key='1'>
@@ -85,9 +88,9 @@ function ProfileDetail() {
                                     <div className="left-text">Date of birth</div>
                                 </div>
                                 <div className="right-title-container">
-                                    <div className="right-text-username">masahiro</div>
+                                    <div className="right-text-username">{displayName}</div>
                                     <div className="right-text-name">
-                                        <Input style={{width:'230px'}} value={data?.name} />
+                                        <Input style={{width:'230px'}} value={displayName} />
                                     </div>
                                     <div className="right-text-email">
                                         <div>{data?.email}</div>
