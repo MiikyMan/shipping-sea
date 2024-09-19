@@ -33,6 +33,7 @@ function Navbar() {
     const { userLoggedIn, displayName, photoURL } = useAuth();
     const [inputValue, setInputValue] = useState<string>('');
     const [data, setData] = useState<usersType | null>(null);
+    const [menu, setMenu] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -59,6 +60,7 @@ function Navbar() {
     }
 
     console.log("bro",data?.total_productID);
+    console.log("photoURL:",photoURL);
 
     return (
         <>
@@ -94,12 +96,12 @@ function Navbar() {
                             </IconButton>
                         </Link>
                         {userLoggedIn ? (
-                            <Link to="/profile">
-                                <IconButton className="navbar-login-user">
+                            <Link to="/profile" className="flex justify-center items-center h-11 rounded-full aspect-square scale-50">
+                                <IconButton className="rounded-full border-red-600">
                                     <img
-                                        src={data?.profilePicUrl || photoURL}
-                                        alt={data?.name || displayName}
-                                        className="navbar-user-photo"
+                                        src={photoURL}
+                                        alt={displayName}
+                                        className="rounded-full"
                                     />
                                 </IconButton>
                             </Link>
@@ -127,8 +129,19 @@ function Navbar() {
                 </div>
             </div>
             {/* ) : ( */}
+            { menu &&
+            <div className="h-screen w-full fixed z-50 flex justify-between transition ">
+                <div className={`w-2/3 h-full bg-white transition-all duration-[1000ms] delay-50 fixed ${menu ? 'translate-x-0' : '-translate-x-full'}`}>
+                    sdaf
+                </div>
+
+                <div className="h-screen w-full bg-black/25 duration-[1000ms] delay-50" onClick={() => setMenu(false)}>
+                    sasd
+                </div>
+            </div>
+            }
                 <div className="flex md:hidden  h-20 w-full items-center justify-between px-3">
-                    <div className=" h-full flex items-center justify-between ">
+                    <div className=" h-full flex items-center justify-between " onClick={() => setMenu(true)}>
                         <img src={Hamburger} className="w-6"/>
                     </div>
                     <Link to="/home" className=" h-full flex items-center justify-between">
