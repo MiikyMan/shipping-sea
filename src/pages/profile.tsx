@@ -47,7 +47,7 @@ interface usersType {
 
 function Profile() {
   const [data, setData] = useState<usersType | null>(null);
-  const { userLoggedIn, displayName, photoURL } = useAuth();
+  const { userLoggedIn, displayName, photoURL, uid } = useAuth();
   const [sidenavState, setSidenavState] = useState<number>(1);
   const navigate = useNavigate();
 
@@ -202,12 +202,12 @@ function Profile() {
         <div className="profile-bar">
           <div className="profile-bar-left">
             <div className="profile-bar-avatar">
-              <img src={data?.profilePicUrl || photoURL} alt={data?.name} className="profile-user-photo" />
+              <img src={photoURL} className="profile-user-photo" />
               <input id="file-input" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleProfilePhotoChange} />
             </div>
             <div className="profile-bar-details">
               <div className="profile-bar-details-name">
-                {data?.name || 'Username'}
+                {displayName}
               </div>
               <div className={`profile-bar-rank ${getRankClass(data?.rank || 1)}`} onClick={handleOpen}>
                 <div className="profile-rank-text">
@@ -224,7 +224,7 @@ function Profile() {
             </div>
           </div>
           <div className="profile-bar-right">
-            <img src={getRankSVGClass(data?.rank || 1)} alt="Rank" className="Rank" onClick={handleOpen} />
+            <img src={getRankSVGClass(data?.rank || 1)} alt="Rank" className="Rank" onClick={() => setOpen(true)} />
           </div>
         </div>
         <div className="profile-detail">
@@ -279,7 +279,7 @@ function Profile() {
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
           open={open}
-          onClose={handleClose}
+          onClose={() => setOpen(true)}
           closeAfterTransition
           slots={{ backdrop: Backdrop }}
           slotProps={{
