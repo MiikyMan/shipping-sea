@@ -10,6 +10,8 @@ import Upload from '../components/upload/upload'
 import Category from '../pages/category'
 import Search from '../pages/search'
 import Test from '../pages/test'
+import CheckOut from '../pages/checkOut'
+import Payment from '../pages/payment'
 
 export const router = createBrowserRouter([
     {
@@ -25,6 +27,14 @@ export const router = createBrowserRouter([
       element: (
         <div>
           <Product/>
+        </div>
+      ),
+    },
+    {
+      path: '/payment',
+      element: (
+        <div className="flex justify-center items-center h-svh">
+          <Payment/>
         </div>
       ),
     },
@@ -49,6 +59,14 @@ export const router = createBrowserRouter([
       element: (
         <div>
           <ShoppingCart/>
+        </div>
+      ),
+    },
+    {
+      path: '/checkout',
+      element: (
+        <div>
+          <CheckOut/>
         </div>
       ),
     },
