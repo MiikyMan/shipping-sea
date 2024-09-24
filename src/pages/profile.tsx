@@ -30,9 +30,10 @@ import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
 import Backdrop from '@mui/material/Backdrop';
 import Button from '@mui/material/Button';
+import axios from "axios";
 
 async function getData() {
-  const res = await fetch(`${baseURL}/users/${baseUser}`);
+  const res = await fetch(`${baseURL}/users/${uid}`);
   return res.json();
 }
 
@@ -66,7 +67,7 @@ function Profile() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getData();
+      const result = await axios.get(`${baseURL}/users/${uid}`);
       if (result && result.length > 0) {
         setData(result[0]);
       }

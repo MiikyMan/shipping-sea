@@ -15,7 +15,7 @@ import axios from "axios";
 import { baseUser, baseURL } from './userIDConfig';
 
 async function getData() {
-    const res = await fetch(`${baseURL}/users/${baseUser}`);
+    const res = await fetch(`${baseURL}/users/${uid}`);
     return res.json();
 }
 
@@ -30,7 +30,7 @@ interface usersType {
 }
 
 function Navbar() {
-    const { userLoggedIn, displayName, photoURL } = useAuth();
+    const { userLoggedIn, displayName, photoURL, uid } = useAuth();
     const [inputValue, setInputValue] = useState<string>('');
     const [data, setData] = useState<usersType | null>(null);
     const [menu, setMenu] = useState(false);
@@ -38,16 +38,14 @@ function Navbar() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await getData();
-                if (result) {
-                    setData(result[0]);
-                }
+                const result = await axios.get(`${baseURL}/users/${uid}`);
+                setData(result.data[0]);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
         fetchData();
-    }, []);
+    }, [data]);
 
     const OnSubmitSearch = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -59,17 +57,15 @@ function Navbar() {
         }
     }
 
-    console.log("bro",data?.total_productID);
-    console.log("photoURL:",photoURL);
 
     return (
         <>
             {/* {window.innerWidth > 375 ? ( */}
             <div className="navbar-container max-md:hidden justify-between max-h-11 md:max-h-20 lg:max-h-32">
                 <div className="navbar-content ">
-                    <div className="navbar-left">
+                    <div className="navbar-left ">
                         <Link to="/home">
-                            <div className="navbar-logo">
+                            <div className="mb-6">
                                 <img src={Logo} alt="Logo" />
                             </div>
                         </Link>

@@ -36,7 +36,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
   const [favourites, setFavourites] = useState<string[]>([]); // Store only productIDs
   const [loading, setLoading] = useState(true);
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
-  const { currentUser } = useAuth();
+  const { currentUser, uid } = useAuth();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -88,7 +88,7 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
     const fetchFavourites = async () => {
       if (currentUser) {
         try {
-          const response = await axios.get<Favourite[]>(`${baseURL}/favourites/${baseUser}`);
+          const response = await axios.get<Favourite[]>(`${baseURL}/favourites/${uid}`);
           const favouriteProductIDs = response.data.map(fav => fav.fID);
           setFavourites(favouriteProductIDs);
         } catch (error) {
@@ -103,10 +103,10 @@ const Products: React.FC<ProductsProps> = ({ categoryName, searchName }) => {
   const toggleLike = async (productID: string) => {
     try {
       if (favourites.includes(productID)) {
-        await axios.delete(`${baseURL}/favourites/${baseUser}/${productID}`);
+        await axios.delete(`${baseURL}/favourites/${uid}/${productID}`);
         setFavourites(favourites.filter(fav => fav !== productID));
       } else {
-        await axios.post(`${baseURL}/favourites/${baseUser}/${productID}`);
+        await axios.post(`${baseURL}/favourites/${uid}/${productID}`);
         setFavourites([...favourites, productID]);
       }
     } catch (error) {

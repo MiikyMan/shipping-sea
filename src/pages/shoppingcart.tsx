@@ -11,8 +11,10 @@ import { baseUser, baseURL } from '../components/userIDConfig';
 import { Link, useNavigate } from "react-router-dom";
 import Goback from "../components/assets/goback.svg"
 const { confirm } = Modal;
+import { useAuth } from '../context/authContext';
 
 const ShoppingCart = () => {
+  const { uid, displayName } = useAuth();
   const [dataSource, setDataSource] = useState([]);
   console.log("🚀 ~ ShoppingCart ~ dataSource:", dataSource)
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -22,12 +24,20 @@ const ShoppingCart = () => {
   const [fee, setFee] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [total, setTotal] = useState(0);
+  const sendData = {
+    subTotal,
+    fullPrice,
+    vat,
+    fee: 0,
+    discount,
+    total,
+  }
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCartData = async () => {
       try {
-        const response = await axios.get(`${baseURL}/carts/${baseUser}`);
+        const response = await axios.get(`${baseURL}/carts/${uid}`);
         const cartitems = response.data;
         const combinedData = cartitems.map(data => ({
           key: data.productID,
@@ -53,7 +63,7 @@ const ShoppingCart = () => {
     const totalSelectedPrice = selectedRows.reduce((total, row) => total + (row.price * row.qty), 0);
     const totalSelectedFullPrice = selectedRows.reduce((total, row) => total + (row.fullPrice * row.qty), 0);
     const totalVat = totalSelectedPrice * 0.07;
-    const totalFee = totalSelectedPrice * 0.01;
+    // const totalFee = totalSelectedPrice * 0.01;
     const totalDiscount = selectedRows.reduce((total, row) => {
       const priceDifference = row.fullPrice - row.price;
       return total + (priceDifference * row.qty);
@@ -62,24 +72,29 @@ const ShoppingCart = () => {
     setSubTotal(totalSelectedPrice);
     setFullPrice(totalSelectedFullPrice);
     setVat(totalVat);
-    setFee(totalFee);
+    // setFee(totalFee);
     setDiscount(totalDiscount);
-    setTotal(totalSelectedPrice + totalVat + totalFee);
+    setTotal(totalSelectedPrice + totalVat);
     console.log('totalSelectedPrice', totalSelectedPrice)
     // console.log('fullprice', fullPrice)
     // console.log('subtotal',subTotal)
     // console.log('total',total)
     // console.log('discount',discount)
     console.log('totalVat', totalVat)
-    console.log('totalFee', totalFee)
+    // console.log('totalFee', totalFee)
     // console.log('totalSelectedFullPrice',totalSelectedFullPrice)
-
+    
+    console.log("sendData",sendData);
   };
 
+  const [test, setTest] = useState([]);
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       setSelectedRowKeys(selectedRowKeys);
       calculateTotals(selectedRowKeys, dataSource);
+      setTest(dataSource.filter(item => 
+        selectedRowKeys.includes(item.key)
+      ));
     },
     selectedRowKeys,
   };
@@ -95,7 +110,7 @@ const ShoppingCart = () => {
 
   const handleDelete = async (key) => {
     try {
-      await axios.delete(`${baseURL}/carts/${baseUser}/${key}/remove`);
+      await axios.delete(`${baseURL}/carts/${uid}/${key}/remove`);
       const newData = dataSource.filter(item => item.key !== key);
       setDataSource(newData);
       const newSelectedRowKeys = selectedRowKeys.filter(selectedKey => selectedKey !== key);
@@ -145,10 +160,10 @@ const ShoppingCart = () => {
 
   const handleQuantityChange = async (key: any, increment: boolean) => {
     const updateQTY = increment ? 1 : -1;
-    console.log("user", baseUser);
+    console.log("user", uid);
     console.log("key", key);
     console.log("updateQTY", updateQTY);
-    const q = await axios.post(`${baseURL}/carts/${baseUser}/${key}/${updateQTY}`);
+    const q = await axios.post(`${baseURL}/carts/${uid}/${key}/${updateQTY}`);
     console.log("q", q);
 
     const newData = dataSource.map(item =>
@@ -208,9 +223,9 @@ const ShoppingCart = () => {
       ),
     },
   ];
-
   console.log("dataSource", dataSource);
   console.log("selectedRowKeys", selectedRowKeys);
+  console.log("sending data", test);
   return (
     <>
       <div className="max-md:hidden ">
@@ -247,7 +262,7 @@ const ShoppingCart = () => {
           My Cart
         </div>
       </div>
-      <div className="page-container px-2 w-full">
+      <div className="page-container px-2 w-full max-md:pb-40">
         <div className="shoppingcart-container max-md:flex-col w-full">
           <div className="cart-list max-md:hidden">
             <Table
@@ -305,8 +320,8 @@ const ShoppingCart = () => {
                   <div className="listvalue">${vat.toFixed(2)}</div>
                 </div>
                 <div className="sub-check-out-list">
-                  <div className="listname">Shipping Fee</div>
-                  <div className="listvalue">${fee.toFixed(2)}</div>
+                  {/* <div className="listname">Shipping Fee</div>
+                  <div className="listvalue">${fee.toFixed(2)}</div> */}
                 </div>
                 <div className="sub-check-out-list">
                   <div className="listname">Discount</div>
@@ -319,7 +334,8 @@ const ShoppingCart = () => {
                 <div className="totla-listname">Total</div>
                 <div className="total-listvalue">${total.toFixed(2)}</div>
               </div>
-              <div className="place-order">
+              <div className="place-order" onClick={() => navigate(`/checkout?cartItems=${encodeURIComponent(JSON.stringify(test))}&orderSummary=${encodeURIComponent(JSON.stringify(sendData))}`)}>
+                
                 <Button className="check-out-btn" variant="contained" sx={{
                   borderRadius: 3,
                   height: 60,

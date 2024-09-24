@@ -18,9 +18,10 @@ import { baseUser, baseURL } from '../components/userIDConfig';
 import RatingAndReviews from "../components/ratingAndReviews";
 import Cart from '../components/assets/cart.svg'
 import { Badge } from 'antd';
+import { useAuth } from '../context/authContext';
 
 async function getCartQuantity() {
-    const res = await fetch(`${baseURL}/users/${baseUser}`);
+    const res = await fetch(`${baseURL}/users/${uid}`);
     return res.json();
 }
 
@@ -64,6 +65,7 @@ function product() {
     const [cart, setCart] = useState([]);
     console.log(URLproductID);
     console.log("🚀 ~ product ~ qty:", qty);
+    const {uid} = useAuth();
 
     const items: TabsProps['items'] = [
         {
@@ -87,21 +89,22 @@ function product() {
     };
 
 
-    // console.log("pID",URLproductID)
+    console.log("pID",URLproductID)
 
     useEffect(() => {
         const fetchProductData = async () => {
             try {
-                const result = await getCartQuantity();
-                if (result) {
-                    setData(result[0]?.total_productID);
-                    console.log("Cart Quantity: ", result[0]);
-                }
+                // const result = await axios.get(`${baseURL}/users/${uid}`);
+                // if (result) {
+                //     setData(result[0]?.total_productID);
+                //     console.log("Cart Quantity: ", result[0]);
+                // }
 
                 const response = await axios.get(`${baseURL}/products/${URLproductID}`);
                 setProduct(response.data);
+                console.log("testest",response.data);
 
-                const getCartData = await axios.get(`${baseURL}/carts/${baseUser}`);
+                const getCartData = await axios.get(`${baseURL}/carts/${uid}`);
                 const cartitems = getCartData.data;
 
                 const cartData = cartitems.map(data => data.productID);
@@ -116,15 +119,17 @@ function product() {
             fetchProductData();
             window.scrollTo(0, 0);
         }
-    }, [URLproductID, baseURL, baseUser]);
+    }, [URLproductID]);
 
     console.log("hah", data);
     // console.log("rating",(product[0]?.rating));
     const value: number = product[0]?.rating + 0; //idk y but it works😭
 
     const handleAddtocart = async (productID: any, qty: number) => {
+        console.log("productIDvv",productID);
+        console.log("qty",qty);
         try {
-            await axios.post(`${baseURL}/carts/add/${baseUser}/${productID}/${qty}`);
+            await axios.post(`${baseURL}/carts/add/${uid}/${productID}/${qty}`);
         } catch (error) {
             console.error('Error toggling like:', error);
         }
@@ -142,7 +147,7 @@ function product() {
     return (
         <>
             <Navbar />
-            <div className="page-container">
+            <div className="page-container ">
                 <div className="bread-nav max-md:hidden">
                     <Breadcrumb
                         separator=">"
@@ -158,8 +163,9 @@ function product() {
                     />
                 </div>
                 <div className="product-container max-md:flex-col max-md:h-fit">
-                    <div className="product-container-left max-md:w-full">
-                        <div className="main-pic max-md:mx-auto aspect-square max-md:scale-90">
+                    <div className="md:hidden bg-gradient-to-t from-white to-transparent h-8 "></div>
+                    <div className="product-container-left max-md:w-full max-md:pb-11">
+                        <div className="main-pic max-md:mx-auto aspect-square">
                             <img src={product[0]?.productPicUrl} />
                         </div>
                         <div className="sub-pic max-md:hidden ">
