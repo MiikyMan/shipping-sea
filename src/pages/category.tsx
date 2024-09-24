@@ -15,7 +15,7 @@ function category(){
         <>
         <div className="flex flex-col min-h-screen ">
             <Navbar/>
-            <div className="page-container flex-grow p-4 max-md:bg-white max-md:rounded-t-xl relative h-full w-full">
+            <div className="page-container flex-grow pt-4 max-md:bg-white max-md:rounded-t-xl relative h-full w-full">
                 <Products categoryName={categoryName}/>
             </div>
             <div className="max-md:bg-white bottom-0 z-0 w-full">
